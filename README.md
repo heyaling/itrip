@@ -35,4 +35,7 @@ $ cnpm install
 ```
 $ npm start
 ```
-
+## 生产（打包）
+```
+$ npm run build
+```
