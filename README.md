@@ -11,6 +11,9 @@ $ npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 4. 生成密钥对
 ```
+$ git config --global user.name="YouName"
+$ git config --global user.email="YouEmail"
+
 $ cd
 $ ssh-keygen -t rsa
 $ eval `ssh-agent -s`
@@ -38,4 +41,15 @@ $ npm start
 ## 生产（打包）
 ```
 $ npm run build
+```
+
+## 其它
+- 查看git配置
+```
+$ git config -l
+```
+
+- SSH测试连接
+```
+$ ssh -T git@github.com
 ```
