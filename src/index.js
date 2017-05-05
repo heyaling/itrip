@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '././containers/App';
-import List from '././pages/hotel/List';
+import Detail1 from './pages/hotel/Detail';
 import '././common/css/style.css'
 
 ReactDOM.render(
-  <App/>,
+    <Detail1/>,
   document.getElementById('root')
 );
