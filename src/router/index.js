@@ -1,10 +1,10 @@
-import App from '../containers/App'
-import Home from '../pages/Home'
-import HotelList from '../pages/HotelList'
-import HotelDetail from '../pages/HotelDetail'
-import Login from '../pages/Login'
-import Register from '../pages/Register'
-import ErrorPage from '../pages/ErrorPage'
+import App from 'containers/App'
+import Home from 'pages/Home'
+import HotelList from 'pages/HotelList'
+import HotelDetail from 'pages/HotelDetail'
+import Login from 'pages/Login'
+import Register from 'pages/Register'
+import ErrorPage from 'pages/ErrorPage'
 
 export default [
   {

@@ -1,6 +1,6 @@
 import React from 'react'
-import Nav from '../../components/Nav'
-import HomePicList from '../../components/HomePicList'
+import Nav from 'components/Nav'
+import HomePicList from 'components/HomePicList'
 
 export default class Home extends React.Component {
     render () {
