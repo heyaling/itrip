@@ -10,7 +10,7 @@ import icon1126_23 from './imgs/icon1126_23.jpg'
 import icon1126_25 from './imgs/icon1126_25.jpg'
 import icon1126_27 from './imgs/icon1126_27.jpg'
 
-import i_wechat_11 from '../../common/images/icon/i_wechat_11.jpg'
+// import i_wechat_11 from '../../common/images/icon/i_wechat_11.jpg'
 
 export default class Home extends React.Component {
   render() {
@@ -28,11 +28,11 @@ export default class Home extends React.Component {
             </div>
             <div className="i_downright">
               <div className="i_wechat">
-                <img src="../images/icon/i_wechat_11.jpg" alt />
+                <img src="../images/icon/i_wechat_11.jpg" alt="" />
                 <span>微信公众平台</span>
               </div>
               <div className="i_APP">
-                <img src="../images/icon/i_APP_11.jpg" alt />
+                <img src="../images/icon/i_APP_11.jpg" alt="" />
                 <span>APP下载</span>
               </div>
             </div>
@@ -45,15 +45,15 @@ export default class Home extends React.Component {
             <p><span className="i-footer-hui" />沪公网备310105020000xx号</p>
             <p>旅游违法行为举报电话12318 丨服务质量投诉电话 962020 丨<a href="#">北京市旅游网站落实诚信建设主体责任承诺书</a></p>
             <ul>
-              <li><a href="#"><img src={icon1126_11} height={32} width={88} alt /></a></li>
-              <li><a href="#"><img src={icon1126_13} height={32} width={88} alt /></a></li>
-              <li><a href="#"><img src={icon1126_15} height={32} width={88} alt /></a></li>
-              <li><a href="#"><img src={icon1126_17} height={32} width={88} alt /></a></li>
-              <li><a href="#"><img src={icon1126_19} height={32} width={88} alt /></a></li>
-              <li><a href="#"><img src={icon1126_21} height={32} width={88} alt /></a></li>
-              <li><a href="#"><img src={icon1126_23} height={32} width={88} alt /></a></li>
-              <li><a href="#"><img src={icon1126_25} height={32} width={128} alt /></a></li>
-              <li><a href="#"><img src={icon1126_27} height={32} width={102} alt /></a></li>
+              <li><a href="#"><img src={icon1126_11} height={32} width={88} alt="" /></a></li>
+              <li><a href="#"><img src={icon1126_13} height={32} width={88} alt="" /></a></li>
+              <li><a href="#"><img src={icon1126_15} height={32} width={88} alt="" /></a></li>
+              <li><a href="#"><img src={icon1126_17} height={32} width={88} alt="" /></a></li>
+              <li><a href="#"><img src={icon1126_19} height={32} width={88} alt="" /></a></li>
+              <li><a href="#"><img src={icon1126_21} height={32} width={88} alt="" /></a></li>
+              <li><a href="#"><img src={icon1126_23} height={32} width={88} alt="" /></a></li>
+              <li><a href="#"><img src={icon1126_25} height={32} width={128} alt="" /></a></li>
+              <li><a href="#"><img src={icon1126_27} height={32} width={102} alt="" /></a></li>
             </ul>
           </div>
         </div>
