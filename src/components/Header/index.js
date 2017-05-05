@@ -3,33 +3,52 @@ import React from 'react'
 export default class Home extends React.Component {
   render() {
     return (
-      <div className="i-top clearfix">
-        <div className="i-top-wrap">
-          <div className="i-logo fl">
-            <a href="#" title="i旅行">i旅行</a>
+      <div>
+        <div className="i-top clearfix">
+          <div className="i-top-wrap">
+            <div className="i-logo fl">
+              <a href="#" title="i旅行">i旅行</a>
+            </div>
+            <div className="i-hotline fr">
+              <ul>
+                <li><a href="#">客服中心</a></li>
+                <li>|</li>
+                <li><a href="#">24小时热线：400-855-6666</a></li>
+                <li className="i-top-phone">
+                  <a href="#"><i className="icon-mobile-phone" /></a>
+                  <div className="i-top-app i-top-appL">
+                    <img src="images/img/erweima_1126.jpg" height={102} width={102} alt />
+                    <p>手机扫码快速下载</p>
+                    <p>App享受最多50% 优惠力度</p>
+                  </div>
+                </li>
+                <li className="i-top-phone i-top-wei">
+                  <a href="#"><i className="icon-comments" /></a>
+                  <div className="i-top-app i-top-app-wei">
+                    <img src="images/img/erweima_1126.jpg" height={102} width={102} alt />
+                    <p>i旅行微信公众号: <a href="#">ilvxing</a></p>
+                    <p>手机扫一扫，享受专属福利</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
           </div>
-          <div className="i-hotline fr">
+        </div>
+        <div className="i-nav clearfix">
+          <div className="i-nav-wrap">
             <ul>
-              <li><a href="#">客服中心</a></li>
-              <li>|</li>
-              <li><a href="#">24小时热线：400-855-6666</a></li>
-              <li className="i-top-phone">
-                <a href="#"><i className="icon-mobile-phone" /></a>
-                <div className="i-top-app i-top-appL">
-                  <img src="images/img/erweima_1126.jpg" height={102} width={102} alt />
-                  <p>手机扫码快速下载</p>
-                  <p>App享受最多50% 优惠力度</p>
-                </div>
-              </li>
-              <li className="i-top-phone i-top-wei">
-                <a href="#"><i className="icon-comments" /></a>
-                <div className="i-top-app i-top-app-wei">
-                  <img src="images/img/erweima_1126.jpg" height={102} width={102} alt />
-                  <p>i旅行微信公众号: <a href="#">ilvxing</a></p>
-                  <p>手机扫一扫，享受专属福利</p>
-                </div>
-              </li>
+              <li><a href="../index.html" className><i className="icon-home" />首页</a></li>
+              <li><a href="../travel/index.html" className="current"><i className="icon-globe" />旅游</a></li>
+              <li className="current"><a href="./index.html"><i className="icon-hospital" />酒店</a></li>
+              <li><a href="../flyTicket.html"><i className="icon-plane" />机票</a></li>
+              <li><a href="#"><i className="icon-credit-card" />门票</a></li>
+              <li><a href="../strategy/index.html"><i className="icon-book" />攻略</a></li>
             </ul>
+            <div className="i-nav-login">
+              <a href="../login.html">登陆</a>
+              <span>|</span>
+              <a href="../register.html">注册</a>
+            </div>
           </div>
         </div>
       </div>
