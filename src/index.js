@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Detail1 from './pages/hotel/Detail';
+import { Router, hashHistory } from 'react-router'
+import routes from './router'
 import '././common/css/style.css'
 
 ReactDOM.render(
-    <Detail1/>,
+  <Router
+    history={hashHistory}
+    routes={routes} />,
   document.getElementById('root')
 );
