@@ -1,10 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import App from '././containers/App';
-import List from '././pages/hotel/List';
-import '././common/css/style.css'
+import { Router, hashHistory } from 'react-router'
+import routes from './router'
+import 'common/css/style.css'
 
 ReactDOM.render(
-  <List/>,
+  <Router
+    history={hashHistory}
+    routes={routes} />,
   document.getElementById('root')
 );

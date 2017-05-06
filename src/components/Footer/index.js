@@ -10,9 +10,10 @@ import icon1126_23 from './imgs/icon1126_23.jpg'
 import icon1126_25 from './imgs/icon1126_25.jpg'
 import icon1126_27 from './imgs/icon1126_27.jpg'
 
-// import i_wechat_11 from '../../common/images/icon/i_wechat_11.jpg'
+import i_wechat_11 from '../../common/images/icon/i_wechat_11.jpg'
+import i_APP_11 from '../../common/images/icon/i_APP_11.jpg'
 
-export default class Home extends React.Component {
+export default class Footer extends React.Component {
   render() {
     return (
       <div>
@@ -28,11 +29,11 @@ export default class Home extends React.Component {
             </div>
             <div className="i_downright">
               <div className="i_wechat">
-                <img src="../images/icon/i_wechat_11.jpg" alt="" />
+                <img src={i_wechat_11} alt='' />
                 <span>微信公众平台</span>
               </div>
               <div className="i_APP">
-                <img src="../images/icon/i_APP_11.jpg" alt="" />
+                <img src={i_APP_11} alt='' />
                 <span>APP下载</span>
               </div>
             </div>

@@ -1,14 +1,13 @@
 import React from 'react'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer'
-import Home from '../../pages/Home'
 
 export default class App extends React.Component {
   render () {
     return (
       <div>
         <Header />
-        <Home />
+        {this.props.children}
         <Footer />
       </div>
     )
