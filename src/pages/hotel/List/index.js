@@ -17,6 +17,9 @@ export default class App extends React.Component {
         <div>
 				ceshixinx
         </div>
+        <div>
+				ce
+        </div>
       </div>
     )
   }
