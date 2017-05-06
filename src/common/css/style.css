@@ -6,3 +6,7 @@
 @import 'reset.css';
 @import 'star-rating.css';
 @import 'hotelDetail.css';
+
+.common-tar {
+  text-align: right
+}
