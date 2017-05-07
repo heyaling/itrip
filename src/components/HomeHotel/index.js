@@ -24,7 +24,7 @@ export default class HomeHotel extends React.Component {
         <div className='HomeHotel-hotelList'>
           <div className='HomeHotel-left'>
             <a href="#">
-              <img width='178' src={longImg} alt="" />
+              <img width='178' height='518' src={longImg} alt="" />
             </a>
           </div>
           <div className='HomeHotel-right'>

@@ -1,0 +1,40 @@
+.HotelCard {
+  border: 1px solid #ddd;
+  width: 264px;
+  height: 254px;
+  box-sizing: border-box;
+  background: #fff;
+  overflow: hidden;
+}
+
+.HotelCard-img {
+  position: relative;
+}
+
+.HotelCard-img img {
+  width: 262px;
+  height: 172px;
+  overflow: hidden;
+}
+
+.HotelCard-img i,
+.HotelCard-img span {
+  position: absolute;
+  right: -1px;
+  top: -3px;
+}
+
+.HotelCard-img i {
+  color: red;
+  font-size: 42px;
+}
+
+.HotelCard-img span {
+  color: #fff;
+  font: 12px;
+}
+
+.HotelCard-desc b {
+  color: red;
+  font-size: 18px;
+}
