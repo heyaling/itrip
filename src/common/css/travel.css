@@ -426,11 +426,11 @@
 }
 .travel-ad-body img:nth-child(1) {
   margin-left: 5px;
-  width: 280px;
+  width: 235px;
 }
 .travel-ad-body img:nth-child(2) {
   margin-left: 17px;
-  width: 871px;
+  width: 730px;
 }
 .points-list-menu {
   position: fixed;
@@ -995,14 +995,14 @@
 }
 .travel-accordion ul {
   list-style: none;
-  width: 1200px;
+  width: 1000px;
 }
 .travel-accordion .box {
-  width: 1200px;
+  width: 1000px;
   height: 300px;
 }
 .travel-accordion .box li {
-  width: 195px;
+  width: 165px;
   height: 300px;
   background: url(../images/img/travel-accordion-1.png) no-repeat;
   float: left;

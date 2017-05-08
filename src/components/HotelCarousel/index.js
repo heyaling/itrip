@@ -11,7 +11,7 @@ export default class HotelCarousel extends React.Component {
   render () {
     return (
       <div className='HotelCarousel'>
-        <Carousel>
+        <Carousel autoplay>
           <div>
             <a href="#">
               <img src={carousel1} alt=""/>
@@ -24,7 +24,7 @@ export default class HotelCarousel extends React.Component {
           </div>
           <div>
             <a href="#">
-              <img src={carousel2} alt=""/>
+              <img src={carousel3} alt=""/>
             </a>
           </div>
         </Carousel>

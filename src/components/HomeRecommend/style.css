@@ -1,0 +1,19 @@
+
+.HomeHotel-title {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  border-left: 4px solid #1448ad ;
+  line-height: 2;
+ 
+}
+
+.HomeHotel-title h3 {
+  width: 174px;
+  font-size: 18px;
+  padding-left: 8px;
+  box-sizing: border-box;
+  margin: 0;
+  margin-right: 10px;
+
+}

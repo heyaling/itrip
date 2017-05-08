@@ -2,6 +2,7 @@ import React from 'react'
 import { Tabs } from 'antd'
 import SearchHotelInland from 'components/SearchHotelInland'
 import SearchHotelForeign from 'components/SearchHotelForeign'
+import SearchHotelGroupon from 'components/SearchHotelGroupon'
 import './style.css'
 
 const TabPane = Tabs.TabPane
@@ -26,7 +27,9 @@ export default class SearchHotelTravel extends React.Component {
           <TabPane tab="国外酒店" key="2">
             <SearchHotelForeign onSubmit={this.handleSubmit} />
           </TabPane>
-          <TabPane tab="酒店团购" key="3">Content of Tab Pane 3</TabPane>
+          <TabPane tab="酒店团购" key="3">
+            <SearchHotelGroupon onSubmit={this.handleSubmit} />
+            </TabPane>
         </Tabs>
       </div>
     )
