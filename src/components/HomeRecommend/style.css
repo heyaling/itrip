@@ -1,19 +1,19 @@
-
-.HomeHotel-title {
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #ddd;
-  border-left: 4px solid #1448ad ;
-  line-height: 2;
- 
+.HomeRecommend .tab-content {
+  padding-top: 20px;
 }
 
-.HomeHotel-title h3 {
-  width: 174px;
-  font-size: 18px;
-  padding-left: 8px;
-  box-sizing: border-box;
-  margin: 0;
-  margin-right: 10px;
 
+#myAccordion li {
+  width: 166px;
+  transition: all .3s;
+}
+
+#myAccordion .hoverItem {
+  width: 400px;
+  opacity: 1;
+}
+
+#myAccordion .hoverOtheritem {
+  width: 120px;
+  opacity: 0.3;
 }
