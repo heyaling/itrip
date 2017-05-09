@@ -32,6 +32,12 @@ export default class HomeRecommend extends React.Component {
     for (let i = 0; i < 6; i++) {
 
       let clsNames = classnames({
+        itemBg1: i === 0,
+        itemBg2: i === 1,
+        itemBg3: i === 2,
+        itemBg4: i === 3,
+        itemBg5: i === 4,
+        itemBg6: i === 5,
         hoverItem: currentIndex === i,
         hoverOtheritem: currentIndex > -1 &&  currentIndex !== i
       })
