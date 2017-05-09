@@ -1,102 +1,52 @@
 import React from 'react'
+import { Pagination } from 'antd';
 
-//列表页选项组件
-export default class ListOption extends React.Component {
-	render() {
-		return (
-	<div className="travel tavern-list">
-        <div className="tavern-list-head">
-          <div className="localtion-item">您所在的位置：<a>酒店预订&gt;</a>北京酒店</div>
+import ListOption from 'components/ListOption'
+import ListItem from 'components/ListItem'
+import './style.css'
+
+export class ListParent extends React.Component {
+  render() {
+    return (
+       <div className="itemParent">
+          <div>
+        <div style={{margin: '10px 0'}} className="tavern-params-title">
+          <span style={{color: 'red', fontWeight: 800, fontSize: 18}}>8</span>&nbsp;家酒店 <span>您已选择：</span>
+          <button className="btn">北京 <i className="icon-remove" /></button>
         </div>
-        <div className="travel-body list-body">
-          <div id="myTabContent" className="tavern-list-param">
-            <div className="search-title">
-              目的地：<input id="tavernCitySelect1" defaultValue="北京市" placeholder="请选择目的地" />
-              入住： <input type="text" placeholder="2016-12-08" onFocus="WdatePicker({doubleCalendar:true,dateFmt:'yyyy-MM-dd',position:{left:0,top:0}})" />
-              退房：<input type="text" placeholder="2016-12-20" onFocus="WdatePicker({doubleCalendar:true,dateFmt:'yyyy-MM-dd',position:{left:0,top:0}})" />
-              关键词：<input />
-              <button className="btn btn-default" style={{fontSize: 14}}>搜索</button>
-            </div>
-            <div className="tavern-search-params">
-              <div className="search-one-param">
-                <span className="param-label">位置：</span>
-                <div className="checkbox-list">
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="locationCheckbox1" defaultValue="option1" defaultChecked />天安门、王...
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="locationCheckbox2" defaultValue="option2" /> 中关村、五...
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="locationCheckbox3" defaultValue="option3" />西单、金融...
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="locationCheckbox4" defaultValue="option3" />首都机场
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="locationCheckbox5" defaultValue="option3" />亚运村
-                  </label>
-                </div>
-              </div>
-              <div className="search-one-param">
-                <span className="param-label">价格：</span>
-                <div className="checkbox-list">
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="unitCheckbox1" defaultValue="option1" />¥150以下
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="unitCheckbox2" defaultValue="option2" defaultChecked />¥150-300
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="unitCheckbox3" defaultValue="option3" />¥301-450
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="unitCheckbox4" defaultValue="option3" />¥450以上
-                  </label>
-                </div>
-              </div>
-              <div className="search-one-param">
-                <span className="param-label">星级：</span>
-                <div className="checkbox-list">
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="starCheckbox1" defaultValue="option1" />二星级及以...
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="starCheckbox2" defaultValue="option2" defaultChecked />三星级/舒适
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="starCheckbox3" defaultValue="option3" />四星级/高档
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="starCheckbox4" defaultValue="option3" /> 五星级/高档
-                  </label>
-                </div>
-              </div>
-              <div className="search-one-param">
-                <span className="param-label">特色：</span>
-                <div className="checkbox-list">
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="featureCheckbox1" defaultValue="option1" />休闲度假
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="featureCheckbox2" defaultValue="option2" defaultChecked />青年旅社
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="featureCheckbox3" defaultValue="option3" />精品酒店
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="featureCheckbox4" defaultValue="option3" />商务出行
-                  </label>
-                  <label className="checkbox-inline">
-                    <input type="checkbox" id="featureCheckbox5" defaultValue="option3" />会
-                  </label>
-                </div>
-              </div>
-            </div>
+        <div className="tavern-grid-title">
+          <div className="btn-group">
+            <button className="btn btn-default">最受欢迎</button>
+            <button className="btn btn-default">评分</button>
+            <button className="btn btn-default">价格</button>
+            <button className="btn btn-default">星级</button>
           </div>
         </div>
       </div>
 
-			)
-	}
+       </div>
+    )
+  }
+}
+
+var data = [
+		  {name: 1, price: 2333, text: "This is one comment"},
+		  {name: 2, price: 2456, text: "This is *another* comment"}
+		];
+
+//列表页主页组件
+export default class HotelList extends React.Component {
+  render() {
+    return (
+      <div className="HotelList">
+        <ListOption />
+        <ListParent />
+        <ListItem data={data} />
+        <div className="paginationWrapper">
+        	<Pagination defaultCurrent={1} total={50} />
+        </div>
+        
+      </div>
+    )
+  }
 }
