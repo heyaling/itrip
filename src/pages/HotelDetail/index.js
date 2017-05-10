@@ -8,7 +8,6 @@ import HouseHotelassess  from './houseHotelassess.js'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer/' 
 
-
 /*
 	导航头部数据信息， 显示头部数据展示
  */
