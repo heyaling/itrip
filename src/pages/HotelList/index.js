@@ -1,8 +1,11 @@
 import React from 'react'
-import { Pagination } from 'antd';
+import { Pagination } from 'antd'
+import { Cascader } from 'antd'
 
 import ListOption from 'components/ListOption'
 import ListItem from 'components/ListItem'
+import options from 'components/Cascader'
+
 import './style.css'
 
 export class ListParent extends React.Component {
@@ -30,8 +33,8 @@ export class ListParent extends React.Component {
 }
 
 var data = [
-		  {name: 1, price: 2333, text: "This is one comment"},
-		  {name: 2, price: 2456, text: "This is *another* comment"}
+		  {id:1, name: "七天", price: 2333, text: "This is one comment"},
+		  {id:2, name: "如家", price: 2456, text: "This is *another* comment"}
 		];
 
 //列表页主页组件
@@ -44,7 +47,8 @@ export default class HotelList extends React.Component {
         <ListItem data={data} />
         <div className="paginationWrapper">
         	<Pagination defaultCurrent={1} total={50} />
-        </div>
+        </div>       
+
         
       </div>
     )

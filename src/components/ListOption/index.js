@@ -1,6 +1,8 @@
 import React from 'react'
- //import './ListOption/js/cityselect.js'
- //import './ListOption/js/My97DatePicker/WdatePicker.js'
+import { Cascader } from 'antd';
+import options from 'components/Cascader';
+import SearchHotelItem from 'components/SearchHotelItem'
+ import './style.css'
 
 //列表页选项组件
 export default class ListOption extends React.Component {
@@ -12,13 +14,7 @@ export default class ListOption extends React.Component {
         </div>
         <div className="travel-body list-body">
           <div id="myTabContent" className="tavern-list-param">
-            <div className="search-title">
-              目的地：<input id="tavernCitySelect1" defaultValue="北京市" placeholder="请选择目的地" />
-              入住： <input type="text" placeholder="2016-12-08" onFocus="WdatePicker({doubleCalendar:true,dateFmt:'yyyy-MM-dd',position:{left:0,top:0}})" />
-              退房：<input type="text" placeholder="2016-12-20" onFocus="WdatePicker({doubleCalendar:true,dateFmt:'yyyy-MM-dd',position:{left:0,top:0}})" />
-              关键词：<input />
-              <button className="btn btn-default" style={{fontSize: 14}}>搜索</button>
-            </div>
+            <SearchHotelItem />
             <div className="tavern-search-params">
               <div className="search-one-param">
                 <span className="param-label">位置：</span>
