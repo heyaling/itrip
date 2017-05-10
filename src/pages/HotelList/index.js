@@ -1,43 +1,19 @@
 import React from 'react'
-import { Pagination } from 'antd'
-import { Cascader } from 'antd'
+import { Pagination, Cascader } from 'antd'
 
-import ListOption from 'components/ListOption'
-import ListItem from 'components/ListItem'
+import ListOption from 'components/HotelList/ListOption'
+import ListItem from 'components/HotelList/ListItem'
+import ListParent from 'components/HotelList/ListParent'
 import options from 'components/Cascader'
-
 import './style.css'
 
-export class ListParent extends React.Component {
-  render() {
-    return (
-       <div className="itemParent">
-          <div>
-        <div style={{margin: '10px 0'}} className="tavern-params-title">
-          <span style={{color: 'red', fontWeight: 800, fontSize: 18}}>8</span>&nbsp;家酒店 <span>您已选择：</span>
-          <button className="btn">北京 <i className="icon-remove" /></button>
-        </div>
-        <div className="tavern-grid-title">
-          <div className="btn-group">
-            <button className="btn btn-default">最受欢迎</button>
-            <button className="btn btn-default">评分</button>
-            <button className="btn btn-default">价格</button>
-            <button className="btn btn-default">星级</button>
-          </div>
-        </div>
-      </div>
-
-       </div>
-    )
-  }
-}
-
+/*模拟的假数据*/
 var data = [
-		  {id:1, name: "七天", price: 2333, text: "This is one comment"},
-		  {id:2, name: "如家", price: 2456, text: "This is *another* comment"}
+		  {id:1, name: "七天", price: 2333, text: "This is one comment", sum: 3},
+		  {id:2, name: "如家", price: 2456, text: "This is *another* comment", sum: 4}
 		];
 
-//列表页主页组件
+//列表页主页调用组件情况
 export default class HotelList extends React.Component {
   render() {
     return (

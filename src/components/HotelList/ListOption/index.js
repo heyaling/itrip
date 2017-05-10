@@ -1,10 +1,10 @@
 import React from 'react'
 import { Cascader } from 'antd';
 import options from 'components/Cascader';
-import SearchHotelItem from 'components/SearchHotelItem'
- import './style.css'
+import SearchHotelItem from 'components/HotelList/SearchHotelItem'
+import './style.css'
 
-//列表页选项组件
+//列表页导航下方 搜索选项组件
 export default class ListOption extends React.Component {
 	render() {
 		return (

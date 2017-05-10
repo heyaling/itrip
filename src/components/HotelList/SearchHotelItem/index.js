@@ -89,7 +89,7 @@ class SearchHotelItem extends React.Component {
 	            {...formItemLayout}
 	            label="关键词">
 	            {getFieldDecorator('guangJianCi', { initialValue: '' })(
-	              <Input size='small' placeholder='海岛' />
+	              <Input size='small' placeholder='品牌' />
 	            )}
 	          </FormItem>
            </Col>

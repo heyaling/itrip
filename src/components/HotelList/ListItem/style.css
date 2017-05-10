@@ -1,0 +1,9 @@
+.model-grid-label i {
+    margin: 0 3px;
+}
+.model-grid-label span {
+    margin: 0 4px;
+}
+.model-grid-message i {
+    margin: 0 4px;
+}

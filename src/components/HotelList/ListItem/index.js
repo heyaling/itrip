@@ -1,8 +1,9 @@
 import React from 'react'
-import jiudian from "../../common/images/img/jiudian.png"
+import DiamondIcon from 'components/HotelList/DiamondIcon'
+import jiudian from "common/images/img/jiudian.png"
 import './style.css'
 
-//列表页选项组件
+//列表页中的一条列表组件
 export default class ListItem extends React.Component {
 
 /*		constructor(...args){
@@ -28,11 +29,8 @@ export default class ListItem extends React.Component {
 		        <div className="model-grid-right">
 		          <div key={comment.id} className="model-grid-title">{comment.name}</div>
 		          <div className="model-grid-label">
-		            <i className="fa fa-diamond" />
-		            <i className="fa fa-diamond" />
-		            <i className="fa fa-diamond" />
-		            <i className="fa fa-diamond" />
-		            <i className="fa fa-diamond" />
+								{/*钻石组件*/}
+								<DiamondIcon iconSum={comment.sum} />
 		            <span className="item">商务出行</span>
 		            <span className="item">会议酒店</span>
 		            <span className="item">精品酒店</span>

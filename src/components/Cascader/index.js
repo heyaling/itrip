@@ -2,6 +2,21 @@ import provinces from './china-division/dist/provinces.json';
 import cities from './china-division/dist/cities.json';
 import areas from './china-division/dist/areas.json';
 
+/*
+目的地组件使用说明：
+
+ 调用方式：
+引起组件：
+import { Cascader } from 'antd'
+import options from 'components/Cascader'
+调用
+<Cascader options={options} />
+
+参考:
+https://gist.github.com/afc163/7582f35654fd03d5be7009444345ea17
+
+*/
+
 areas.forEach((area) => {
   const matchCity = cities.filter(city => city.code === area.parent_code)[0];
   if (matchCity) {
@@ -33,16 +48,3 @@ const options = provinces.map(province => ({
 
 export default options;
 
-/*
-
- 调用方式：
-引起组件：
-import { Cascader } from 'antd'
-import options from 'components/Cascader'
-调用
-<Cascader options={options} />
-
-参考:
-https://gist.github.com/afc163/7582f35654fd03d5be7009444345ea17
-
-*/
