@@ -1,0 +1,37 @@
+.ant-table {
+    font-size: 14px;
+}
+.selectNum, .reserveDate, .orderState {
+    font-style: normal;
+}
+.orderHotelName {
+    width: 160px;
+    height: 40px;
+    line-height: 40px;
+    white-space: nowrap;
+    overflow: hidden;
+    -webkit-text-overflow: ellipsis;
+    -moz-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+.orderHotelName a {
+    color: #1448ad;
+}
+.ordertype {
+    width: 100px;
+    height: 40px;
+    line-height: 40px;
+}
+.orderTotal {
+    color: #f00;
+    font-style: normal;
+}
+.orderdesc {
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
+}
+.orderdesc a {
+    color: #1448ad;
+    }
