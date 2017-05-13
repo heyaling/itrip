@@ -5,6 +5,7 @@ import OrderDetailInfo from 'components/OrderDetail/OrderDetailInfo'
 import OrderDetailStep from 'components/OrderDetail/OrderDetailStep'
 import OrderDetailDynamic from 'components/OrderDetail/OrderDetailDynamic'
 import OrderDetailIntoRoom from 'components/OrderDetail/OrderDetailIntoRoom'
+import OrderContactInfo from 'components/OrderDetail/OrderContactInfo'
 
 import './style.css'
 
@@ -25,7 +26,9 @@ export default class OrderDetailTab extends React.Component {
                 <TabPane tab="入住信息" key="2">
                     <OrderDetailIntoRoom />
                 </TabPane>
-                <TabPane tab="联系信息" key="3">Content of Tab Pane 3</TabPane>
+                <TabPane tab="联系信息" key="3">
+                  <OrderContactInfo />
+                </TabPane>
             </Tabs>
         )
   }

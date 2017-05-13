@@ -67,6 +67,10 @@
 .connect {
     margin: 0 10px;
 }
+.totalTime {
+    font-style: normal;
+    color: red;
+}
 
 
 .orderDetailname {

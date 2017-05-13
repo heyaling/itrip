@@ -44,17 +44,14 @@ export default class OrderDetailIntoRoom extends React.Component {
                     <p><span className="orderDetailname">特殊要求</span>无</p>
                 </Col>
                 <Col span={8}>
-                    <div className="detailPrice">￥ <strong>2699</strong> 起</div>
-                    <span className="detailTip">已包含税费服务费</span>
-                    <span className="detailTip">不包含城市建设费</span>   
+                    <div className="detailPrice">￥ <strong>1087</strong> 起</div>
+                    <span className="detailTip">共 <i className="totalTime">3</i> 晚</span>
+                    <span className="detailTip">房费／早餐</span>   
                 </Col>
                 <Col span={4} className="detailButton">
-                    <p>您可以</p>
-                    <Button type="primary">再次预定</Button>
+                    <Button type="primary">修改入住信息</Button>
                     <br />
-                    <Button type="primary">取消订单</Button>
-                    <br />
-                    <Button type="primary">我要点评</Button>
+                    <Button type="primary">延迟到点</Button>
                 </Col>
             </Row>
 
