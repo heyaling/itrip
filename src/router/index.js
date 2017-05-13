@@ -4,6 +4,7 @@ import HotelList from 'pages/HotelList'
 import HotelDetail from 'pages/HotelDetail'
 import OrderPage from 'pages/OrderPage'
 import OrderDetail from 'pages/OrderDetail'
+import CommentPage from 'pages/CommentPage'
 import OrderFill from 'pages/OrderFill'
 import Login from 'pages/Login'
 import Register from 'pages/Register'
@@ -36,6 +37,10 @@ export default [
       {
         path: 'orderfill',
         component: OrderFill
+      },
+      {
+        path: 'commentpage',
+        component: CommentPage
       }
     ]
   },
