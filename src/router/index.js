@@ -4,6 +4,7 @@ import HotelList from 'pages/HotelList'
 import HotelDetail from 'pages/HotelDetail'
 import OrderPage from 'pages/OrderPage'
 import OrderDetail from 'pages/OrderDetail'
+import OrderFill from 'pages/OrderFill'
 import Login from 'pages/Login'
 import Register from 'pages/Register'
 import ErrorPage from 'pages/ErrorPage'
@@ -31,6 +32,10 @@ export default [
       {
         path: 'orderdetail',
         component: OrderDetail
+      },
+      {
+        path: 'orderfill',
+        component: OrderFill
       }
     ]
   },

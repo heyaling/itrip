@@ -1,0 +1,32 @@
+ .headerMessage{
+   background:#f2fcff;
+   padding: 10px;
+   margin-bottom: 20px
+   }
+ .headerMessage li{
+   padding: 5px 10px;
+    font-size: 18px; 
+    
+ }
+ 
+ .headerMessage li span{
+   padding: 0px 10px;
+ }
+ .headerMessage li:nth-child(1){
+   color: #1ab2db;
+ }
+  .headerMessage li:nth-child(2){
+  color: #f63446;
+  
+ }
+.ant-layout-sider{
+    font-size: 18px;
+ }
+ .order-message .ant-layout-content{
+   font-size: 14px;
+ }
+.order-message .ant-layout-content:last-child{
+    text-align: left;
+    line-height: 70px;
+    padding-left: 10px;
+}

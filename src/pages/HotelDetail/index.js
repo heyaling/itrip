@@ -1,5 +1,5 @@
 import React from 'react' 
-// import Video  from './video.js'
+import Video  from './video.js'
 import HouseList  from './houseList.js'
 import HotelDetail  from './hotelDetail.js'
 import HouseFacilities  from './houseFacilities.js'
@@ -28,10 +28,10 @@ class DetailMain extends React.Component{
 		              <a href="#hotelassess" className>酒店点评（<b>6258</b>）</a>
 		            </div>
 		            <div className="i_con">
-		            {/*<HouseList/>
+		            <HouseList/>
 		            <HotelDetail/>
 		            <HouseFacilities/>
-		            <HousePolicy/>*/}
+		            <HousePolicy/>
 		            <HouseHotelassess/>
 		            </div>
 		          </div>
@@ -45,7 +45,7 @@ export default class App extends React.Component {
   render () {
     return (
       <div>
-        {/*<Video />*/}
+        <Video />
         <DetailMain/>
       </div>
     )
