@@ -24,9 +24,32 @@
  }
  .order-message .ant-layout-content{
    font-size: 14px;
- }
-.order-message .ant-layout-content:last-child{
-    text-align: left;
-    line-height: 70px;
-    padding-left: 10px;
+   text-align: left;
+ } 
+.order-message{
+  margin-bottom: 20px;
+}
+.order-footer{
+  height: 150px;
+  background: #fffde3;
+  font-size: 14px;
+  padding: 30px;
+  line-height: 60px;
+}
+.order-footer li i {
+  color: #00a0e9;
+  font-size: 14px;
+  margin-right: 20px;
+  margin-left: 20px;
+  
+}
+.order-button .ant-btn.ant-btn-danger{
+  background: #f4a468;
+  color: #fff;
+}
+
+.order-button .ant-btn.ant-btn-danger:hover{
+  background: #f19149;
+  color: #fff;
+  border: 1px solid #f19149;
 }
