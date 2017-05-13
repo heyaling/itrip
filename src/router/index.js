@@ -3,6 +3,7 @@ import Home from 'pages/Home'
 import HotelList from 'pages/HotelList'
 import HotelDetail from 'pages/HotelDetail'
 import OrderPage from 'pages/OrderPage'
+import OrderDetail from 'pages/OrderDetail'
 import Login from 'pages/Login'
 import Register from 'pages/Register'
 import ErrorPage from 'pages/ErrorPage'
@@ -26,6 +27,10 @@ export default [
       {
         path: 'orderpage',
         component: OrderPage
+      },
+      {
+        path: 'orderdetail',
+        component: OrderDetail
       }
     ]
   },
