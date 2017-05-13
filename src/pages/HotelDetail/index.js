@@ -28,11 +28,11 @@ class DetailMain extends React.Component{
 		              <a href="#hotelassess" className>酒店点评（<b>6258</b>）</a>
 		            </div>
 		            <div className="i_con">
-		            <HouseList/>
-		            {/*<HotelDetail/>
+		            {/*<HouseList/>
+		            <HotelDetail/>
 		            <HouseFacilities/>
-		            <HousePolicy/>
-		            <HouseHotelassess/>*/}
+		            <HousePolicy/>*/}
+		            <HouseHotelassess/>
 		            </div>
 		          </div>
 		        </div>
