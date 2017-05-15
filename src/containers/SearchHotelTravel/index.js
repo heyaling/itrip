@@ -27,9 +27,7 @@ export default class SearchHotelTravel extends React.Component {
           <TabPane tab="国外酒店" key="2">
             <SearchHotelForeign onSubmit={this.handleSubmit} />
           </TabPane>
-          <TabPane tab="酒店团购" key="3">
-            <SearchHotelGroupon onSubmit={this.handleSubmit} />
-            </TabPane>
+          
         </Tabs>
       </div>
     )

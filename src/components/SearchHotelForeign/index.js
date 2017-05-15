@@ -81,7 +81,7 @@ class SearchHotelForeign extends React.Component {
               </FormItem>
             </Col>
           </Row>
-          <FormItem
+          {/*<FormItem
             {...formItemLayout}
             label="住客数">
             {getFieldDecorator('zhuKeShu', { initialValue: '' })(
@@ -93,6 +93,19 @@ class SearchHotelForeign extends React.Component {
                 <Option value="5">5成人/间</Option>
               </Select>
             )}
+          </FormItem>*/}
+              <FormItem
+            {...formItemLayout}
+            label="酒店级别">
+            {getFieldDecorator('juDianJiBie', { initialValue: '' })(
+              <Select size='small' style={{ width: '110px' }} placeholder='请选择'>
+                <Option value="0">不限</Option>
+                <Option value='5'>五星级/豪华</Option>
+                <Option value='4'>四星级/高档</Option>
+                <Option value='3'>三星级/舒适</Option>
+                <Option value='2'>二星级以下/经济</Option>
+              </Select>
+            )}
           </FormItem>
           <FormItem
             {...formItemLayout}
@@ -101,6 +114,18 @@ class SearchHotelForeign extends React.Component {
               <Input size='small' placeholder='海岛' />
             )}
           </FormItem>
+          <FormItem
+            {...tailFormItemLayout}
+            colon={false}
+            label=" ">
+            <div className="common-tar tuiJian">
+              <a href="#">温泉</a>、
+                    <a href="#">亲子</a>、
+                    <a href="#">自由行</a>、
+                    <a href="#">名胜古迹</a>、
+                    <a href="#">都市购物</a>
+                </div>
+              </FormItem>
           <FormItem
             {...tailFormItemLayout}
             colon={false}
