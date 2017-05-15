@@ -7,7 +7,7 @@ import OrderDetail from 'pages/OrderDetail'
 import CommentPage from 'pages/CommentPage'
 import OrderFill from 'pages/OrderFill'
 import OrderPayMess from 'pages/OrderPayMess'
-import OrderPayMent from 'pages/OrderPayMent'
+import OrderPayment from 'pages/OrderPayment'
 import Login from 'pages/Login'
 import Register from 'pages/Register'
 import ErrorPage from 'pages/ErrorPage'
@@ -50,7 +50,7 @@ export default [
       },
       {
         path: 'orderpayment',
-        component: OrderPayMent
+        component: OrderPayment
       }
     ]
   },
