@@ -5,9 +5,9 @@
 .common-bar {
 	text-align: left;
 }
-.ant-form-item {
+.SearchTitle .ant-form-item {
 	margin-bottom: 0;
 }
-.ant-cascader-picker .ant-input-sm {
+.SearchTitle .ant-cascader-picker .ant-input-sm {
 	padding: 2px 0;
 }

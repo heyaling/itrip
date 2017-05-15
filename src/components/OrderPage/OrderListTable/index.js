@@ -43,7 +43,9 @@ export default class OrderListTable extends React.Component {
       onSelection: this.onSelection,
     };
     return (
-      <Table rowSelection={rowSelection} columns={columns}  />
+      <div className="orderlisttablecc">
+        <Table rowSelection={rowSelection} columns={columns}  />
+      </div>
     );
   }
 }

@@ -1,18 +1,18 @@
 .ant-table-wrapper {
    /* margin-top: 20px;*/
 }
-table {
+.orderlisttablecc table {
     background-color: #fff!important;
 }
-.ant-table-thead > tr > th {
+.orderlisttablecc .ant-table-thead > tr > th {
     background: #f6f6f6;
 }
-.ant-table-wrapper {
+.orderlisttablecc .ant-table-wrapper {
     background: #fff;
 }
-.ant-pagination-prev, 
-.ant-pagination-next, 
-.ant-pagination-jump-prev, 
-.ant-pagination-jump-next {
+.orderlisttablecc .ant-pagination-prev, 
+.orderlisttablecc .ant-pagination-next, 
+.orderlisttablecc .ant-pagination-jump-prev, 
+.orderlisttablecc .ant-pagination-jump-next {
     border: 1px solid #ccc;
 }

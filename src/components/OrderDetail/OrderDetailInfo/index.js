@@ -5,7 +5,7 @@ import './style.css'
 export default class OrderDetailInfo extends React.Component {
   render() {
         return (
-            <div>
+            <div className="orderdetailinfo">
                 <Row>
                 <Col span={24}>
                     <h4 className="detailTile">

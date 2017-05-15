@@ -1,4 +1,4 @@
-.ant-tabs:not(.ant-tabs-vertical) > .ant-tabs-content {
+.orderdetailintoroom .ant-tabs:not(.ant-tabs-vertical) > .ant-tabs-content {
     background: #fff;
 }
 .detailTile {

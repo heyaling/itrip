@@ -1,10 +1,10 @@
-.ant-layout {
+.orderpagelayout .ant-layout {
     background: #fff;
     resize: 14px;
     color: #666;
 }
-.ant-menu-inline .ant-menu-submenu-title ,
-.ant-menu-inline .ant-menu-item {
+.orderpagelayout .ant-menu-inline .ant-menu-submenu-title ,
+.orderpagelayout .ant-menu-inline .ant-menu-item {
     font-size: 14px;
 }
 .order-title {
