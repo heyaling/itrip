@@ -3,6 +3,10 @@ import { Icon, Layout, Input, Checkbox, Radio, Form, DatePicker, Row, Col, Butto
 const { Sider, Content } = Layout
 import Commentimg from './images/comment_img180180.jpg'
 import StarComment from 'components/CommentPage/StarComment'
+import TotalComment from 'components/CommentPage/TotalComment'
+import CommentContent from 'components/CommentPage/CommentContent'
+import PicUpload from 'components/CommentPage/PicUpload'
+import CommentHolType from 'components/CommentPage/CommentHolType'
 
 import './style.css'
 
@@ -34,28 +38,30 @@ export default class CommentPage extends React.Component {
                   <div className="totalCommentLeft">
                     <StarComment />
                   </div>
-                  <div className="totalCommentRight"></div>
+                  <div className="totalCommentRight">
+                    <TotalComment />
+                  </div>
                 </Content>
               </Layout>
             {/*点评内容*/}
               <Layout style={{ height: 240, textAlign: 'center', marginBottom:10 }}>
                 <Sider style={{ background: '#fff', padding: 35,borderRight:'2px dashed #ccc' }}>点评内容</Sider>
-                <Content style={{padding:'25px' }}>
-                  
+                <Content style={{padding:'20px' }}>
+                  <CommentContent />
                 </Content>
               </Layout>
             {/*上传图片*/}
-              <Layout style={{ height: 240, textAlign: 'center', marginBottom:10 }}>
+              <Layout style={{ height: 270, textAlign: 'center', marginBottom:10 }}>
                 <Sider style={{ background: '#fff', padding: 35,borderRight:'2px dashed #ccc' }}>上传图片（选填）</Sider>
-                <Content style={{padding:'25px' }}>
-                  
+                <Content style={{padding:'20px' }}>
+                  <PicUpload />
                 </Content>
               </Layout>
             {/*优点不足（选填）*/}
-              <Layout style={{ height: 240, textAlign: 'center', marginBottom:30 }}>
-                <Sider style={{ background: '#fff', padding: 35,borderRight:'2px dashed #ccc' }}>优点不足（选填）</Sider>
-                <Content style={{padding:'25px' }}>
-                  
+              <Layout style={{ height: 260, textAlign: 'center', marginBottom:30 }}>
+                <Sider style={{ background: '#fff', padding: 35,borderRight:'2px dashed #ccc' }}>酒店类型</Sider>
+                <Content style={{padding:'20px' }}>
+                  <CommentHolType />
                 </Content>
               </Layout>
             {/*提交按鈕*/} 

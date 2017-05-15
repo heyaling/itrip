@@ -1,6 +1,9 @@
 .OrderListItemcc .ant-table {
     font-size: 14px;
 }
+.OrderListItemcc .ant-table-wrapper {
+  background: #fff;
+}
 .selectNum, .reserveDate, .orderState {
     font-style: normal;
 }
