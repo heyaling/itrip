@@ -40,13 +40,12 @@ export default [
         component: OrderFill
       },
       {
-<<<<<<< HEAD
         path: 'commentpage',
         component: CommentPage
-=======
+      },
+      {
         path: 'orderpay',
         component: OrderPay
->>>>>>> 88f2e03457d157cd7cc136af41ab50faf5882896
       }
     ]
   },
