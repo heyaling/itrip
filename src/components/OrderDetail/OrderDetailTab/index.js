@@ -17,19 +17,21 @@ function callback(key) {
 export default class OrderDetailTab extends React.Component {
   render() {
         return (
-            <Tabs defaultActiveKey="2" onChange={callback}>
-                <TabPane tab="订单信息" key="1">
-                    <OrderDetailInfo />
-                    <OrderDetailStep />
-                    <OrderDetailDynamic />
-                </TabPane>
-                <TabPane tab="入住信息" key="2">
-                    <OrderDetailIntoRoom />
-                </TabPane>
-                <TabPane tab="联系信息" key="3">
-                  <OrderContactInfo />
-                </TabPane>
-            </Tabs>
+            <div className="orderdetailtabcc">
+              <Tabs defaultActiveKey="2" onChange={callback}>
+                  <TabPane tab="订单信息" key="1">
+                      <OrderDetailInfo />
+                      <OrderDetailStep />
+                      <OrderDetailDynamic />
+                  </TabPane>
+                  <TabPane tab="入住信息" key="2">
+                      <OrderDetailIntoRoom />
+                  </TabPane>
+                  <TabPane tab="联系信息" key="3">
+                    <OrderContactInfo />
+                  </TabPane>
+              </Tabs>
+            </div>
         )
   }
 }

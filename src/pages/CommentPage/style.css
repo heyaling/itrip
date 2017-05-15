@@ -17,3 +17,32 @@
 .commentpage .ant-layout-sider {
   box-sizing: border-box;
 }
+
+.commentHotelName {
+  margin-top: 60px;
+  margin-left: 40px;
+  text-align: left;
+  font-size: 22px;
+  color: #333;
+  font-family: "微軟雅黑";
+}
+.diamondWrap {
+  font-size: 16px;
+  color: #f00;
+  text-align: left;
+  margin: 10px 0 0 40px;
+}
+.diamondWrap i {
+  margin-right: 10px;
+}
+
+.totalCommentLeft {
+  float: left;
+  width: 600px;
+  height: 200px;
+}
+.totalCommentRight {
+  float: left;
+  width: 250px;
+  height: 200px;
+}

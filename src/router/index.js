@@ -7,6 +7,7 @@ import OrderDetail from 'pages/OrderDetail'
 import CommentPage from 'pages/CommentPage'
 import OrderFill from 'pages/OrderFill'
 import OrderPay from 'pages/OrderPay'
+import OrderPayState from 'pages/OrderPayState'
 import Login from 'pages/Login'
 import Register from 'pages/Register'
 import ErrorPage from 'pages/ErrorPage'
@@ -46,6 +47,10 @@ export default [
       {
         path: 'orderpay',
         component: OrderPay
+      },
+      {
+        path: 'orderpaystate',
+        component: OrderPayState
       }
     ]
   },

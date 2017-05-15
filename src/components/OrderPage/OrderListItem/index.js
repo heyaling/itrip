@@ -88,7 +88,9 @@ export default class OrderListItem extends React.Component {
       onSelection: this.onSelection,
     };
     return (
-      <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+      <div className="OrderListItemcc">
+        <Table rowSelection={rowSelection} columns={columns} dataSource={data} />
+      </div>
     );
   }
 }
