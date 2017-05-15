@@ -6,7 +6,8 @@ import OrderPage from 'pages/OrderPage'
 import OrderDetail from 'pages/OrderDetail'
 import CommentPage from 'pages/CommentPage'
 import OrderFill from 'pages/OrderFill'
-import OrderPay from 'pages/OrderPay'
+import OrderPayMess from 'pages/OrderPayMess'
+import OrderPayMent from 'pages/OrderPayMent'
 import Login from 'pages/Login'
 import Register from 'pages/Register'
 import ErrorPage from 'pages/ErrorPage'
@@ -44,8 +45,12 @@ export default [
         component: CommentPage
       },
       {
-        path: 'orderpay',
-        component: OrderPay
+        path: 'orderpaymess',
+        component: OrderPayMess
+      },
+      {
+        path: 'orderpayment',
+        component: OrderPayMent
       }
     ]
   },
