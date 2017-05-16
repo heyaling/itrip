@@ -1,8 +1,8 @@
 import React from 'react'
 import { Tabs } from 'antd'
-import SearchHotelInland from 'components/SearchHotelInland'
-import SearchHotelForeign from 'components/SearchHotelForeign'
-import SearchHotelGroupon from 'components/SearchHotelGroupon'
+import SearchHotelInland from 'components/HomeComponents/SearchHotelInland'
+import SearchHotelForeign from 'components/HomeComponents/SearchHotelForeign'
+// import SearchHotelGroupon from 'components/HomeComponents/SearchHotelGroupon'
 import './style.css'
 
 const TabPane = Tabs.TabPane
