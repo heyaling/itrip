@@ -1,0 +1,21 @@
+.toatlcomwrapper {
+  text-align: left;
+}
+.toatlcomwrapper span {
+    font-size: 18px;
+    color: #333;
+    font-family: "微软雅黑";
+}
+.commentlike,.commentdislike  {
+  border: 2px solid #b7e1f5;
+  padding: 7px 20px;
+  width: 160px;
+  text-align: center;
+  color: #00a0e9;
+  font-size: 22px;
+}
+.commentlike {
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
