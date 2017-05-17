@@ -53,3 +53,10 @@
   color: #fff;
   border: 1px solid #f19149;
 }
+.ant-row.ant-form-item{
+  margin-bottom: 0;
+}
+.order-fill .ant-steps {
+    padding: 30px 200px;
+    box-sizing: border-box;
+}

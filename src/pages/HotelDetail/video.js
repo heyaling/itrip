@@ -9,7 +9,7 @@ import React from 'react'
 import video_01 from '../../common/images/video/travel/video.mp4'
 import video_02 from '../../common/images/video/travel/video.webm'
 import video_03 from '../../common/images/video/travel/video1.mp4'
-
+import fetchRequest from './fetchHttpRequest.js'
 export default class Video extends React.Component {
   render () {
     return (
@@ -38,17 +38,24 @@ let imgSrc="";
         
     } 
     componentWillMount () {
-        // const map = 'map'
-        // fetch('http://rapapi.org/mockjsdata/18171/api/todo/list')
-        //     .then(function(response) {
-        //         return response.json()
-        //     })
-        //     .then(res => {
-        //         this.setState({
-        //             source: imgSrc
-        //         })
-        //     })
-
+    
+      fetchRequest("/biz/api/hotel/queryhotelfeature",{
+  "ascSort": "string",
+  "checkInDate": "2017-05-17T01:52:33.188Z",
+  "checkOutDate": "2017-05-17T01:52:33.188Z",
+  "descSort": "string",
+  "destination": "string",
+  "featureIds": "string",
+  "hotelLevel": 0,
+  "keywords": "string",
+  "maxPrice": 0,
+  "minPrice": 0,
+  "pageNo": 0,
+  "pageSize": 0,
+  "tradeAreaIds": "string"
+},function(e){
+        console.debug(e);
+      })
        this.setState({
                      title: "三亚喜来登度假酒店",
                      desc: "Sheraton Sanya Resort",

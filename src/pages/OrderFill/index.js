@@ -3,6 +3,7 @@ import { Steps, Icon, Layout, Input, Checkbox, Button,Select,Radio, Form, DatePi
 import './index.css'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer/'
+import Modal from './modalPlugin.js'
 // import stp from '../../components/OrderPage/'
 const { Sider, Content } = Layout;
 const Step = Steps.Step;
@@ -20,9 +21,46 @@ const formItemLayout = {
   },
 };
 export default class App extends React.Component {
+  state={
+      visible: false,
+      data:{
+        title:'添加用户信息',
+        url:'http://baidu.com',
+        type:'add',//modfiy
+        userMess:{
+          userName:" 张三李四王五",
+          phone:'18788988998',
+          card:'10110220334044500'
+        }
+      },
+      callback:(data)=>{
+        console.debug(data);
+      }
+    }
+  showModal = () => {
+    this.setState({
+      visible: true,
+      data:{
+        title:'添加用户信息',
+        url:'http://baidu.com',
+        type:'add',//modfiy
+        userMess:{
+          userName:" 张三李四王五",
+          phone:'18788988998',
+          card:'10110220334044500'
+        }
+      },
+      callback:(data)=>{
+        console.debug(data);
+      }
+    });
+    if(!this.state.visible){
+        this.state.visible=true;
+    }
+  }
   render() {
     return (
-      <div className="order" >
+      <div className="order order-fill" >
         <Steps current={1}  >
           <Step title="填写" />
           <Step title="支付" />
@@ -72,8 +110,9 @@ export default class App extends React.Component {
                   <Checkbox value="f">A3212</Checkbox>
                   <Checkbox value="g">A1231</Checkbox>
                   <Checkbox value="h">A123123</Checkbox>
-                <Button type="primary">添加用户</Button>
+                <Button type="primary" onClick={this.showModal.bind(this)}>添加用户</Button>
                 </Checkbox.Group>
+                <Modal data={this.state} ></Modal>
               </FormItem>
             </Content>
           </Layout>
