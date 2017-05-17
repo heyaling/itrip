@@ -1,5 +1,5 @@
 import React from 'react'
-import { Input, Select, AutoComplete } from 'antd';
+import { Input, Select } from 'antd';
 const InputGroup = Input.Group;
 const Option = Select.Option;
 

@@ -2,7 +2,7 @@ import React from 'react'
 import OrderTab from 'components/OrderPage/OrderTab'
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 import './style.css'
 
 

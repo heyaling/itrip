@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Layout, Input, Checkbox, Radio, Form, DatePicker, Row, Col, Button } from 'antd'
+import {  Layout } from 'antd'
 const { Sider, Content } = Layout
 import Commentimg from './images/comment_img180180.jpg'
 import StarComment from 'components/CommentPage/StarComment'

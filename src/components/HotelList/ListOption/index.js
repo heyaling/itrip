@@ -1,6 +1,4 @@
 import React from 'react'
-import { Cascader } from 'antd';
-import options from 'components/Cascader';
 import SearchHotelItem from 'components/HotelList/SearchHotelItem'
 import './style.css'
 

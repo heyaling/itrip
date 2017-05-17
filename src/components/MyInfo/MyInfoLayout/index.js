@@ -1,7 +1,7 @@
 import React from 'react'
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+const { Content, Sider } = Layout;
 import MyInfoSearch from 'components/MyInfo/MyInfoSearch'
 import MyInfoTable from 'components/MyInfo/MyInfoTable'
 
