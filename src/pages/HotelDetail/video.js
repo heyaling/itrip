@@ -9,7 +9,7 @@ import React from 'react'
 import video_01 from '../../common/images/video/travel/video.mp4'
 import video_02 from '../../common/images/video/travel/video.webm'
 import video_03 from '../../common/images/video/travel/video1.mp4'
-import { fetchBiz,fetchSearch } from '../../components/fetchUtils'
+import { fetchBiz, fetchSearch } from '../../components/fetchUtils'
 export default class Video extends React.Component {
   render() {
     return (
@@ -38,33 +38,21 @@ export class VideoHeader extends React.Component {
 
   }
   componentWillMount() {
-      var sef= this ;
+    var sef = this;
     fetchSearch({
-      url: "/hotellist/searchItripHotelPage",
+      url: "/hotellist/searchItripHotelListByHotCity",
+      type: "POST",
       param: {
-        "ascSort": "string",
-        "checkInDate": "2017-05-17T01:52:33.188Z",
-        "checkOutDate": "2017-05-17T01:52:33.188Z",
-        "descSort": "string",
-        "destination": "string",
-        "featureIds": "string",
-        "hotelLevel": 0,
-        "keywords": "string",
-        "maxPrice": 0,
-        "minPrice": 0,
-        "pageNo": 0,
-        "pageSize": 0,
-        "tradeAreaIds": "string"
+        "cityId": 0,
+        "count": 0
       },
-      type: "",
-      callback: function (e) {
-
+      callback: e=> {
         console.debug(e);
-        sef.setState({
+        this.setState({
           title: "三亚喜来登度假酒店",
           desc: "Sheraton Sanya Resort",
           subDesc: "【 亚龙湾 】国家旅游度假区，亚龙湾高尔夫球场对面",
-          descMap: ["东南亚风情", "休闲度假", "亲子时刻", "会议酒店"],
+          descMap: ["东南亚风情12311", "休闲度假", "亲子时刻", "会议酒店"],
           video_01: video_01,
           video_02: video_02
         })
@@ -84,7 +72,7 @@ export class VideoHeader extends React.Component {
     // alert(" ceshi dhushu ")
   }
   render() {
-    if(!this.state.descMap){
+    if (!this.state.descMap) {
       return <div></div>;
     }
     return (
