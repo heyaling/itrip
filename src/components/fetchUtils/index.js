@@ -30,12 +30,12 @@ let fetchBiz = function (params) {
 }
 let fetchAuth = function (params) {
   // auth/api
-  params.url = "/biz/api" + params.url
+  params.url = "/auth/api" + params.url
   fetchRequest(params);
 }
 let fetchSearch = function (params) {
   // /search/api/
-  params.url = "/biz/api" + params.url
+  params.url = "/search/api" + params.url
   fetchRequest(params);
 }
 export { fetchAuth, fetchBiz, fetchSearch };

@@ -9,7 +9,7 @@ import React from 'react'
 import video_01 from '../../common/images/video/travel/video.mp4'
 import video_02 from '../../common/images/video/travel/video.webm'
 import video_03 from '../../common/images/video/travel/video1.mp4'
-import { fetchBiz } from '../../components/fetchUtils'
+import { fetchBiz,fetchSearch } from '../../components/fetchUtils'
 export default class Video extends React.Component {
   render() {
     return (
@@ -39,8 +39,8 @@ export class VideoHeader extends React.Component {
   }
   componentWillMount() {
       var sef= this ;
-    fetchBiz({
-      url: "/hotel/queryhotelfeature",
+    fetchSearch({
+      url: "/hotellist/searchItripHotelPage",
       param: {
         "ascSort": "string",
         "checkInDate": "2017-05-17T01:52:33.188Z",
@@ -58,6 +58,8 @@ export class VideoHeader extends React.Component {
       },
       type: "",
       callback: function (e) {
+
+        console.debug(e);
         sef.setState({
           title: "三亚喜来登度假酒店",
           desc: "Sheraton Sanya Resort",
