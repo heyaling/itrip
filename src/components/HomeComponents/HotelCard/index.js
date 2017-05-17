@@ -1,23 +1,22 @@
 import React from 'react'
 import './style.css'
 
-// temp
-import img from './haiwai01.png'
-
 export default class HotelCard extends React.Component {
   render () {
+    const hotel = this.props.hotel
+    
     return (
       <div className="HotelCard">
         <div className='HotelCard-img'>
-          <img src={img} alt=""/>
+          <img src={hotel.staticImgUrl ? require(hotel.imgUrl) : hotel.imgUrl} alt=""/>
           {/*<i className='iconfont icon-sanjiao'/>
           <span>返现</span>*/}
         </div>
         <div className='HotelCard-desc'>
-          <p>曼谷盛泰澜中央世界商业中心酒</p>
+          <p>{hotel.hotelName}</p>
           <p>
             <span>￥</span>
-            <b>639</b>
+            <b>{hotel.minPrice}</b>
             <span>起</span>
           </p>
         </div>
