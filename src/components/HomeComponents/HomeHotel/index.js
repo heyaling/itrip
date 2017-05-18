@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Icon, message, Spin } from 'antd'
 import HotelCardList from 'components/HomeComponents/HotelCardList'
 import { postRequest, getRequest } from 'common/js/fetch'
 import { hotelListUrl } from 'constants/url'
@@ -10,6 +10,7 @@ import longImg from './haiwai.png'
 
 export default class HomeHotel extends React.Component {
   state = {
+    loading: true,
     selectedIndex: 0,
     hotelList: []
   }
@@ -17,11 +18,15 @@ export default class HomeHotel extends React.Component {
   componentWillMount() {
     const { initData } = this.props
     const { selectedIndex } = this.state
-    const cityId = initData.category[selectedIndex].cityId
 
+    if (!initData.category.length) return
+    
+    const cityId = initData.category[selectedIndex].id
+    
     if (initData.hotelList) {
       this.staticFlag = true
       this.setState({
+        loading: false,
         hotelList: initData.hotelList
       })
       return
@@ -36,17 +41,28 @@ export default class HomeHotel extends React.Component {
   }
 
   getHotelList (cityId, selectedIndex) {
+    this.setState({
+      loading: true
+    })
     postRequest(hotelListUrl, {
       cityId,
       count: 6
     }).then(res => {
       if (res.success === 'true') {
         this.setState({
+          loading: false,
           selectedIndex,
           hotelList: res.data
         })
       }
     }).catch(err => {
+      this.setState({
+        loading: false
+      })
+      if (err.msg || err.message) {
+        message.error(err.msg || err.message)
+        return
+      }
       console.log(err)
     })
   }
@@ -58,8 +74,8 @@ export default class HomeHotel extends React.Component {
 
     return category.map((item, i) => (
       <li
-        key={item.cityId}
-        onClick={this.handleSwitchCity.bind(this, item.cityId, i)}
+        key={item.id}
+        onClick={this.handleSwitchCity.bind(this, item.id, i)}
         className={i === selectedIndex ? 'hotelClsOn' : ''}>
         {item.name}
       </li>
@@ -68,7 +84,7 @@ export default class HomeHotel extends React.Component {
 
   render() {
     const { initData } = this.props
-    const { hotelList } = this.state
+    const { hotelList, loading } = this.state
 
     return (
       <section className='HomeHotel'>
@@ -89,7 +105,9 @@ export default class HomeHotel extends React.Component {
             </a>
           </div>
           <div className='HomeHotel-right'>
-            <HotelCardList hotelList={hotelList} />
+            <Spin spinning={loading}>
+              <HotelCardList hotelList={hotelList} />
+            </Spin>
           </div>
         </div>
       </section>

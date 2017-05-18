@@ -16,16 +16,23 @@ function request(url, op = {}) {
     .then(res => {
       return res.json()
     })
-    .then(data => {
-      if (data.errorCode === '302') {
-        window.location.href = data.msg
+    .then(res => {
+      if (res.errorCode === '302') {
+        window.location.href = res.msg
+        return {}
       }
-      return data
+      return res
+    }).then(res => {
+      if (res.success !== 'true') return Promise.reject(res)
+      return res
     })
 }
 
 export function getRequest(url, params) {
-  return request(url + '?' + stringify(params))
+  if (params && typeof params === 'object') {
+    return request(url + '?' + stringify(params))
+  }
+  return request(url)
 }
 
 export function postRequest(url, params) {
@@ -34,3 +41,4 @@ export function postRequest(url, params) {
     body: JSON.stringify(params)
   })
 }
+
