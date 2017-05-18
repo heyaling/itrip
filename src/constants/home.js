@@ -58,40 +58,40 @@ export default {
       }],
       hotelList: [{
         id: 1,
-        imgUrl: './haiwai01.png',
+        imgUrl: './imgs/fhs.jpg',
         staticImgUrl: true,
-        hotelName: 'hotelName1',
-        minPrice: '101'
+        hotelName: '凤凰山',
+        minPrice: '156'
       }, {
         id: 2,
-        imgUrl: './haiwai01.png',
+        imgUrl: './imgs/ps.jpg',
         staticImgUrl: true,
-        hotelName: 'hotelName2',
-        minPrice: '102'
+        hotelName: '盘山',
+        minPrice: '109'
       }, {
         id: 3,
-        imgUrl: './haiwai01.png',
+        imgUrl: './imgs/hs.jpg',
         staticImgUrl: true,
-        hotelName: 'hotelName3',
-        minPrice: '103'
+        hotelName: '黄山',
+        minPrice: '131'
       }, {
         id: 4,
-        imgUrl: './haiwai01.png',
+        imgUrl: './imgs/huangshan.jpg',
         staticImgUrl: true,
-        hotelName: 'hotelName4',
-        minPrice: '104'
+        hotelName: '华山',
+        minPrice: '126'
       }, {
         id: 5,
-        imgUrl: './haiwai01.png',
+        imgUrl: './imgs/wls.jpg',
         staticImgUrl: true,
-        hotelName: 'hotelName5',
-        minPrice: '106'
+        hotelName: '雾灵山',
+        minPrice: '139'
       }, {
         id: 6,
-        imgUrl: './haiwai01.png',
+        imgUrl: './imgs/djrm01.png',
         staticImgUrl: true,
-        hotelName: 'hotelName6',
-        minPrice: '106'
+        hotelName: '泰山',
+        minPrice: '109'
       }]
     }
   }
