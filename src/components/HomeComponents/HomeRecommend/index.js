@@ -25,9 +25,11 @@ export default class HomeRecommend extends React.Component {
   }
 
   renderAccordion() {
-    const { accordionTitles } = this.props
+    let { accordionTitles } = this.props
     const { currentIndex } = this.state
     const list = []
+    console.log(accordionTitles)
+    accordionTitles = accordionTitles.map(item => item.name || '')
 
     for (let i = 0; i < 6; i++) {
 

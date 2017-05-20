@@ -1,4 +1,5 @@
 import React from 'react'
+import { hashHistory } from 'react-router'
 
 export default class Header extends React.Component {
   render() {
@@ -45,9 +46,9 @@ export default class Header extends React.Component {
               <li><a href="../strategy/index.html"><i className="icon-book" />攻略</a></li>
             </ul>
             <div className="i-nav-login">
-              <a href="../login.html">登陆</a>
+              <a href="javascript:;" onClick={() => hashHistory.push('/login')}>登陆</a>
               <span>|</span>
-              <a href="../register.html">注册</a>
+              <a href="javascript:;" onClick={() => hashHistory.push('/register')}>注册</a>
             </div>
           </div>
         </div>

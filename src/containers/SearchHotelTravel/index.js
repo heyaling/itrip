@@ -1,26 +1,31 @@
 import React from 'react'
 import { Tabs } from 'antd'
+import { hashHistory } from 'react-router'
+import { stringify } from 'querystring'
 import SearchHotelInland from 'components/HomeComponents/SearchHotelInland'
 import SearchHotelForeign from 'components/HomeComponents/SearchHotelForeign'
-// import SearchHotelGroupon from 'components/HomeComponents/SearchHotelGroupon'
 import './style.css'
 
 const TabPane = Tabs.TabPane
 
-function callback(key) {
-  console.log(key);
-}
-
 export default class SearchHotelTravel extends React.Component {
-  
+  category = 1
+
+  handleChange = category => {
+    this.category = category
+  }
+
   handleSubmit = formData => {
-    console.log(formData)
+    formData.category = this.category
+
+    const query = stringify(formData)
+    hashHistory.push('/hotellist?' + query)
   }
 
   render() {
     return (
       <div className='SearchHotelTravel'>
-        <Tabs defaultActiveKey="1" onChange={callback}>
+        <Tabs defaultActiveKey="1" onChange={this.handleChange}>
           <TabPane tab="国内酒店" key="1">
             <SearchHotelInland onSubmit={this.handleSubmit} />
           </TabPane>
