@@ -9,81 +9,50 @@ import './style.css'
 //import {fetchBiz} from '../../components/fetchUtils'
 
 /*模拟的假数据*/
-var data = [
-		  {id:1, name: "七天", price: 2333, text: "This is one comment", sum: 3},
-		  {id:2, name: "如家", price: 2456, text: "This is *another* comment", sum: 4}
-		];
+/*var data = [
+  { id: 1, name: "七天", price: 2333, text: "This is one comment", sum: 3 },
+  { id: 2, name: "如家", price: 2456, text: "This is *another* comment", sum: 4 }
+];*/
 
+var data = [];
+/*let data1="";*/
 //列表页主页调用组件情况
 export default class HotelList extends React.Component {
-   constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        //const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => {r1 !== r2}});
-        this.state = {
-            /*dataSource: ds,
-            load:false,
-            text:''*/
-        };
-    }
+    this.state = {
+      beginPos: -10,
+      curPage: 0,
+      pageCount: 1,
+      pageSize: 10,
+      total: 6,
+      rows: [],
+      handleOptionChild: (dataIndex) => {
+        this.setState(dataIndex);
+        //console.warn("parentIndex" + JSON.stringify(dataIndex));
+        //  console.log(dataIndex["rows"]);
+        //console.log("222"+data);
+      }
+    };
+  }
 
-    //耗时操作放在这里面
-   /* componentDidMount(){
-        this.getNet();
-    }
-
-    getNet(){
-        /*fetch('biz/api/hotel/queryhotelfeature')//请求地址
-            .then((response) => response.json())//取数据
-            .then((responseText) => {//处理数据
-                //通过setState()方法重新渲染界面
-                /*this.setState({
-                    //改变加载ListView
-                    load: true,
-                    //设置数据源刷新界面
-                    dataSource: this.state.dataSource.cloneWithRows(responseText.results),
-                })
-
-                //console.log (responseText);
-                alert(responseText.data.rows[1]);
-
-            })
-            .catch((error) => {
-                alert('error');
-            });
-
-
-
-          fetch('biz/api/hotel/queryhotelfeature')//请求地址
-          .then(function(response) {
-            /*if(response.ok) {
-              alert("成功")
-            } else {
-              console.log('Network response was not ok.');
-            }
-
-          alert("成功")
-
-          })
-          .catch(function(error) {
-            console.log('There has been a problem with your fetch operation: ' + error.message);
-          });
-
-        
-    }*/
-
+  //耗时操作放在这里面
+  /* componentDidMount(){
+       this.getNet();
+   }*/
 
   render() {
     return (
       <div className="HotelList">
-        <ListOption />
+        <ListOption dataChild={this.state.handleOptionChild} />
         <ListParent />
-        <ListItem data={data} />
+        <ListItem data={this.state.rows} />
         <div className="paginationWrapper">
-        	<Pagination defaultCurrent={1} total={50} />
-        </div>       
+          <Pagination defaultCurrent={this.state.curPage} total={this.state.pageSize} />
+        </div>
 
-        
+
       </div>
     )
   }

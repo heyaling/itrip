@@ -28,6 +28,9 @@ export default class OrderTab extends React.Component {
                 <TabPane tab="待评价" key="4">
                     <OrderListTable />
                 </TabPane>
+                <TabPane tab="取消订单" key="5">
+                    <OrderListTable />
+                </TabPane>
                 </Tabs>
             </div>                                  
         )
