@@ -6,6 +6,7 @@
 */
 import React from 'react'
 import { DatePicker, Select } from 'antd';
+import { fetchBiz } from '../../components/fetchUtils'
 'use strict';
 /*组件示例：btn 点击切换显示按钮样式*/
 class BtnsSearchList extends React.Component {
@@ -133,10 +134,10 @@ class HotelTables extends React.Component {
     if (status == 0) {
       for (var i = 0; i < allExpand.length; i++) {
         let ele = allExpand[i];
-        if(ele!==e.currentTarget){
-        ele.children[0].children[0].innerHTML = "展开全部房型";
-        ele.children[0].children[1].className = "icon-chevron-down";
-        ele.children[0].setAttribute("data-status", 0);
+        if (ele !== e.currentTarget) {
+          ele.children[0].children[0].innerHTML = "展开全部房型";
+          ele.children[0].children[1].className = "icon-chevron-down";
+          ele.children[0].setAttribute("data-status", 0);
         }
       }
       rows[rowId].state = true;
@@ -215,6 +216,15 @@ class HotelTables extends React.Component {
 }
 
 export default class HouseList extends React.Component {
+  param = {
+    "endDate": "2017-05-20T02:30:06.535Z",
+    "hotelId": 1,
+    "isBook": 0,
+    "isHavingBreakfast": 0,
+    "isTimelyResponse": 0,
+    "roomBedTypeId": 0,
+    "startDate": "2017-05-20T02:30:06.535Z"
+  }
   constructor(props) {
     super(props);
 
@@ -228,75 +238,28 @@ export default class HouseList extends React.Component {
 
   }
   componentWillMount() {
-    /*获取数据接口中的数据信息，通过设置选项获取到数据信息和内容信息*/
-    // fetch('http://rapapi.org/mockjsdata/18171/api/todo/list')
-    //     .then(function(response) {
-    //         return response.json()
-    //     })
-    //     .then(res => {
-    //         this.setState({
-    //             source: imgSrc
-    //         })
-    //     })
-    /*  模拟数据接口数据信息 */
-
-    this.setState({
-      data: [{
-        type: "biaozhun",
-        row: [
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" }
-        ]
-      }, {
-        type: "haohua",
-        row: [
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" }
-        ]
-      }]
-    })
+    this.getData();
   }
   /*点击搜索按钮的时候可以按照入住时间和退房时间尽心数据的查询*/
   serachByTime(e) {
     console.debug("绑定点击事件触发")
   }
-  /*点击每个不同的按钮的时候出发时间操作*/
-  serachClickButton(e) {
-    this.setState({
-      data: [{
-        type: "biaozhun",
-        row: [
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" }
-        ]
-      }, {
-        type: "haohua",
-        row: [
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" },
-          { type: "大床房1", zc: "有早餐", name: "显示名称显示信息", zce: "政策", sum: "2222" }
-        ]
-      }]
+  getData = (data) => {
+    fetchBiz({
+      url: "/hotelroom/queryhotelroombyhotel",
+      type: "POST",
+      param: this.param,
+      callback: (data) => {
+        this.setState({
+          data: data.data
+        })
+      }
     })
+
+  }
+  /*点击每个不同的按钮的时候出发时间操作*/
+  serachClickButton = (data) => {
+    this.getData();
   }
   render() {
     return (
@@ -334,7 +297,7 @@ export default class HouseList extends React.Component {
 
           </div>
         </div>
-        <HotelTables data={this.state.data} />
+        {/*<HotelTables data={this.state.data} />*/}
       </div>
     )
 
