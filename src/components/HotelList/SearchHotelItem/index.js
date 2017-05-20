@@ -46,11 +46,14 @@ class SearchHotelItem extends React.Component {
 
   }
 
-  /*componentWillMount() {
-
-  }*/
+  componentDidMount() {
+    // this.refs['submitID'].handleClick();
+    this.handleSubmit();
+  }
   handleSubmit = (e) => {
-    e.preventDefault()
+    if (e) {
+      e.preventDefault()
+    }
 
     this.props.form.validateFields((err, values) => {
       if (err) return
@@ -90,7 +93,7 @@ class SearchHotelItem extends React.Component {
               <FormItem
                 {...formItemLayout}
                 label="目的地">
-                {getFieldDecorator('destination', { initialValue: '' })(
+                {getFieldDecorator('destination', { initialValue: '北京' })(
                   /*<Cascader options={options} size='small' placeholder="北京"/>*/
                   <Input size='small' placeholder='北京' />
                 )}
@@ -129,7 +132,7 @@ class SearchHotelItem extends React.Component {
                 colon={false}
                 label=" ">
                 <div className='common-bar'>
-                  <Button type="primary" htmlType="submit" size="default">
+                  <Button type="primary" ref="submitID" htmlType="submit" size="default">
                     搜索
                 <Icon style={{ fontSize: '14px' }} type="right" />
                   </Button>
