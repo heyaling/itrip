@@ -28,17 +28,28 @@ function request(url, op = {}) {
     })
 }
 
-export function getRequest(url, params) {
+export function getRequest(url, params, op) {
   if (params && typeof params === 'object') {
-    return request(url + '?' + stringify(params))
+    return request(url + '?' + stringify(params), op)
   }
-  return request(url)
+  return request(url, op)
 }
 
-export function postRequest(url, params) {
+export function postRequest(url, params, op = {}) {
   return request(url, {
     method: 'POST',
-    body: JSON.stringify(params)
+    body: JSON.stringify(params),
+    ...op
   })
 }
 
+export function putRequest(url, params, op = {}) {
+  if (params && typeof params === 'object') {
+    return request(url + '?' + stringify(params), op)
+  }
+
+  return request(url, {
+    method: 'PUT',
+    ...op
+  })
+}
