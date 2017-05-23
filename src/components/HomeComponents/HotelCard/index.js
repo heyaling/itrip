@@ -13,7 +13,7 @@ export default class HotelCard extends React.Component {
           <span>返现</span>*/}
         </div>
         <div className='HotelCard-desc'>
-          <p>{hotel.hotelName}</p>
+          <p className='hotelPName'>{hotel.hotelName}</p>
           <p>
             <span>￥</span>
             <b>{hotel.minPrice}</b>

@@ -48,3 +48,9 @@
    color: #000;
 }
 
+.hotelPName{
+  width: 258px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
