@@ -43,13 +43,15 @@ export function postRequest(url, params, op = {}) {
   })
 }
 
+
+
 export function putRequest(url, params, op = {}) {
   if (params && typeof params === 'object') {
-    return request(url + '?' + stringify(params), op)
+    return request(url + '?' + stringify(params), { method: 'PUT', ...op })
   }
-
-  return request(url, {
-    method: 'PUT',
-    ...op
-  })
+  return request(url,
+    {
+      method: 'PUT',
+      ...op
+    })
 }

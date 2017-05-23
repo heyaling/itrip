@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input, Checkbox, Button, message, Modal, Row, Col } from 'antd'
 import { hashHistory } from 'react-router'
 import { postRequest, getRequest, putRequest } from 'common/js/fetch'
-import { registerUrl, activateEmailUrl, ckusrUrl} from 'constants/url'
+import { registerUrl, activateEmailUrl, ckusrUrl } from 'constants/url'
 import LoginFooter from 'components/Footer/LoginFooter.js'
 import './style.css'
 import loginLogo from './imgs/i-LOGO-02-01.png'
@@ -24,7 +24,7 @@ const tailFormItemLayout = {
   }
 }
 
-function requestError (err) {
+function requestError(err) {
   if (err.msg || err.message) {
     Modal.error({
       title: '错误提示：',
@@ -107,11 +107,11 @@ class Register extends React.Component {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (err) return
-      
+
       delete values.confirm
       delete values.agreement
 
-      postRequest(registerUrl).then(data => {
+      postRequest(registerUrl, values).then(data => {
         message.success('还差一步，激活码已经发送到你邮箱，激活后帐号才可以使用哦！')
         this.setState({
           visible: true
@@ -120,10 +120,11 @@ class Register extends React.Component {
     });
   }
 
-  validatorEmail (rule, value, callback) {
+  validatorEmail(rule, value, callback) {
     if (!/^(\w)+(\.\w+)*@(\w)+((\.\w{2,3}){1,3})$/.test(value)) {
       return callback('请输入正确的邮箱格式')
     }
+    
     getRequest(ckusrUrl, {
       name: value
     }).then(data => {
@@ -155,29 +156,46 @@ class Register extends React.Component {
                     {...formItemLayout}
                     hasFeedback
                     label='注册邮箱'>
-                      {getFieldDecorator('userCode', {
-                        rules: [{
-                          required: true,
-                          message: '邮箱必须填写！'
-                        }, {
-                          validator: this.validatorEmail
-                        }]
-                      })(
-                        <Input placeholder="请输入邮箱" />
+                    {getFieldDecorator('userCode', {
+                      rules: [{
+                        required: true,
+                        message: '邮箱必须填写！'
+                      }, {
+                        validator: this.validatorEmail
+                      }]
+                    })(
+                      <Input placeholder="请输入邮箱" />
                       )}
                   </FormItem>
+
+                  <FormItem
+                    {...formItemLayout}
+                    hasFeedback
+                    label='昵称'>
+                    {getFieldDecorator('userName', {
+                      rules: [{
+                        required: false,
+                        message: '昵称非必填！'
+                      }, {
+                        validator: this.validatorName
+                      }]
+                    })(
+                      <Input placeholder="请输入昵称" />
+                      )}
+                  </FormItem>
+
                   <FormItem
                     hasFeedback
                     {...formItemLayout}
                     label='登录密码'>
-                      {getFieldDecorator('userPassword', {
-                        rules: [{
-                          required: true, message: '密码必须填写!',
-                        }, {
-                          validator: this.checkConfirm,
-                        }],
-                      })(
-                        <Input type="password" placeholder='请输入密码' />
+                    {getFieldDecorator('userPassword', {
+                      rules: [{
+                        required: true, message: '密码必须填写!',
+                      }, {
+                        validator: this.checkConfirm,
+                      }],
+                    })(
+                      <Input type="password" placeholder='请输入密码' />
                       )}
                   </FormItem>
                   <FormItem
@@ -185,14 +203,14 @@ class Register extends React.Component {
                     {...formItemLayout}
                     label='确认密码'>
                     {getFieldDecorator('confirm', {
-                          rules: [{
-                            required: true, message: '确认密码必须填写!',
-                          }, {
-                            validator: this.checkPassword,
-                          }],
-                        })(
-                          <Input type="password" placeholder='请输入确认密码' onBlur={this.handleConfirmBlur} />
-                        )}
+                      rules: [{
+                        required: true, message: '确认密码必须填写!',
+                      }, {
+                        validator: this.checkPassword,
+                      }],
+                    })(
+                      <Input type="password" placeholder='请输入确认密码' onBlur={this.handleConfirmBlur} />
+                      )}
                   </FormItem>
                   <FormItem {...tailFormItemLayout}>
                     <div className="i-reg-check">
@@ -201,7 +219,7 @@ class Register extends React.Component {
                         initialValue: true
                       })(
                         <Checkbox />
-                      )}
+                        )}
                       <label htmlFor="i-reg-info">
                         我已经阅读并同意遵守
                         <a className="agreement" href="javascript:;">《i旅行用户服务协议》</a>
@@ -213,7 +231,7 @@ class Register extends React.Component {
                       <Button size='large' className="submitTwo" type='primary' htmlType="submit">
                         同意协议并注册
                       </Button>
-                      <Button size='large' onClick={this.showModal} style={{marginLeft: '1em'}}>激活已经有帐号</Button>
+                      <Button size='large' onClick={this.showModal} style={{ marginLeft: '1em' }}>激活已经有帐号</Button>
                     </div>
                   </FormItem>
                 </Form>
@@ -230,14 +248,14 @@ class Register extends React.Component {
           okText="激活"
           confirmLoading={this.state.confirmLoading}
           onCancel={this.handleCancel}>
-          <Row type='flex' align='middle' justify='center' style={{marginBottom: '20px'}}>
+          <Row type='flex' align='middle' justify='center' style={{ marginBottom: '20px' }}>
             <Col span={20}>
-              <Input value={this.state.user} onChange={e => this.setState({user: e.target.value})} placeholder='用户名' />
+              <Input value={this.state.user} onChange={e => this.setState({ user: e.target.value })} placeholder='用户名' />
             </Col>
           </Row>
           <Row type='flex' align='middle' justify='center'>
             <Col span={20}>
-              <Input value={this.state.inputCode} onChange={e => this.setState({inputCode: e.target.value})} placeholder='请输入激活码' />
+              <Input value={this.state.inputCode} onChange={e => this.setState({ inputCode: e.target.value })} placeholder='请输入激活码' />
             </Col>
           </Row>
         </Modal>
