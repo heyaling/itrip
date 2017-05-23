@@ -28,11 +28,11 @@ class DetailMain extends React.Component{
 		              <a href="#hotelassess" className>酒店点评（<b>6258</b>）</a>
 		            </div>
 		            <div className="i_con">
-		            <HouseList/>
-		            <HotelDetail/>
-		            <HouseFacilities/>
-		            <HousePolicy/>
-		            <HouseHotelassess/>
+		            <HouseList hotelId={1}/>
+		            {/*<HotelDetail hotelId={1}/>
+		            <HouseFacilities hotelId={1}/>
+		            <HousePolicy hotelId={1}/>
+		            <HouseHotelassess hotelId={1}/>*/}
 		            </div>
 		          </div>
 		        </div>
@@ -45,7 +45,7 @@ export default class App extends React.Component {
   render () {
     return (
       <div>
-        <Video />
+        {/*<Video />*/}
         <DetailMain/>
       </div>
     )

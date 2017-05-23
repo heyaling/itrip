@@ -15,7 +15,7 @@ export default class HouseFacilities extends React.Component {
   }
   componentWillMount() {
     fetchBiz({
-      url: "/hotel/queryhotelfacilities/1",
+      url: "/hotel/queryhotelfacilities/"+this.props.hotelId,
       callback: (data) => {
         this.setState({
           group: eval("("+data.data+")")

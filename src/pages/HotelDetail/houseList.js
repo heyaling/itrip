@@ -100,26 +100,28 @@ class HotelTables extends React.Component {
   }
   initState() {
     let data = this.props.data;
-    let dat = data.map(
-      function (value, index, array) {
-        return {
-          group: index,
-          state: false,
-          rowSize: value.row.length
-        }
+    if (data.length>0) {
+      let dat = data.map(
+        function (value, index, array) {
+          return {
+            group: index,
+            state: false,
+            rowSize: value.length
+          }
 
-      }
-    )
-    this.setState({
-      showRowState: dat
-    })
-    return dat
+        }
+      )
+      this.setState({
+        showRowState: dat
+      })
+      return dat
+    }
   }
   componentWillReceiveProps() {
-    console.debug(this.initState(this.props.data));
+    this.initState(this.props.data);
   }
   componentWillMount() {
-    console.debug(this.initState(this.props.data));
+    this.initState(this.props.data);
   }
   //点击展开按钮时界面显示状态
   clickEvop(e) {
@@ -182,13 +184,13 @@ class HotelTables extends React.Component {
                 function (value, index, array) {
                   {/*拿到第一层的数据结构信息*/ }
                   let groupRow = ""
-                  groupRow = value.row.map(
+                  groupRow = value.map(
                     function (val, i, ary) {
                       return (<TablesTr data={val} rowId={index} showRow={showRowState}
                         dataLength={ary.length > rowSize ? rowSize : ary.length} length={i} />)
                     }
                   )
-                  if (value.row.length > rowSize) {
+                  if (value.length > rowSize) {
                     groupRow.push(<tr className="unexpanded last_room" overf="F">
                       <td className="fold_bold_r" />
                       <td className="child_name" />
@@ -198,7 +200,7 @@ class HotelTables extends React.Component {
                       <td />
                       <td className="col_policy" />
                       <td className="room_detail_fold">
-                        <a data-hidedata={value.row.length - rowSize} onClick={click} data-row={index} data-status={0}>
+                        <a data-hidedata={value.length - rowSize} onClick={click} data-row={index} data-status={0}>
                           <span>展开全部房型</span><i className=" icon-chevron-down" /></a>
                       </td>
                     </tr>)
@@ -218,24 +220,15 @@ class HotelTables extends React.Component {
 export default class HouseList extends React.Component {
   param = {
     "endDate": "2017-05-20T02:30:06.535Z",
-    "hotelId": 1,
+    "hotelId": this.props.hotelId,
     "isBook": 0,
     "isHavingBreakfast": 0,
     "isTimelyResponse": 0,
     "roomBedTypeId": 0,
     "startDate": "2017-05-20T02:30:06.535Z"
-  }
-  constructor(props) {
-    super(props);
-
-    // 设置 initial state
-    this.state = {
-      text: props.initialValue || 'placeholder'
-    };
-
-    // ES6 类中函数必须手动绑定
-    // this.handleClick = this.handleClick.bind(this);
-
+  } 
+  state={
+    data:[]
   }
   componentWillMount() {
     this.getData();
@@ -253,6 +246,7 @@ export default class HouseList extends React.Component {
         this.setState({
           data: data.data
         })
+        this.state.data=data.data;
       }
     })
 
@@ -297,7 +291,7 @@ export default class HouseList extends React.Component {
 
           </div>
         </div>
-        {/*<HotelTables data={this.state.data} />*/}
+        <HotelTables data={this.state.data} />
       </div>
     )
 

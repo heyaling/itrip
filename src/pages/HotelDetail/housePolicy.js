@@ -13,42 +13,18 @@ import img_04 from '../../common/images/icon/card_xxx1214_09.jpg'
 
 'use strict';
 export default class HousePolicy extends React.Component {
-  state={
-    data:[]
+  state = {
+    data: []
   }
   componentWillMount() {
     fetchBiz({
-      url: "/hotel/queryhotelpolicy/1",
+      url: "/hotel/queryhotelpolicy/"+this.props.hotelId,
       callback: (data) => {
         this.setState({
-          data: eval("([" + data.data + "])")
+          data: eval("(" + data.data + ")")
         })
       }
     })
-    /*
-        this.setState({
-          data:
-          [{
-            "rootName": "入住和离店",
-            "leafs": ["入住时间：15:00以后      离店时间：12:00以前"]
-          }, {
-            "rootName": "儿童政策",
-            "leafs": ["不接受18岁以下客人单独入住。",
-              "1岁以下婴儿使用现有床铺免费，不含儿童早餐。",
-              "1岁以下婴儿加婴儿床免费，不含儿童早餐。",
-              "1-18岁儿童使用现有床铺免费，不含儿童早餐。",
-              "1-18岁儿童加床收费，每晚RMB300.00，不含儿童早餐。",
-              "6-12岁儿童早餐为人民币105 / 位 / （包含10％服务费）。6岁以下儿童增订早餐免费。",
-            ]
-          }, {
-            "rootName": "膳食安排",
-            "leafs": ["自助早餐 RMB 210"]
-          }, {
-            "rootName": "宠物",
-            "leafs": ["不可携带宠物。"]
-          },
-          ]
-        })*/
   }
   render() {//clearfix
     return (
@@ -61,19 +37,31 @@ export default class HousePolicy extends React.Component {
           <div className="i_list_shang">
             <div className="facility_list">
               {
-                this.state.data.map(function (val, i, array) {
-                  return (
-                    <div className="list_wrap clearfix">
-                      <h5>【{val.rootName}】</h5>
-                      <ol>
-                        {
-                          val.leafs.map(value => {
-                            return (<li>{value}</li>)
-                          })
-                        }
-                      </ol>
-                    </div>
-                  )
+                this.state.data.map((val, i, array) => {
+                  if (typeof val.description == "string") {
+                    return (
+                      <div className="list_wrap clearfix">
+                        <h5>【{val.name}】</h5>
+                        <ol>
+                          <li>{val.description}</li>
+                        </ol>
+                      </div>
+                    )
+                  } else {
+                    return (
+                      <div className="list_wrap clearfix">
+                        <h5>【{val.name}】</h5>
+                        <ol>
+                          {
+                            val.description.map(value => {
+                              return (<li>{value}</li>)
+                            })
+                          }
+                        </ol>
+                      </div>
+                    )
+                  }
+
                 })
               }
               <div className="list_wrap">
