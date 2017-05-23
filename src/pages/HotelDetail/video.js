@@ -38,7 +38,6 @@ export class VideoHeader extends React.Component {
 
   }
   componentWillMount() {
-    var sef = this;
     fetchSearch({
       url: "/hotellist/searchItripHotelListByHotCity",
       type: "POST",

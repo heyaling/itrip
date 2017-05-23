@@ -1,3 +1,10 @@
 .travel input[type="checkbox"] {
     margin-top: 0!important;
 }
+.radio-inline input[type="radio"], .checkbox-inline input[type="checkbox"] {
+  margin: 0;
+}
+.tavern-search-params .search-one-param {
+  padding-top: 10px!important;
+  padding-bottom: 10px!important;
+}

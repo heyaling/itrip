@@ -35,7 +35,7 @@ const tailFormItemLayout = {
 class SearchHotelForeign extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault()
-  
+
     this.props.form.validateFields((err, values) => {
       if (err) return
       for (const formField in values) {
@@ -57,7 +57,7 @@ class SearchHotelForeign extends React.Component {
           <FormItem
             {...formItemLayout}
             label="目的地">
-            {getFieldDecorator('muDiDi', { initialValue: '' })(
+            {getFieldDecorator('destination', { initialValue: '' })(
               <Input size='small' placeholder='三亚' />
             )}
           </FormItem>
@@ -66,7 +66,7 @@ class SearchHotelForeign extends React.Component {
               <FormItem
                 {...formItemLayout2}
                 label="入住时间">
-                {getFieldDecorator('ruZhuShiJian', { initialValue: '' })(
+                {getFieldDecorator('checkInDate', { initialValue: '' })(
                   <DatePicker style={{ width: '94px' }} size='small' />
                 )}
               </FormItem>
@@ -75,29 +75,16 @@ class SearchHotelForeign extends React.Component {
               <FormItem
                 {...formItemLayout2}
                 label="退房时间">
-                {getFieldDecorator('tuiFangShiJian', { initialValue: '' })(
+                {getFieldDecorator('checkOutDate', { initialValue: '' })(
                   <DatePicker style={{ width: '94px' }} size='small' />
                 )}
               </FormItem>
             </Col>
           </Row>
-          {/*<FormItem
-            {...formItemLayout}
-            label="住客数">
-            {getFieldDecorator('zhuKeShu', { initialValue: '' })(
-              <Select placeholder='请选择' size='small' style={{ width: '110px' }}>
-                <Option value="1">1成人/间</Option>
-                <Option value="2">2成人/间</Option>
-                <Option value="3">3成人/间</Option>
-                <Option value="4">4成人/间</Option>
-                <Option value="5">5成人/间</Option>
-              </Select>
-            )}
-          </FormItem>*/}
-              <FormItem
+          <FormItem
             {...formItemLayout}
             label="酒店级别">
-            {getFieldDecorator('juDianJiBie', { initialValue: '' })(
+            {getFieldDecorator('hotelLevel', { initialValue: '' })(
               <Select size='small' style={{ width: '110px' }} placeholder='请选择'>
                 <Option value="0">不限</Option>
                 <Option value='5'>五星级/豪华</Option>
@@ -110,7 +97,7 @@ class SearchHotelForeign extends React.Component {
           <FormItem
             {...formItemLayout}
             label="关键词">
-            {getFieldDecorator('guangJianCi', { initialValue: '' })(
+            {getFieldDecorator('keywords', { initialValue: '' })(
               <Input size='small' placeholder='海岛' />
             )}
           </FormItem>
@@ -124,8 +111,8 @@ class SearchHotelForeign extends React.Component {
                     <a href="#">自由行</a>、
                     <a href="#">名胜古迹</a>、
                     <a href="#">都市购物</a>
-                </div>
-              </FormItem>
+            </div>
+          </FormItem>
           <FormItem
             {...tailFormItemLayout}
             colon={false}
@@ -133,7 +120,7 @@ class SearchHotelForeign extends React.Component {
             <div className='common-tar'>
               <Button type="primary" htmlType="submit" size="default">
                 搜索行程
-                <Icon style={{fontSize: '10px'}} type="right" />
+                <Icon style={{ fontSize: '10px' }} type="right" />
               </Button>
             </div>
           </FormItem>

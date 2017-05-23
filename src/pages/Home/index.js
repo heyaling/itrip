@@ -6,7 +6,7 @@ import HomeHotel from 'components/HomeComponents/HomeHotel'
 import HomeRecommend from 'components/HomeComponents/HomeRecommend'
 import HomeAd from 'components/HomeComponents/HomeAd'
 import { postRequest, getRequest } from 'common/js/fetch'
-import { hotelCityUrl, foreignHotelCityUrl} from 'constants/url'
+import { hotelCityUrl, foreignHotelCityUrl, featureHotelUrl} from 'constants/url'
 import home from 'constants/home'
 import './style.css'
 
@@ -22,11 +22,14 @@ export default class Home extends React.Component {
     hotHotel: {
       title: '热门城市酒店',
       category: []
-    }
+    },
+    featureHotel: []
   }
 
   componentWillMount () {
     const { foreignHotel, hotHotel } = this.state
+
+    // 酒店列表
     Promise.all([
       getRequest(foreignHotelCityUrl),
       getRequest(hotelCityUrl)
@@ -53,11 +56,24 @@ export default class Home extends React.Component {
       }
       console.log(err)
     })
+
+    // 特色酒店
+    getRequest(featureHotelUrl).then(res => {
+      this.setState({
+        featureHotel: res.data
+      })
+    }).catch(err => {
+      if (err.msg || err.message) {
+        message.error(err.msg || err.message)
+        return
+      }
+      console.log(err)
+    })
   }
 
   render() {
-    const { loadding, foreignHotel, hotHotel } = this.state
-    
+    const { loadding, foreignHotel, hotHotel, featureHotel } = this.state
+
     return (
       <div className='home'>
         <Row>
@@ -88,7 +104,7 @@ export default class Home extends React.Component {
         </div>
 
         <div className='homr-recommend'>
-          <HomeRecommend />
+          <HomeRecommend accordionTitles={featureHotel}/>
         </div>
       </div>
     )

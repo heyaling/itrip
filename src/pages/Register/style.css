@@ -56,9 +56,9 @@ section{
 
 .i-reg-bottom input {
 	padding-left: 10px;
-	width: 330px;
-	height: 48px;
-	margin-left: 5px;
+	/*width: 330px;*/
+	/*height: 48px;*/
+	/*margin-left: 5px;*/
 	border: 1px solid #a0a0a0;
 	color: #666;
 }
@@ -138,7 +138,7 @@ section{
 .i-reg-check {
 	height: 35px;
 	line-height: 35px;
-	margin-left: 80px;
+	/*margin-left: 80px;*/
 	font-size: 14px;
 	font-family: "microsoft yahei";
 	color: #CCC;
@@ -152,7 +152,7 @@ section{
 }
 .i-reg-sub  input{
 	width: 280px;
-	height: 40px;
+	/*height: 40px;*/
 	line-height: 32px;
 	margin: 20px 0 0 80px;
 	background-color: #f19149;
@@ -172,4 +172,8 @@ section{
 /* 邮箱注册 */
 .i_mail {
 	text-indent: 0;
+}
+
+.Register .ant-row {
+	margin-bottom: 30px;
 }

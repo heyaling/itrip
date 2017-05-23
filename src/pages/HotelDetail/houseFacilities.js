@@ -5,133 +5,26 @@
 * @Last Modified time: 2017-05-08 13:59:32
 */
 import React from 'react'
+import { fetchBiz } from '../../components/fetchUtils'
 'use strict';
 
 
 export default class HouseFacilities extends React.Component {
-  componentWillMount() {
-
-    this.setState({
-      group: [
-        {
-        "rootName": "通用设施",
-        "leafs": [{
-          "name": "ktv",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "spa",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "stop",
-          "pic": "icon-ok-circle"
-        }
-        ]
-      },
-        {
-        "rootName": "通用设施",
-        "leafs": [{
-          "name": "ktv",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "spa",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "stop",
-          "pic": "icon-ok-circle"
-        }
-        ]
-      },
-        {
-        "rootName": "通用设施",
-        "leafs": [
-          {
-          "name": "ktv",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "spa",
-          "pic": "icon-ok-circle"
-        }, 
-          {
-          "name": "ktv",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "spa",
-          "pic": "icon-ok-circle"
-        }, 
-          {
-          "name": "ktv",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "spa",
-          "pic": "icon-ok-circle"
-        }, 
-          {
-          "name": "ktv",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "spa",
-          "pic": "icon-ok-circle"
-        }, 
-          {
-          "name": "ktv",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "spa",
-          "pic": "icon-ok-circle"
-        }, 
-          {
-          "name": "ktv",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "spa",
-          "pic": "icon-ok-circle"
-        }, 
-          {
-          "name": "ktv",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "spa",
-          "pic": "icon-ok-circle"
-        }, 
-        {
-          "name": "stop",
-          "pic": "icon-ok-circle"
-        }
-        ]
-      },
-        {
-        "rootName": "通用设施",
-        "leafs": [{
-          "name": "ktv",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "spa",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "stop",
-          "pic": "icon-ok-circle"
-        }
-        ]
-      },
-       {
-        "rootName": "活动设施",
-        "leafs": [{
-          "name": "游泳池",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "健身房",
-          "pic": "icon-ok-circle"
-        }, {
-          "name": "泡泡浴",
-          "pic": "icon-ok-circle"
-        }
-        ]
-      }
-      ]
-    })
-
+  state={
+    group:[]
   }
+  componentWillMount() {
+    fetchBiz({
+      url: "/hotel/queryhotelfacilities/"+this.props.hotelId,
+      callback: (data) => {
+        this.setState({
+          group: eval("("+data.data+")")
+        })
+      }
+    })
+    }
   render() {
+    if(!this.state.group) return;
     return (
 
       <div className="i_cost i_cost_con clearfix">

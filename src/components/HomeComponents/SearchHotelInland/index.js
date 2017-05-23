@@ -57,7 +57,7 @@ class SearchHotelInland extends React.Component {
           <FormItem
             {...formItemLayout}
             label="目的地">
-            {getFieldDecorator('muDiDi', { initialValue: '' })(
+            {getFieldDecorator('destination', { initialValue: '' })(
               <Input size='small' placeholder='三亚' />
             )}
           </FormItem>
@@ -66,7 +66,7 @@ class SearchHotelInland extends React.Component {
               <FormItem
                 {...formItemLayout2}
                 label="入住时间">
-                {getFieldDecorator('ruZhuShiJian', { initialValue: '' })(
+                {getFieldDecorator('checkInDate', { initialValue: '' })(
                   <DatePicker style={{ width: '94px' }} size='small' />
                 )}
               </FormItem>
@@ -75,7 +75,7 @@ class SearchHotelInland extends React.Component {
               <FormItem
                 {...formItemLayout2}
                 label="退房时间">
-                {getFieldDecorator('tuiFangShiJian', { initialValue: '' })(
+                {getFieldDecorator('checkOutDate', { initialValue: '' })(
                   <DatePicker style={{ width: '94px' }} size='small' />
                 )}
               </FormItem>
@@ -84,7 +84,7 @@ class SearchHotelInland extends React.Component {
           <FormItem
             {...formItemLayout}
             label="酒店级别">
-            {getFieldDecorator('juDianJiBie', { initialValue: '' })(
+            {getFieldDecorator('hotelLevel', { initialValue: '' })(
               <Select size='small' style={{ width: '110px' }} placeholder='请选择'>
                 <Option value="0">不限</Option>
                 <Option value='5'>五星级/豪华</Option>
@@ -97,7 +97,7 @@ class SearchHotelInland extends React.Component {
           <FormItem
             {...formItemLayout}
             label="关键词">
-            {getFieldDecorator('guangJianCi', { initialValue: '' })(
+            {getFieldDecorator('keywords', { initialValue: '' })(
               <Input size='small' placeholder='海岛' />
             )}
           </FormItem>
