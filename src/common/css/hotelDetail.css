@@ -471,7 +471,7 @@
 
 .rom_unit_label span {
     position: absolute;
-    bottom: 20px;
+    top: 20px;
     right: 50px;
 }
 
@@ -493,21 +493,26 @@
 }
 
 .room_img_ms {
-    position: absolute;
+    /*position: absolute;
     top: 20px;
-    left: 10px;
+    left: 10px;*/
+    width: 80px;
+    margin: auto; 
 }
-
-.room_img_ms a:last-child {
-    text-align: center;
-    /*padding-left: 10px;*/
+.room_img_ms a{
+ width: 50px;
+    margin: auto; 
+}
+.room_img_ms a:last-child { 
     float: left;
     width: 100px;
+    margin-left: -10px;
+
 }
 
 .room_img_ms img {
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
 }
 
 .room_detail_fold a {
@@ -516,17 +521,18 @@
 }
 
 .rom-show-image {
-    position: absolute;
-    right: -500px;
-    top: 30px;
+  
     width: 500px;
     height: 500px;
+    /*position: absolute;
+    right: -500px;
+    top: 30px;
     background: #eee;
     z-index: 51;
     border: 1px solid #eee;
     padding: 10px;
     margin-left: 30px;
-    display: none ;
+    display: none ;*/
 }
 
 .rom-show-image .left-tran {

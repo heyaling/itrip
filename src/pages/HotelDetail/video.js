@@ -6,16 +6,17 @@
 */
 import React from 'react'
 
+
 import video_01 from '../../common/images/video/travel/video.mp4'
 import video_02 from '../../common/images/video/travel/video.webm'
 import video_03 from '../../common/images/video/travel/video1.mp4'
-import { fetchBiz, fetchSearch } from '../../components/fetchUtils'
+import { fetchBiz } from '../../components/fetchUtils'
 export default class Video extends React.Component {
   render() {
     return (
       <div>
         <VideoModel url="" />
-        <VideoHeader />
+        <VideoHeader hotelId={this.props.hotelId}/>
       </div>
     )
   }
@@ -24,44 +25,34 @@ let imgSrc = "";
 /* 视频显示组件， 用于加载视频头部数据信息*/
 
 export class VideoHeader extends React.Component {
-  constructor(props) {
-    super(props);
-
-    // 设置 initial state
-    this.state = {
-      text: props.initialValue || 'placeholder'
-    };
-
-    // ES6 类中函数必须手动绑定
-    // this.handleClick = this.handleClick.bind(this);
-    imgSrc = video_03;
-
-  }
-  componentWillMount() {
-    fetchSearch({
-      url: "/hotellist/searchItripHotelListByHotCity",
-      type: "POST",
-      param: {
-        "cityId": 0,
-        "count": 0
-      },
-      callback: e=> {
-        console.debug(e);
-        this.setState({
+  state={
           title: "三亚喜来登度假酒店",
           desc: "Sheraton Sanya Resort",
           subDesc: "【 亚龙湾 】国家旅游度假区，亚龙湾高尔夫球场对面",
           descMap: ["东南亚风情12311", "休闲度假", "亲子时刻", "会议酒店"],
           video_01: video_01,
           video_02: video_02
-        })
+        }
+  constructor(props) {
+    super(props); 
+    // ES6 类中函数必须手动绑定
+    // this.handleClick = this.handleClick.bind(this);
+    imgSrc = video_03;
 
+  }
+  componentWillMount() {
+    fetchBiz({
+      url: "/hotel/getvideodesc/"+this.props.hotelId,
+      callback: e=> { 
+        let data=e.data;
+        let state=this.state;
+        state["title"]=data.hotelName;
+        // state["descMap"]=e.hotelFeatureList;
+        state["subDesc"]=data.tradingAreaNameList;
+        state["descMap"]=data.hotelFeatureList;
+        this.setState(state)
       }
     })
-
-
-
-
   }
 
   handleClick(event) {
