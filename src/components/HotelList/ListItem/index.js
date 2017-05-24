@@ -1,5 +1,7 @@
 import React from 'react'
 import DiamondIcon from 'components/HotelList/DiamondIcon'
+import ListItemfeatureNames from 'components/HotelList/ListItemfeatureNames'
+
 import jiudian from "common/images/img/jiudian.png"
 import './style.css'
 
@@ -23,16 +25,14 @@ export default class ListItem extends React.Component {
                 <div className="recommend">
                   <span className="text">力推</span>
                 </div>
-                <img src={jiudian} style={{ width: 285 }} />
+                <img src={comment.imgUrl} style={{ width: 285, height: 180 }} />
               </div>
               <div className="model-grid-right">
                 <div key={comment.id} className="model-grid-title">{comment.hotelName}</div>
                 <div className="model-grid-label">
                   {/*钻石组件*/}
                   <DiamondIcon iconSum={comment.hotelLevel} />
-                  <span className="item">商务出行</span>
-                  <span className="item">会议酒店</span>
-                  <span className="item">精品酒店</span>
+                  <ListItemfeatureNames featureStr={comment.featureNames}/>
                 </div>
                 <div className="model-grid-message">
                   {comment.address}
@@ -44,12 +44,12 @@ export default class ListItem extends React.Component {
                 </div>
                 <div className="model-grid-grade">
                   <div className="cell-grade">
-                    <div className="left"> <span>4.7</span>/5分</div>
-                    <div key={comment.id} className="right"> 98%用户推荐</div>
-                    <div>源自1653位住客点评</div>
+                    <div className="left"> <span>{comment.avgScore}</span>/5分</div>
+                    <div key={comment.id} className="right"> {comment.isOkCount}用户推荐</div>
+                    <div>源自{comment.commentCount}位住客点评</div>
                   </div>
                   <div className="cell-money">
-                    ￥<span key={comment.id} >{comment.maxPrice}</span>起
+                    ￥<span key={comment.id} >{comment.minPrice}</span>起
 		            </div>
                   <button className="btn btn-default">查看详情</button>
                 </div>

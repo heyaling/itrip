@@ -1,7 +1,8 @@
 import React from 'react'
 import { Form, Input, DatePicker, Row, Col, Button, Icon, Cascader } from 'antd'
-import options from 'components/Cascader'
-import { fetchBiz, fetchSearch } from 'components/fetchUtils'
+
+import CitySwitcher from 'components/CitySwitcher'
+import { fetchSearch } from 'components/fetchUtils'
 import "./style.css"
 
 const FormItem = Form.Item
@@ -50,6 +51,11 @@ class SearchHotelItem extends React.Component {
     // this.refs['submitID'].handleClick();
     this.handleSubmit();
   }
+  //获得子组件传递的名称和ID
+  handleChangeCityName = (cityName, cityId) => {
+    console.log("cityName="+ cityName)
+    console.log("cityId="+ cityId)
+  }
   handleSubmit = (e) => {
     if (e) {
       e.preventDefault()
@@ -64,7 +70,8 @@ class SearchHotelItem extends React.Component {
         }
       }
       //values包含表单的数据了
-      //console.log(values);
+      //console.log("values="+JSON.stringify(values));
+
 
       //后台接口请求数据
       fetchSearch({
@@ -75,7 +82,7 @@ class SearchHotelItem extends React.Component {
           //得到后台的请求数据
           console.log(e.data);
           // 将请求数据传递给父组件
-          this.props.receivedata(e.data)
+          this.props.receivedata(e.data, values)
         }
       })
 
@@ -94,8 +101,7 @@ class SearchHotelItem extends React.Component {
                 {...formItemLayout}
                 label="目的地">
                 {getFieldDecorator('destination', { initialValue: '北京' })(
-                  /*<Cascader options={options} size='small' placeholder="北京"/>*/
-                  <Input size='small' placeholder='北京' />
+                  <CitySwitcher changeCityName={this.handleChangeCityName} />
                 )}
               </FormItem>
             </Col>

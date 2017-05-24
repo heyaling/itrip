@@ -4,15 +4,11 @@ import { Pagination } from 'antd'
 import ListOption from 'components/HotelList/ListOption'
 import ListItem from 'components/HotelList/ListItem'
 import ListParent from 'components/HotelList/ListParent'
+
 import './style.css'
 
 //import {fetchBiz} from '../../components/fetchUtils'
 
-/*模拟的假数据*/
-/*var data = [
-  { id: 1, name: "七天", price: 2333, text: "This is one comment", sum: 3 },
-  { id: 2, name: "如家", price: 2456, text: "This is *another* comment", sum: 4 }
-];*/
 
 var data = [];
 /*let data1="";*/
@@ -46,12 +42,11 @@ export default class HotelList extends React.Component {
     return (
       <div className="HotelList">
         <ListOption dataChild={this.state.handleOptionChild} />
-        <ListParent />
+        <ListParent totalNum={this.state.total} />
         <ListItem data={this.state.rows} />
         <div className="paginationWrapper">
           <Pagination defaultCurrent={this.state.curPage} total={this.state.pageSize} />
         </div>
-
 
       </div>
     )

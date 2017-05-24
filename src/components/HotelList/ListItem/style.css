@@ -10,3 +10,6 @@
 .tavern-model-grid:last-child {
   border-bottom: none;
 }
+.featureBox {
+  font-style: normal;
+}
