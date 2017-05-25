@@ -18,3 +18,9 @@ export const activateEmailUrl = '/auth/api/activate'
 
 // 用户验证
 export const ckusrUrl = '/auth/api/ckusr'
+
+// 用户登录
+export const loginUrl = '/auth/api/dologin'
+
+// token验证
+export const chTokenUrl = '/auth/api/retoken'

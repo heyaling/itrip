@@ -1,8 +1,12 @@
 import React from 'react'
 import { hashHistory } from 'react-router'
+import Cookie from 'js-cookie'
 
 export default class Header extends React.Component {
   render() {
+    const token = Cookie.get('token')
+    const user = Cookie.get('user')
+    
     return (
       <div>
         <div className="i-top clearfix">
@@ -45,11 +49,20 @@ export default class Header extends React.Component {
               <li><a href="#"><i className="icon-credit-card" />门票</a></li>
               <li><a href="../strategy/index.html"><i className="icon-book" />攻略</a></li>
             </ul>
-            <div className="i-nav-login">
-              <a href="javascript:;" onClick={() => hashHistory.push('/login')}>登陆</a>
-              <span>|</span>
-              <a href="javascript:;" onClick={() => hashHistory.push('/register')}>注册</a>
-            </div>
+            {
+              !!token && !!user ?
+                <div className="i-nav-login">
+                  <span>欢迎您 {user}</span>
+                  <span>|</span>
+                  <a href="javascript:;" onClick={() => {}}>退出</a>
+                </div> :
+                <div className="i-nav-login">
+                  <a href="javascript:;" onClick={() => hashHistory.push('/login')}>登陆</a>
+                  <span>|</span>
+                  <a href="javascript:;" onClick={() => hashHistory.push('/register')}>注册</a>
+                </div>
+            }
+            
           </div>
         </div>
       </div>

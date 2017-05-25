@@ -82,7 +82,7 @@
 }
 .LoginContain aside .login-body {
   height: 350px;
-  text-align: center;
+  /*text-align: center;*/
 }
 .LoginContain aside .login-body #actionOption {
   margin-top: 30px;
@@ -163,4 +163,8 @@
 }
 #staticOption FormItem{
   margin-bottom: 10px;
+}
+
+.Login .ant-form-item {
+  margin-bottom: 20px;
 }

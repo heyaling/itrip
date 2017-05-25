@@ -1,8 +1,12 @@
 import React from 'react'
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button, Checkbox, Modal } from 'antd';
+import { hashHistory } from 'react-router'
+import moment from 'moment'
+import Cookie from 'js-cookie'
 import LoginFooter from 'components/Footer/LoginFooter.js'
-import './style.css'
-const FormItem = Form.Item;
+import { postRequest } from 'common/js/fetch'
+import { loginUrl, chTokenUrl } from 'constants/url'
+
 
 import loginLogo from './imgs/i-LOGO-02-01.png'
 import LeftPhone from './imgs/left-phone.png'
@@ -12,20 +16,38 @@ import iconQQ from './imgs/icon-QQ.png'
 import iconWechat from './imgs/icon-Wechat.png'
 import iconBaidu from './imgs/icon-Baidu.png'
 
+import './style.css'
+const FormItem = Form.Item;
+
+function requestError(err) {
+  if (err.msg || err.message) {
+    Modal.error({
+      title: '错误提示：',
+      content: err.msg || err.message
+    })
+    return
+  }
+  console.log(err)
+}
 
 class Login extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
-      }
+      if (err) return
+
+      postRequest(loginUrl, values).then(data => {
+        const days = moment(data.data.expTime - 0).diff(moment(data.data.genTime - 0), 'days')
+        Cookie.set('token', data.data.token, {expires: days})
+        Cookie.set('user', values.name, {expires: days})
+        hashHistory.push('/')
+      }).catch(requestError)
     });
   }
   render() {
     const { getFieldDecorator } = this.props.form;
     return (
-      <div>
+      <div className="Login">
         <div className='LoginHeader'>
           <h1>
             <img src={loginLogo} alt="" />
@@ -51,36 +73,34 @@ class Login extends React.Component {
               <div>
                 <span>会员登陆</span>&nbsp;<a href="register.html"> 立即注册</a>，享积分换礼、返现等专属优惠！
           </div>
-              <span className="right-erweima " />
+              <span className="right-erweima" />
             </div>
             <div className="login-body">
               <div id="staticOption">
                 <Form onSubmit={this.handleSubmit} className="login-form">
                   <FormItem >
-                    {getFieldDecorator('userName', {
-                      rules: [{ required: true, message: '请输入注册邮箱' }],
+                    {getFieldDecorator('name', {
+                      rules: [
+                        {type: 'email', message: '请输入正确的邮箱！'},
+                        { required: true, message: '邮箱必须填写！' }
+                      ]
                     })(
                       <Input prefix={<Icon type="user" style={{ fontSize: 13 }} />} placeholder="请输入注册邮箱" />
                       )}
                   </FormItem>
                   <FormItem>
                     {getFieldDecorator('password', {
-                      rules: [{ required: true, message: '请输入密码' }],
+                      rules: [{ required: true, message: '密码必须填写！' }]
                     })(
                       <Input prefix={<Icon type="lock" style={{ fontSize: 13 }} />} type="password" placeholder="请输入密码" />
                       )}
                   </FormItem>
                   <FormItem>
-                    {getFieldDecorator('remember', {
-                      valuePropName: 'checked',
-                      initialValue: true,
-                    })(
-                      <Checkbox>30天内自动登陆</Checkbox>
-                      )}
+                    <Checkbox checked>30天内自动登陆</Checkbox>
                     <a className="login-form-forgot" href="">忘记密码?</a>
 
                     <Button type="primary" htmlType="submit" className="login-form-button">登陆</Button>
-                    
+
                   </FormItem>
                 </Form>
               </div>
