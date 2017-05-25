@@ -22,7 +22,7 @@ export default class HotelList extends React.Component {
       curPage: 0,
       pageCount: 1,
       pageSize: 10,
-      total: 6,
+      total: 0,
       rows: [],
       handleOptionChild: (dataIndex) => {
         this.setState(dataIndex);

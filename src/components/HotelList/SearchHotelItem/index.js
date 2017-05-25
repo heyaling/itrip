@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input, DatePicker, Row, Col, Button, Icon, Cascader } from 'antd'
 
 import CitySwitcher from 'components/CitySwitcher'
-import { fetchSearch } from 'components/fetchUtils'
+import { fetchBiz, fetchSearch } from 'components/fetchUtils'
 import "./style.css"
 
 const FormItem = Form.Item
@@ -42,7 +42,10 @@ class SearchHotelItem extends React.Component {
 
     // 设置 initial state
     this.state = {
-
+      param: {},
+      cityNameValue: '',
+      cityIdValue: '',
+      cityTradeArea: {},
     };
 
   }
@@ -53,9 +56,13 @@ class SearchHotelItem extends React.Component {
   }
   //获得子组件传递的名称和ID
   handleChangeCityName = (cityName, cityId) => {
-    console.log("cityName="+ cityName)
-    console.log("cityId="+ cityId)
+    this.setState({
+      cityNameValue: cityName,
+      cityIdValue: cityId,
+
+    })
   }
+  //提交表单并向后台获取数据
   handleSubmit = (e) => {
     if (e) {
       e.preventDefault()
@@ -71,18 +78,40 @@ class SearchHotelItem extends React.Component {
       }
       //values包含表单的数据了
       //console.log("values="+JSON.stringify(values));
+      this.setState({
+        param: values,
+      })
+
+      //console.log(this.state.cityNameValue);
+
+      this.state.param["destination"] = this.state.cityNameValue;
+
+      //后台接口请求商圈数据
+      fetchBiz({
+        url: "/hotel/querytradearea/"+this.state.cityIdValue ,
+        callback: e => {
+          //得到后台的请求数据
+          //console.log(e.data);
+          // 将请求数据传递给父组件
+          //this.props.receivedata(e.data, this.state.param)
+          this.setState({
+            cityTradeArea : e.data
+          })
+        }
+      })
 
 
       //后台接口请求数据
       fetchSearch({
         url: "/hotellist/searchItripHotelPage",
         type: "POST",
-        param: values,
+        param: this.state.param,
         callback: e => {
           //得到后台的请求数据
           console.log(e.data);
           // 将请求数据传递给父组件
-          this.props.receivedata(e.data, values)
+          // 参数列表是：请求的酒店信息--表单参数列表--商圈参数列表
+          this.props.receivedata(e.data, this.state.param, this.state.cityTradeArea)
         }
       })
 

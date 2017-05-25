@@ -1,7 +1,7 @@
 import React from 'react'
-import { Radio, Checkbox, Row, Col } from 'antd';
+import { Radio, Checkbox } from 'antd';
 const RadioGroup = Radio.Group;
-import { fetchSearch } from 'components/fetchUtils'
+import { fetchBiz, fetchSearch } from 'components/fetchUtils'
 import SearchHotelItem from 'components/HotelList/SearchHotelItem'
 import './style.css'
 
@@ -26,77 +26,179 @@ export default class ListOption extends React.Component {
     super(props);
     this.state = {
       value: 1,
-      handleSearchChild: (datas, values) => {
-        // this.setState({ takeData: datas });
-        this.props.dataChild(datas);
-        this.setState({
-          param: values
-        })
-        //console.warn("takeData" + JSON.stringify(datas.rows));
-        //console.log("valuesOption = " + JSON.stringify(values));
-        //根据后台数据生成位置选项
-        this.optionnode(datas);
+      hotelFeature: {},
+      requestData: {},
+      paramForm: {},
+      paramArea: {},
+      tradeAreaSearchData: {},
+      priceSearchData: {},
+      hotelLevelSearhData: {},
+      hotelFeatureSearchData: {},
+      handleSearchChild: (datas, values, tradeAreaValue) => {
+        this.changeDate(datas, values, tradeAreaValue);
       }
     }
-    //this.clickDesc=this.clickDesc.bind(this)
   }
+  changeDate = (datas, values, tradeAreaValue) => {
+    // console.log("takeData" + JSON.stringify(datas.rows));
+    // console.log("tradearea====" + JSON.stringify(tradeAreaValue));
+    // console.log("valuesOption11 = " + JSON.stringify(values));
+    this.props.dataChild(datas);
 
-  state = {
-    optionnode: {},
-    valOption: [],
-    value1: '150',
-    value2: '二星级/舒适',
+    //表单和商圈的相关信息
+    this.setState({
+      paramForm: values,
+      paramArea: tradeAreaValue
+    })
+
+    //根据后台数据生成位置选项
+    this.optionnode(tradeAreaValue);
   }
-
-  //改变位置事件
-  onChange1 = (checkedValues) => {
-    this.state.param["tradeAreaIds"] = checkedValues.join();
-    //this.props.dataChild(this.state.param);
-    console.log('checked = ', this.state.param);
-
-
-    //后台接口请求数据
-    fetchSearch({
-      url: "/hotellist/searchItripHotelPage",
-      type: "POST",
-      param: this.state.param,
-      callback: e => {
-        //得到后台的请求数据
-        console.log("onChange1=" + JSON.stringify(e.data));
-        // 将请求数据传递给父组件
-        //this.props.receivedata(e.data, values)
+  //耗时操作放在这里面
+  componentWillMount() {
+    fetchBiz({
+      url: "/hotel/queryhotelfeature",
+      callback: (e) => {
+        // console.log("queryhotelfeature=" + e.data)
+        this.featureNode(e.data);
       }
     })
   }
+
+
+  //改变位置事件(商圈的事件)
+  onChange1 = (checkedValues) => {
+    this.state.paramForm["tradeAreaIds"] = checkedValues.join();
+    //拿到数据
+    console.log(this.state.paramForm);
+    //链接商圈之后向后台接口请求数据
+    fetchSearch({
+      url: "/hotellist/searchItripHotelPage",
+      type: "POST",
+      param: this.state.paramForm,
+      callback: e => {
+        //得到后台的请求数据
+        console.log("连接商圈==" + JSON.stringify(e.data));
+        //根据请求的后台数据改变状态值
+        this.setState({
+          tradeAreaSearchData: e.data
+        })
+        // 将请求数据传递给父组件
+        // 通过回调函数中改变的状态值
+        // 参数列表是：根据商圈请求的酒店信息--改变的表单参数列表--商圈参数列表
+        this.state.handleSearchChild(this.state.tradeAreaSearchData, this.state.paramForm, this.state.paramArea);
+      }
+    })
+
+  }
   //改变价格事件
   onChange2 = (e) => {
-    console.log('radio1 checked', e.target.value);
+    let priceNum = parseInt(e.target.value);
+    //console.log('radio1 checked', priceNum);
+    //num数值中的最大值
+    //console.log(Number.MAX_VALUE);
+    if (priceNum == 150) {
+      this.state.paramForm["minPrice"] = 0;
+      this.state.paramForm["maxPrice"] = priceNum;
+    } else if (priceNum == 300) {
+      this.state.paramForm["minPrice"] = 151;
+      this.state.paramForm["maxPrice"] = priceNum;
+    } else if (priceNum == 450) {
+      this.state.paramForm["minPrice"] = 301;
+      this.state.paramForm["maxPrice"] = priceNum;
+    } else if (priceNum == 451) {
+      this.state.paramForm["minPrice"] = priceNum;
+      this.state.paramForm["maxPrice"] = Number.MAX_VALUE;
+    }
+    //拿到数据
+    console.log(this.state.paramForm);
     this.setState({
       value1: e.target.value,
     });
+    //链接价格之后向后台接口请求数据
+    fetchSearch({
+      url: "/hotellist/searchItripHotelPage",
+      type: "POST",
+      param: this.state.paramForm,
+      callback: e => {
+        //得到后台的请求数据
+        console.log("连接价格==" + JSON.stringify(e.data));
+        //根据请求的后台数据改变状态值
+        this.setState({
+          hotelLevelSearhData: e.data
+        })
+        // 将请求数据传递给父组件
+        // 通过回调函数中改变的状态值
+        // 参数列表是：根据请求的酒店信息--改变的表单参数列表--商圈参数列表
+        this.state.handleSearchChild(this.state.hotelLevelSearhData, this.state.paramForm, this.state.paramArea);
+      }
+    })
+
   }
   //改变星级事件
   onChange3 = (e) => {
-    console.log('radio2 checked', e.target.value);
+    //console.log('radio2 checked', typeof(e.target.value));
+    let hotelLevelNum = parseInt(e.target.value);
+
+    this.state.paramForm["hotelLevel"] = hotelLevelNum;
+
     this.setState({
       value2: e.target.value,
     });
+
+    //链接星级之后向后台接口请求数据
+    fetchSearch({
+      url: "/hotellist/searchItripHotelPage",
+      type: "POST",
+      param: this.state.paramForm,
+      callback: e => {
+        //得到后台的请求数据
+        //console.log("连接商圈==" + JSON.stringify(e.data));
+        //根据请求的后台数据改变状态值
+        this.setState({
+          hotelLevelSearhData: e.data
+        })
+        // 将请求数据传递给父组件
+        // 通过回调函数中改变的状态值
+        // 参数列表是：根据请求的酒店信息--改变的表单参数列表--星级参数列表
+        this.state.handleSearchChild(this.state.hotelLevelSearhData, this.state.paramForm, this.state.paramArea);
+      }
+    })
+
   }
   //改变特色事件
   onChange4 = (checkedValues) => {
-    console.log('checked = ', checkedValues);
+    //console.log('checked = ', checkedValues);
+    this.state.paramForm["featureIds"] = checkedValues.join();
+    //拿到数据
+    //console.log(this.state.paramForm);
+    //链接商圈之后向后台接口请求数据
+    fetchSearch({
+      url: "/hotellist/searchItripHotelPage",
+      type: "POST",
+      param: this.state.paramForm,
+      callback: e => {
+        //得到后台的请求数据
+        //console.log("连接商圈==" + JSON.stringify(e.data));
+        //根据请求的后台数据改变状态值
+        this.setState({
+          hotelFeatureSearchData: e.data
+        })
+        // 将请求数据传递给父组件
+        // 通过回调函数中改变的状态值
+        // 参数列表是：根据商圈请求的酒店信息--改变的表单参数列表--商圈参数列表
+        this.state.handleSearchChild(this.state.hotelFeatureSearchData, this.state.paramForm, this.state.paramArea);
+      }
+    })
+
   }
+  //根据后台请求数据动态生成商圈列表
   optionnode = (data) => {
     let val = {};
-    if (data && data.rows.length > 0) {
-      val = data.rows.map((value, index) => {
-        this.setState({
-          valOption: value.tradingAreaNames
-        })
-        //console.log(this.state.valOption)
+    if (data && data.length > 0) {
+      val = data.map((value, index) => {
         return (
-          <Col span={3}><Checkbox value={this.state.valOption}>{value.tradingAreaNames}</Checkbox></Col>
-          //<Col span={3}><Checkbox value={index}>{value.tradingAreaNames}</Checkbox></Col>
+          <Checkbox value={value.id} key={index}>{value.name}</Checkbox>
         )
       })
     }
@@ -105,15 +207,23 @@ export default class ListOption extends React.Component {
         optionnode: val
       })
   }
+  //根据后台请求数据动态生成特色列表
+  featureNode = (data) => {
+    let val = {};
+    if (data && data.length > 0) {
+      val = data.map((value, index) => {
+        return (
+          <Checkbox value={value.id} key={index}>{value.name}</Checkbox>
+        )
+      })
+    }
+    this.setState(
+      {
+        featureNode: val
+      })
+  }
 
-
-  /*
-  clickDesc=(e)=>{
-   
-  
-  }*/
   render() {
-
     return (
       <div className="travel tavern-list">
         <div className="tavern-list-head">
@@ -128,9 +238,7 @@ export default class ListOption extends React.Component {
                 <div className="checkbox-list">
                   {/*后台动态获取数据来生成选项*/}
                   <Checkbox.Group onChange={this.onChange1}>
-                    <Row>
-                      {this.state.optionnode}
-                    </Row>
+                    {this.state.optionnode}
                   </Checkbox.Group>
 
                 </div>
@@ -148,16 +256,10 @@ export default class ListOption extends React.Component {
                 </div>
               </div>
               <div className="search-one-param">
-                <span className="param-label">特色：</span>
+                <span className="param-label" style={{ float: "left" }}>特色：</span>
                 <div className="checkbox-list">
                   <Checkbox.Group onChange={this.onChange4}>
-                    <Row>
-                      <Col span={4}><Checkbox value="休闲度假">休闲度假</Checkbox></Col>
-                      <Col span={4}><Checkbox value="青年旅社">青年旅社</Checkbox></Col>
-                      <Col span={4}><Checkbox value="精品酒店">精品酒店</Checkbox></Col>
-                      <Col span={4}><Checkbox value="商务出行">商务出行</Checkbox></Col>
-                      <Col span={4}><Checkbox value="会">会</Checkbox></Col>
-                    </Row>
+                    {this.state.featureNode}
                   </Checkbox.Group>
                 </div>
               </div>
