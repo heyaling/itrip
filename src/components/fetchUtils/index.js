@@ -9,7 +9,8 @@ let fetchRequest = function (params) {
     method: params.type ? params.type : "GET",
     mode: "cors",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      'token':'PC-212342343242343242334324bc36809d8-8-20170525093442-4f6496'
     },
     body: params.type=="POST"?JSON.stringify(params.param):params.param
   })

@@ -286,7 +286,8 @@ class HotelComment extends React.Component {
 class ImageBox extends React.Component {
   state = {
     hotelId: this.props.data.id,
-    data: []
+    data: [],
+    imgSize:"_200x200.jpg"
   }
   componentWillMount() { 
     fetchBiz({
@@ -310,6 +311,9 @@ class ImageBox extends React.Component {
     })
     e.currentTarget.style["width"] = 300 + 'px';
     e.currentTarget.style["height"] = 300 + 'px';
+    this.setState({
+      imgSize:"_500x500.jpg"
+    })
   }
   render() {
     return (
@@ -318,7 +322,7 @@ class ImageBox extends React.Component {
           this.state.data.map((data) => {
             return (
               <a>
-                <img src={data.imgUrl}
+                <img src={data.imgUrl+this.state.imgSize}
                   onClick={this.clickImage.bind(this)} height={100} width={100} alt />
               </a>
             )
