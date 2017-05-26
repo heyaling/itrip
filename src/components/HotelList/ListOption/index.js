@@ -43,7 +43,7 @@ export default class ListOption extends React.Component {
     // console.log("takeData" + JSON.stringify(datas.rows));
     // console.log("tradearea====" + JSON.stringify(tradeAreaValue));
     // console.log("valuesOption11 = " + JSON.stringify(values));
-    this.props.dataChild(datas);
+    this.props.dataChild(datas, values );
 
     //表单和商圈的相关信息
     this.setState({

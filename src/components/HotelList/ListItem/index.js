@@ -24,7 +24,7 @@ export default class ListItem extends React.Component {
             <div className="recommend">
               <span className="text">力推</span>
             </div>
-            <img src={comment.imgUrl} style={{ width: 285, height: 180 }} />
+            <img src={comment.imgUrl+"_285x180.jpg"}  />
           </div>
           <div className="model-grid-right">
             <div key={comment.id} className="model-grid-title">{comment.hotelName}</div>
