@@ -10,15 +10,15 @@ let fetchRequest = function (params) {
     mode: "cors",
     headers: {
       "Content-Type": "application/json",
-      'token':'PC-212342343242343242334324bc36809d8-8-20170525093442-4f6496'
+      'token': 'token:PC-212342343242343242334324bc36809d8-8-20170525093442-4f6496'
     },
-    body: params.type=="POST"?JSON.stringify(params.param):params.param
+    body: params.type == "POST" ? JSON.stringify(params.param) : params.param
   })
     .then(function (response) {
       if (response.ok) {
         response.json().then(res => {
-            params.callback(res);
-          })
+          params.callback(res);
+        })
       }
     })
 
@@ -43,4 +43,18 @@ let fetchSearch = function (params) {
   params.url = "/search/api" + params.url
   fetchRequest(params);
 }
-export { fetchAuth, fetchBiz, fetchSearch };
+/* name 参数显示名称*/
+//name 参数显示名称
+let getUrlParam = (name)=>{
+  var reg = new RegExp(name + "=([^&]*)(&|$)");
+  var r = window.location.hash.match(reg);
+  if (r != null) return unescape(r[1]); return null;
+}
+
+
+
+
+
+
+
+export { fetchAuth, fetchBiz, fetchSearch, getUrlParam };

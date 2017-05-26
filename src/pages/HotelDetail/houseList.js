@@ -154,7 +154,7 @@ export default class HouseList extends React.Component {
 
           </div>
         </div>
-        <HotelTables dataRow={this.state.data} />
+        <HotelTables dataRow={this.state.data} param={this.state.param} />
       </div>
     )
   }
@@ -230,7 +230,7 @@ class HotelTables extends React.Component {
                     let isCancel = { 0: "不可取消", 1: "可取消" }
                     if (i == 0) {
                       return (
-                        <TableTr a={a} d={d} sef={sef} i={i}></TableTr>
+                        <TableTr a={a} d={d} sef={sef} i={i} param={this.props.param}></TableTr>
                       )
                     } else {
                       <tr className="unexpanded">
@@ -322,6 +322,12 @@ class TableTr extends React.Component {
       showImg: data.currentTarget.src,
     })
   }
+  clickReserve=(e)=>{
+     window.location.hash = 
+     "#orderfill?hotel="+this.props.d.hotelId+"&room="+this.props.d.id+
+     "&startDate="+this.props.param.startDate.toDateString()+
+     "&endDate="+this.props.param.endDate.toDateString()
+  }
   render() {
     let a = this.props.a;
     let d = this.props.d;
@@ -370,7 +376,7 @@ class TableTr extends React.Component {
           <span className="rom_unit_label"><dfn>¥</dfn><em>{d.roomPrice}</em><span>起</span></span>
         </td>
         <td className="col7">
-          <button className="room_by">预定</button>
+          <button className="room_by" onClick={this.clickReserve.bind(this)}>预定</button>
         </td>
       </tr>
     )
