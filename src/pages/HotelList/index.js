@@ -30,7 +30,7 @@ export default class HotelList extends React.Component {
         })
         //  console.warn("parentIndex" + JSON.stringify(dataIndex));
         //  console.log(dataIndex["rows"]);
-        // console.log("formValues++++++++"+JSON.stringify(formValues));
+         console.log("formValues++++++++"+JSON.stringify(formValues));
       },
       handelSort: (sortData) => {
         let formValues = this.state.sortForm;
@@ -45,8 +45,8 @@ export default class HotelList extends React.Component {
           sortForm: formValues,
         })
         // 输出结果 查看是否拼接成功
-        console.log("sortForm++++++++1" + JSON.stringify(sortData));
-        console.log("sortForm++++++++" + JSON.stringify(this.state.sortForm));
+        /*console.log("sortForm++++++++1" + JSON.stringify(sortData));
+        console.log("sortForm++++++++" + JSON.stringify(this.state.sortForm));*/
 
         //拼接排序之后向后台接口请求数据
         fetchSearch({
@@ -81,7 +81,7 @@ export default class HotelList extends React.Component {
       <div className="HotelList">
         <ListOption dataChild={this.state.handleOptionChild} />
         <ListParent totalNum={this.state.total} dataListParent={this.state.handelSort} />
-        <ListItem data={this.state.rows} />
+        <ListItem data={this.state.rows} timeData={this.state.sortForm}/>
         <div className="paginationWrapper">
           <Pagination defaultCurrent={this.state.curPage} total={this.state.pageSize} />
         </div>
