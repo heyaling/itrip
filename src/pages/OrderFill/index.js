@@ -47,29 +47,36 @@ export default class App extends React.Component {
       "roomId": null
     },/* 保存添加信息数据*/
     addParam: {
-      "checkInDate": "2017-05-25T05:44:11.550Z",
-      "checkOutDate": "2017-05-25T05:44:11.550Z",
-      "count": 0,
-      "hotelId": 0,
-      "hotelName": "string",
-      "invoiceHead": "string",
-      "invoiceType": 0,
-      "isNeedInvoice": 0,
-      "linkUser": [
-        {
-          "id": 0,
-          "linkUserName": "string",
-        }
-      ],
-      "noticeEmail": "string",
-      "noticePhone": "string",
-      "orderType": 0,
-      "roomId": 0,
+      "checkInDate": null,
+      "checkOutDate": null,
+      "count": null,
+      "hotelId": null,
+      "hotelName": null,
+      "invoiceHead": null,
+      "invoiceType": 1,
+      "isNeedInvoice": null,
+      "linkUser": null,
+      "noticeEmail": null,
+      "noticePhone": null,
+      "orderType": null,
+      "roomId": 1,
       "specialRequirement": "string"
     },/*根据查询房间接口返回的数据信息*/
     backMess: {},
     /* 返回的联系人数据信息*/
-    Linkman: []
+    linkman: [],
+    status: {
+      /* error, success ,'' */
+      time: '',
+      check: '',
+      phone: '',
+      email: '',
+      bill: '',
+      billMessage: '',
+      specialSver: '',
+      showBill: 'none'
+    },
+    roomCount: 1
   }
   /*改变状态中的参数信息*/
   changeSateParam = (data) => {
@@ -109,29 +116,219 @@ export default class App extends React.Component {
     }
   }
   changeEve = {
-    changeTime: (e) => {
-      alert(e);
+    changestate: false,
+    changeParams: (data) => {
+      /*改变状态中的参数信息*/
+      if (data) {
+        let stateParam = this.state[data.type];
+        stateParam[data.key] = data.val;
+        this.changeState({
+          key: data.type,
+          val: stateParam
+        })
+      }
     },
-     changeRoomCount: (e) => {
-      alert(e);
+    changeTime: (e) => {
+      if (e[0].toDate().getTime() >=
+        new Date(new Date().Format('yyyy-MM-dd') + " 00:00:00").getTime()) {
+        this.changeEve.changeParams({
+          key: 'checkInDate',
+          val: e[0].toDate(),
+          type: 'addParam'
+        })
+        this.changeEve.changeParams({
+          key: 'checkOutDate',
+          val: e[1].toDate(),
+          type: 'addParam'
+        })
+        this.changeEve.changeParams({
+          key: 'time',
+          val: '',
+          type: 'status'
+        })
+      } else {
+        this.changeEve.changeParams({
+          key: 'time',
+          val: 'error',
+          type: 'status'
+        })
+      }
+
+    },
+    changeRoomCount: (e) => {
+      this.changeState({
+        key: 'roomCount',
+        val: e
+      })
     },
     changeCheckBox: (e) => {
-      alert(e);
+      if (e.length <= this.state.roomCount * 1) {
+        let linkmanMap = {};
+        this.state.linkman.map((val) => {
+          linkmanMap[val.id] = val;
+        })
+        let changeMan = []
+        e.map((val) => {
+          changeMan.push({
+            id: linkmanMap[val].id,
+            linkUserName: linkmanMap[val].linkUserName,
+          })
+        })
+        this.changeEve.changeParams({
+          key: 'linkUser',
+          val: changeMan,
+          type: 'addParam'
+        })
+        this.changeEve.changeParams({
+          key: 'check',
+          val: '',
+          type: 'status'
+        })
+      } else {
+        this.changeEve.changeParams({
+          key: 'check',
+          val: 'error',
+          type: 'status'
+        })
+      }
+
+      // console.debug(this.state.addParam);
     },
     changePhone: (e) => {
-      alert(e.currentTarget.value);
+      let val = e.currentTarget.value;
+      function validator(mobile) {
+        // 请输入手机号，手机号为11位
+        return /^0?1[3|4|5|7|8][0-9]\d{8}$/.test(mobile) ? true : false;
+      }
+      if (validator(val)) {
+        this.changeEve.changeParams({
+          key: 'noticePhone',
+          val: val,
+          type: 'addParam'
+        })
+        this.changeEve.changeParams({
+          key: 'phone',
+          val: '',
+          type: 'status'
+        })
+      } else {
+        this.changeEve.changeParams({
+          key: 'phone',
+          val: 'error',
+          type: 'status'
+        })
+      }
+      // console.debug(this.state.addParam);
     },
     changeEmail: (e) => {
-      alert(e.currentTarget.value);
+      let val = e.currentTarget.value;
+      function validator(mail) {
+        // 请输入邮箱，格式必须为邮箱格式
+        return /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(mail) ? true : false;
+      }
+      if (validator(val)) {
+        this.changeEve.changeParams({
+          key: 'noticeEmail',
+          val: val,
+          type: 'addParam'
+        })
+        this.changeEve.changeParams({
+          key: 'email',
+          val: '',
+          type: 'status'
+        })
+      } else {
+        this.changeEve.changeParams({
+          key: 'email',
+          val: 'error',
+          type: 'status'
+        })
+      }
+      // console.debug(this.state.addParam);
     },
     changeBill: (e) => {
-      alert(e);
+      let status = "none";
+      let need = 0;
+      if (e.target.checked) {
+        status = "block";
+        need = 1;
+      }
+      this.changeEve.changeParams({
+        key: 'isNeedInvoice',
+        val: need,
+        type: 'addParam'
+      })
+      this.changeEve.changeParams({
+        key: 'showBill',
+        val: status,
+        type: 'status'
+      })
+    },
+    changeBillType: (e) => {
+      this.changeEve.changeParams({
+        key: 'invoiceType',
+        val: e.target.value,
+        type: 'addParam'
+      })
+      console.debug(e);
     },
     changeBillMessage: (e) => {
-      alert(e.currentTarget.value);
+      this.changeEve.changeParams({
+        key: 'invoiceHead',
+        val: e.currentTarget.value,
+        type: 'addParam'
+      })
     },
     changeSpecialSver: (e) => {
-      alert(e.currentTarget.value);
+      this.changeEve.changeParams({
+        key: 'specialRequirement',
+        val: e.currentTarget.value,
+        type: 'addParam'
+      })
+    },
+    submitForOrder: (e) => {
+      let map = this.state.addParam;
+      let keyMap = {
+        "checkInDate": "time",
+        "checkOutDate": "time",
+        "linkUser": "check",
+        "noticeEmail": "email",
+        "noticePhone": "phone",
+      }
+      this.changeEve.changestate = true;
+      for (let key of Object.keys(this.state.addParam)) {
+        if (map[key] == null && key != 'specialRequirement' && key != 'invoiceHead'
+          && key != 'isNeedInvoice' && key != 'orderType') {
+          this.changeEve.changeParams({
+            key: keyMap[key],
+            val: 'error',
+            type: 'status'
+          })
+          console.debug(key);
+          this.changeEve.changestate = false;
+        }
+        if (key== 'checkInDate') {
+          if (map[key].getTime() <
+            new Date(new Date().Format('yyyy-MM-dd') + " 00:00:00").getTime()) {
+            this.changeEve.changestate = false;
+            this.changeEve.changeParams({
+              key: keyMap[key],
+              val: 'error',
+              type: 'status'
+            })
+          }
+        }
+      }
+      if (this.changeEve.changestate) {
+        fetchBiz({
+          url: "/hotelorder/addhotelorder",
+          type: "POST",
+          param: this.state.addParam,
+          callback: e => {
+            alert(JSON.stringify(e.data));
+          }
+        })
+      }
     }
   }
   /*获得初始化对象信息*/
@@ -149,6 +346,31 @@ export default class App extends React.Component {
     param["checkInDate"] = new Date(getUrlParam("startDate"));
     param["checkOutDate"] = new Date(getUrlParam("endDate"));
     this.changeState({ key: "param", val: param })
+    this.changeEve.changeParams({
+      key: 'checkInDate',
+      val: param["checkInDate"],
+      type: 'addParam'
+    })
+    this.changeEve.changeParams({
+      key: 'checkOutDate',
+      val: param["checkOutDate"],
+      type: 'addParam'
+    })
+    this.changeEve.changeParams({
+      key: 'roomId',
+      val: param["roomId"],
+      type: 'addParam'
+    })
+    this.changeEve.changeParams({
+      key: 'hotelId',
+      val: param["hotelId"],
+      type: 'addParam'
+    })
+    this.changeEve.changeParams({
+      key: 'count',
+      val: 1,
+      type: 'addParam'
+    })
   }
   componentWillMount() {
 
@@ -160,6 +382,11 @@ export default class App extends React.Component {
         this.setState({
           backMess: e.data
         })
+        this.changeEve.changeParams({
+          key: 'hotelName',
+          val: e.data.hotelName,
+          type: 'addParam'
+        })
       }
     })
 
@@ -169,7 +396,7 @@ export default class App extends React.Component {
       param: this.state.param,
       callback: e => {
         this.setState({
-          Linkman: e.data
+          linkman: e.data
         })
       }
     })
@@ -187,7 +414,7 @@ export default class App extends React.Component {
           <Step title="成功" />
         </Steps>
         <div width={200} height={30} style={{ fontSize: 30, color: '#1448ad' }}>
-          <h1>三亚喜来登度假酒店</h1>
+          <h1>{this.state.backMess.hotelName}</h1>
         </div>
         <div className="headerMessage">
           <ul>
@@ -203,6 +430,7 @@ export default class App extends React.Component {
                 <FormItem
                   {...formItemLayout}
                   label="入离日期"
+                  validateStatus={this.state.status.time}
                   help="入住时间不能小于当前时间！ 离开时间必须大于入住时间！" >
                   <RangePicker onChange={this.changeEve.changeTime} defaultValue={[moment(this.state.param.checkInDate, dateFormat),
                   moment(this.state.param.checkOutDate, dateFormat)]} format={dateFormat} />
@@ -215,8 +443,8 @@ export default class App extends React.Component {
                       option
                     }
                   </Select>
-                  <a href="" style={{ marginLeft: 20 }}>房费￥{
-                    this.state.backMess.price
+                  <a style={{ marginLeft: 20 }}>房费￥{
+                    this.state.backMess.price * this.state.roomCount
                   }</a><span style={{ marginLeft: 20, color: 'red', fontSize: 18 }}>仅剩{
                     this.state.backMess.store
                   }间</span>
@@ -224,11 +452,12 @@ export default class App extends React.Component {
                 <FormItem
                   {...formItemLayout}
                   label="住客信息"
+                  validateStatus={this.state.status.check}
                   help="每间房间最多允许居住3人！"
                 >
-                  <Checkbox.Group   >
+                  <Checkbox.Group onChange={this.changeEve.changeCheckBox.bind(this)} >
                     {
-                      this.state.Linkman.map((val) => {
+                      this.state.linkman.map((val) => {
                         return <Checkbox value={val.id}>{val.linkUserName}</Checkbox>
                       })
                     }
@@ -244,38 +473,40 @@ export default class App extends React.Component {
                 <FormItem
                   {...formItemLayout}
                   label="手机号码"
-                  validateStatus="error"
+                  validateStatus={this.state.status.phone}
                   help="请输入正确的手机号！"
                 >
-                  <Input addonBefore="+86" onBlur={this.changeEve.changePhone} style={{ width: 235 }} placeholder='' id="warning" />
+                  <Input addonBefore="+86" onBlur={this.changeEve.changePhone.bind(this)} style={{ width: 235 }} placeholder='' id="warning" />
                 </FormItem><br />
                 <FormItem
                   {...formItemLayout}
                   label="Email"
-                  validateStatus="error"
+                  validateStatus={this.state.status.email}
                   help="请输入正确的邮箱信息！"
                 >
-                  <Input style={{ width: 270 }} onBlur={this.changeEve.changeEmail}  placeholder='' id="warning" />
+                  <Input style={{ width: 270 }} onBlur={this.changeEve.changeEmail} placeholder='' id="warning" />
                 </FormItem>
               </Content>
             </Layout>
             <Layout style={{ height: 132, textAlign: 'center', border: '1px solid #1ab2db', borderBottom: 0 }}>
               <Sider style={{ background: '#fff', padding: 20, }}>发票信息</Sider>
               <Content style={{ background: '#f2fcff', position: 'relative' }}>
-                <Checkbox  onChange={this.changeEve.changeBill} style={{ marginTop: '30', position: 'absolute', left: 20, top: 0 }}>需要发票</Checkbox>
+                <Checkbox onChange={this.changeEve.changeBill}
+                  style={{ marginTop: '30', position: 'absolute', left: 20, top: 0 }}>需要发票</Checkbox>
                 <span style={{ marginTop: '60', fontSize: 14, color: '#ccc', fontWeight: 500, position: 'absolute', left: 20, top: 0 }}>可开具电子发票，纸质发票。订单成交后3个月内可补开。</span>
                 <br />
-                <RadioGroup defaultValue={1} style={{ position: 'absolute', left: 20, bottom: 0 }}> {/*onChange={this.onChange} value={this.state.value}*/}
+                <RadioGroup defaultValue={1} onChange={this.changeEve.changeBillType.bind(this)}
+                  style={{ position: 'absolute', display: this.state.status.showBill, left: 20, bottom: 0 }}> {/*onChange={this.onChange} value={this.state.value}*/}
                   <Radio value={1}>个人</Radio>
-                  <Radio value={2}>单位:<Input onBlur={this.changeEve.changeBillMessage} placeholder="选填" 
-                  style={{ width: 200, height: 30 }} /></Radio>
+                  <Radio value={2}>单位:<Input onBlur={this.changeEve.changeBillMessage} placeholder="选填"
+                    style={{ width: 200, height: 30 }} /></Radio>
                 </RadioGroup>
               </Content>
             </Layout>
             <Layout style={{ height: 92, textAlign: 'center', border: '1px solid #1ab2db', borderBottom: 0 }}>
               <Sider style={{ background: '#fff', padding: 20, }}>特殊服务</Sider>
               <Content style={{ background: '#f2fcff' }}>
-                <Input placeholder="选填" onBlur={this.changeEve.changeSpecialSver}  style={{ width: 200, height: 30, marginTop: 30, marginLeft: 30 }} />
+                <Input placeholder="选填" onBlur={this.changeEve.changeSpecialSver} style={{ width: 200, height: 30, marginTop: 30, marginLeft: 30 }} />
               </Content>
             </Layout>
             <Layout style={{ height: 74, border: '1px solid #1ab2db' }}>
@@ -298,7 +529,7 @@ export default class App extends React.Component {
         </div>
         <div className="order-button" style={{ height: 50, padding: 10 }}>
           <div style={{ float: 'left', display: 'inline-block' }}><a href="" style={{ color: '#1ab2db', fontSize: 14, marginTop: 3, fontWeight: 900 }}>&lt; 重现选择</a></div>
-          <div style={{ float: 'right', display: 'inline-block' }}> <Button type="danger">下一步，支付</Button></div>
+          <div style={{ float: 'right', display: 'inline-block' }}> <Button type="danger" onClick={this.changeEve.submitForOrder.bind(this)}>下一步，支付</Button></div>
           <div></div>
         </div>
       </div >
