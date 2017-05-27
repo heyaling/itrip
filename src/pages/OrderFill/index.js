@@ -5,7 +5,7 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer/'
 import Modal from './modalPlugin.js'
 import moment from 'moment';
-import { fetchBiz,getUrlParam } from '../../components/fetchUtils'
+import { fetchBiz, getUrlParam } from '../../components/fetchUtils'
 // import stp from '../../components/OrderPage/'
 const { Sider, Content } = Layout;
 const Step = Steps.Step;
@@ -108,6 +108,32 @@ export default class App extends React.Component {
       this.state.visible = true;
     }
   }
+  changeEve = {
+    changeTime: (e) => {
+      alert(e);
+    },
+     changeRoomCount: (e) => {
+      alert(e);
+    },
+    changeCheckBox: (e) => {
+      alert(e);
+    },
+    changePhone: (e) => {
+      alert(e.currentTarget.value);
+    },
+    changeEmail: (e) => {
+      alert(e.currentTarget.value);
+    },
+    changeBill: (e) => {
+      alert(e);
+    },
+    changeBillMessage: (e) => {
+      alert(e.currentTarget.value);
+    },
+    changeSpecialSver: (e) => {
+      alert(e.currentTarget.value);
+    }
+  }
   /*获得初始化对象信息*/
   constructor(props) {
     super(props);
@@ -178,13 +204,13 @@ export default class App extends React.Component {
                   {...formItemLayout}
                   label="入离日期"
                   help="入住时间不能小于当前时间！ 离开时间必须大于入住时间！" >
-                  <RangePicker defaultValue={[moment(this.state.param.checkInDate, dateFormat),
+                  <RangePicker onChange={this.changeEve.changeTime} defaultValue={[moment(this.state.param.checkInDate, dateFormat),
                   moment(this.state.param.checkOutDate, dateFormat)]} format={dateFormat} />
                 </FormItem><br />
                 <FormItem
                   {...formItemLayout}
                   label="房间数量">
-                  <Select defaultValue="1" style={{ width: 120 }}  >
+                  <Select defaultValue="1" onChange={this.changeEve.changeRoomCount} style={{ width: 120 }}  >
                     {
                       option
                     }
@@ -199,7 +225,7 @@ export default class App extends React.Component {
                   {...formItemLayout}
                   label="住客信息"
                   help="每间房间最多允许居住3人！"
-                  >
+                >
                   <Checkbox.Group   >
                     {
                       this.state.Linkman.map((val) => {
@@ -221,7 +247,7 @@ export default class App extends React.Component {
                   validateStatus="error"
                   help="请输入正确的手机号！"
                 >
-                  <Input addonBefore="+86"   style={{ width: 235 }}  placeholder='' id="warning" />
+                  <Input addonBefore="+86" onBlur={this.changeEve.changePhone} style={{ width: 235 }} placeholder='' id="warning" />
                 </FormItem><br />
                 <FormItem
                   {...formItemLayout}
@@ -229,26 +255,27 @@ export default class App extends React.Component {
                   validateStatus="error"
                   help="请输入正确的邮箱信息！"
                 >
-                  <Input style={{ width: 270 }} placeholder='' id="warning" />
+                  <Input style={{ width: 270 }} onBlur={this.changeEve.changeEmail}  placeholder='' id="warning" />
                 </FormItem>
               </Content>
             </Layout>
             <Layout style={{ height: 132, textAlign: 'center', border: '1px solid #1ab2db', borderBottom: 0 }}>
               <Sider style={{ background: '#fff', padding: 20, }}>发票信息</Sider>
               <Content style={{ background: '#f2fcff', position: 'relative' }}>
-                <Checkbox style={{ marginTop: '30', position: 'absolute', left: 20, top: 0 }}>需要发票</Checkbox>
+                <Checkbox  onChange={this.changeEve.changeBill} style={{ marginTop: '30', position: 'absolute', left: 20, top: 0 }}>需要发票</Checkbox>
                 <span style={{ marginTop: '60', fontSize: 14, color: '#ccc', fontWeight: 500, position: 'absolute', left: 20, top: 0 }}>可开具电子发票，纸质发票。订单成交后3个月内可补开。</span>
                 <br />
                 <RadioGroup defaultValue={1} style={{ position: 'absolute', left: 20, bottom: 0 }}> {/*onChange={this.onChange} value={this.state.value}*/}
                   <Radio value={1}>个人</Radio>
-                  <Radio value={2}>单位:<Input placeholder="选填" style={{ width: 200, height: 30 }} /></Radio>
+                  <Radio value={2}>单位:<Input onBlur={this.changeEve.changeBillMessage} placeholder="选填" 
+                  style={{ width: 200, height: 30 }} /></Radio>
                 </RadioGroup>
               </Content>
             </Layout>
             <Layout style={{ height: 92, textAlign: 'center', border: '1px solid #1ab2db', borderBottom: 0 }}>
               <Sider style={{ background: '#fff', padding: 20, }}>特殊服务</Sider>
               <Content style={{ background: '#f2fcff' }}>
-                <Input placeholder="选填" style={{ width: 200, height: 30, marginTop: 30, marginLeft: 30 }} />
+                <Input placeholder="选填" onBlur={this.changeEve.changeSpecialSver}  style={{ width: 200, height: 30, marginTop: 30, marginLeft: 30 }} />
               </Content>
             </Layout>
             <Layout style={{ height: 74, border: '1px solid #1ab2db' }}>
