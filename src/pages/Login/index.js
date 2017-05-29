@@ -4,7 +4,7 @@ import { hashHistory } from 'react-router'
 import moment from 'moment'
 import Cookie from 'js-cookie'
 import LoginFooter from 'components/Footer/LoginFooter.js'
-import { postRequest } from 'common/js/fetch'
+import { postRequestForm } from 'common/js/fetch'
 import { loginUrl, chTokenUrl } from 'constants/url'
 import { changeToken } from 'common/js/ckman'
 
@@ -53,7 +53,7 @@ class Login extends React.Component {
     this.props.form.validateFields((err, values) => {
       if (err) return
 
-      postRequest(loginUrl, values).then(data => {
+      postRequestForm(loginUrl, values).then(data => {
         const days = moment(data.data.expTime - 0).diff(moment(data.data.genTime - 0), 'days', true)
         Cookie.set('token', data.data.token, {expires: days})
         Cookie.set('user', values.name, {expires: days})

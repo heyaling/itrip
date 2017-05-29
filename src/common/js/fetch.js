@@ -63,14 +63,20 @@ export function putRequest(url, params, op = {}) {
 }
 
 export function postRequestForm(url, params, op = {}) {
-  const formData = new FormData()
+  const data = []
   if (params && typeof params === 'object') {
     const keys = Object.keys(params)
-    keys.forEach(key => formData.append(key, params[key]))
+    keys.forEach(key => {
+      data.push(`${key}=${params[key]}`)
+    })
   }
   return request(url, {
     ...op,
     method: 'POST',
-    headers: {}
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
+      'Accept': 'application/json'
+    },
+    body: data.join('&')
   })
 }
