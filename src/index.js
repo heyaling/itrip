@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, hashHistory } from 'react-router'
+import { changeToken } from 'common/js/ckman'
 import routes from './router'
 import 'common/css/style.css'
 Date.prototype.Format = function (fmt) {
@@ -46,5 +47,6 @@ ReactDOM.render(
   <Router
     history={hashHistory}
     routes={routes} />,
-  document.getElementById('root')
+  document.getElementById('root'),
+  changeToken
 );

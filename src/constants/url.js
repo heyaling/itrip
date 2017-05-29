@@ -22,5 +22,8 @@ export const ckusrUrl = '/auth/api/ckusr'
 // 用户登录
 export const loginUrl = '/auth/api/dologin'
 
-// token验证
+// 置换token
 export const chTokenUrl = '/auth/api/retoken'
+
+// 注销
+export const logoutUrl = '/auth/api/logout'

@@ -6,6 +6,7 @@ import Cookie from 'js-cookie'
 import LoginFooter from 'components/Footer/LoginFooter.js'
 import { postRequest } from 'common/js/fetch'
 import { loginUrl, chTokenUrl } from 'constants/url'
+import { changeToken } from 'common/js/ckman'
 
 
 import loginLogo from './imgs/i-LOGO-02-01.png'
@@ -31,17 +32,40 @@ function requestError(err) {
 }
 
 class Login extends React.Component {
+  
+  componentDidUpdate() {
+    const token = Cookie.get('token')
+    const user = Cookie.get('user')
+    
+    if (token && user) {
+      Modal.info({
+        title: '提示',
+        content: '您已经登录，若要切换用户，请先注销！',
+        onOk() {
+          hashHistory.push('/')
+        }
+      })
+    }
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (err) return
 
       postRequest(loginUrl, values).then(data => {
-        const days = moment(data.data.expTime - 0).diff(moment(data.data.genTime - 0), 'days')
+        const days = moment(data.data.expTime - 0).diff(moment(data.data.genTime - 0), 'days', true)
         Cookie.set('token', data.data.token, {expires: days})
         Cookie.set('user', values.name, {expires: days})
+        Cookie.set('expTime', data.data.expTime - 0, {expires: days})
+        changeToken()
         hashHistory.push('/')
-      }).catch(requestError)
+      }).catch(err => {
+        requestError(err)
+        Cookie.remove('token')
+        Cookie.remove('user')
+        Cookie.remove('expTime')
+      })
     });
   }
   render() {

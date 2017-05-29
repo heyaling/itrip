@@ -1,4 +1,5 @@
 import { stringify } from 'querystring'
+import Cookie from 'js-cookie'
 
 function request(url, op = {}) {
   const config = {
@@ -10,6 +11,11 @@ function request(url, op = {}) {
       'Accept': 'application/json',
       'Content-Type': 'application/json'
     }
+  }
+
+  const token = Cookie.get('token')
+  if (token) {
+    config.headers['token'] = token
   }
 
   return fetch(url, { ...config, ...op })
@@ -37,9 +43,9 @@ export function getRequest(url, params, op) {
 
 export function postRequest(url, params, op = {}) {
   return request(url, {
+    ...op,
     method: 'POST',
-    body: JSON.stringify(params),
-    ...op
+    body: JSON.stringify(params)
   })
 }
 
@@ -51,7 +57,20 @@ export function putRequest(url, params, op = {}) {
   }
   return request(url,
     {
-      method: 'PUT',
-      ...op
+      ...op,
+      method: 'PUT'
     })
+}
+
+export function postRequestForm(url, params, op = {}) {
+  const formData = new FormData()
+  if (params && typeof params === 'object') {
+    const keys = Object.keys(params)
+    keys.forEach(key => formData.append(key, params[key]))
+  }
+  return request(url, {
+    ...op,
+    method: 'POST',
+    headers: {}
+  })
 }
