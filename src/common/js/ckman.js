@@ -4,6 +4,8 @@ import { Modal } from 'antd'
 import { chTokenUrl } from 'constants/url'
 import { postRequest } from './fetch'
 
+let timeout = null
+
 function requestError(err) {
   if (err.msg || err.message) {
     Modal.error({
@@ -19,11 +21,15 @@ export function changeToken() {
     const token = Cookie.get('token')
     const user = Cookie.get('user')
     const expTime = Cookie.get('expTime')
-    const milliseconds = moment(expTime - 0).diff(moment(Date.now()))
-    
+    let milliseconds = moment(expTime - 0).diff(moment(Date.now()))
+    const ms = 25 * 60 * 1000
+
+    milliseconds = milliseconds - ms;
+    clearTimeout(timeout)
+
     if (token && user && milliseconds > 0) {
         console.log(`${milliseconds} 毫秒后自动转换Token.`)
-        setTimeout(() => {
+        timeout = setTimeout(() => {
             postRequest(chTokenUrl).then(data => {
                 const days = moment(data.data.expTime - 0).diff(moment(data.data.genTime - 0), 'days', true)
                 Cookie.set('token', data.data.token, {expires: days})
