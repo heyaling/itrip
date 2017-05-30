@@ -1,4 +1,5 @@
 import React from 'react'
+import { hashHistory } from 'react-router'
 import classnames from 'classnames'
 import './style.css'
 
@@ -9,7 +10,7 @@ export default class HomeRecommend extends React.Component {
   }
 
   static defaultProps = {
-    accordionTitles: ['', '', '', '', '', '']
+    accordionTitles: []
   }
   
   handleMouseEnter(index) {
@@ -24,13 +25,17 @@ export default class HomeRecommend extends React.Component {
     })
   }
 
+  handleClick(id, e) {
+    e.preventDefault()
+    hashHistory.push('/hotellist?id=' + id)
+  }
+
   renderAccordion() {
-    let { accordionTitles } = this.props
+    const { accordionTitles } = this.props
     const { currentIndex } = this.state
     const list = []
-    accordionTitles = accordionTitles.map(item => item.name || '')
 
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0, len = accordionTitles.length; i < len; i++) {
 
       let clsNames = classnames({
         itemBg1: i === 0,
@@ -45,11 +50,12 @@ export default class HomeRecommend extends React.Component {
 
       list.push(
         <li
+          onClick={this.handleClick.bind(this, accordionTitles[i].id)}
           className={clsNames}
           onMouseLeave={this.handleMouseLeave.bind(this)}
           onMouseEnter={this.handleMouseEnter.bind(this, i)}
           key={i}>
-          <div>{accordionTitles[i]}</div>
+          <div>{accordionTitles[i].name}</div>
         </li>
       )
     }

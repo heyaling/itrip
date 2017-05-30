@@ -1542,6 +1542,10 @@ const options = [{
 ];
 
 export default class CitySwitcher extends React.Component {
+  static defaultProps = {
+    onChange: () => {},
+    changeCityName: () => {}
+  }
   displayRender = (label) => {
     return label[label.length - 1];
   }
@@ -1550,7 +1554,7 @@ export default class CitySwitcher extends React.Component {
     console.log(label[1].label);//城市名称*/
 
     this.props.changeCityName(label[1].label, label[1].value);
-
+    this.props.onChange(label[1].value)
   }
 
   render() {

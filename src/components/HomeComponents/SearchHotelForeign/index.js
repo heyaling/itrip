@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Input, DatePicker, Row, Col, Select, Button, Icon } from 'antd'
+import CitySwitcher from 'components/CitySwitcher'
 import './style.css'
 
 const FormItem = Form.Item
@@ -58,7 +59,7 @@ class SearchHotelForeign extends React.Component {
             {...formItemLayout}
             label="目的地">
             {getFieldDecorator('destination', { initialValue: '' })(
-              <Input size='small' placeholder='三亚' />
+              <CitySwitcher />
             )}
           </FormItem>
           <Row>
