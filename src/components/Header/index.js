@@ -72,12 +72,12 @@ export default class Header extends React.Component {
         <div className="i-nav clearfix">
           <div className="i-nav-wrap">
             <ul>
-              <li><a href="../index.html" className><i className="icon-home" />首页</a></li>
-              <li><a href="../travel/index.html" className="current"><i className="icon-globe" />旅游</a></li>
-              <li className="current"><a href="./index.html"><i className="icon-hospital" />酒店</a></li>
-              <li><a href="../flyTicket.html"><i className="icon-plane" />机票</a></li>
-              <li><a href="#"><i className="icon-credit-card" />门票</a></li>
-              <li><a href="../strategy/index.html"><i className="icon-book" />攻略</a></li>
+              <li><a href="javascript:;" className><i className="icon-home" />首页</a></li>
+              <li><a href="javascript:;" className="current"><i className="icon-globe" />旅游</a></li>
+              <li className="current"><a href="javascript:;"><i className="icon-hospital" />酒店</a></li>
+              <li><a href="javascript:;"><i className="icon-plane" />机票</a></li>
+              <li><a href="javascript:;"><i className="icon-credit-card" />门票</a></li>
+              <li><a href="javascript:;"><i className="icon-book" />攻略</a></li>
             </ul>
             {
               !!token && !!user ?

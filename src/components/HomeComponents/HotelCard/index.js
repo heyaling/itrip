@@ -5,7 +5,7 @@ export default class HotelCard extends React.Component {
 
   addSuffix(imgUrl) {
     // return imgUrl.replace(/\.(jpe?g|gif)$/, '_500x500.$1')
-    return imgUrl + '_500x500.jpg'
+    return imgUrl + '_276x180.jpg'
   }
 
   render () {

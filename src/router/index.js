@@ -11,6 +11,7 @@ import OrderPayState from 'pages/OrderPayState'
 import MyInfo from 'pages/MyInfo'
 import Login from 'pages/Login'
 import Register from 'pages/Register'
+import ItripHome from 'pages/ItripHome'
 import ErrorPage from 'pages/ErrorPage'
 
 export default [
@@ -56,6 +57,10 @@ export default [
       {
         path: 'myinfo',
         component: MyInfo
+      },
+       {
+        path: 'itripHome',
+        component: ItripHome
       }
     ]
   },
