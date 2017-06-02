@@ -1,12 +1,17 @@
 .OrderListItemcc .ant-table {
     font-size: 14px;
 }
+
 .OrderListItemcc .ant-table-wrapper {
-  background: #fff;
+    background: #fff;
 }
-.selectNum, .reserveDate, .orderState {
+
+.selectNum,
+.reserveDate,
+.orderState {
     font-style: normal;
 }
+
 .orderHotelName {
     width: 160px;
     height: 40px;
@@ -18,23 +23,34 @@
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
+
 .orderHotelName a {
     color: #1448ad;
 }
+
 .ordertype {
     width: 100px;
     height: 40px;
     line-height: 40px;
 }
+
 .orderTotal {
     color: #f00;
     font-style: normal;
 }
+
 .orderdesc {
     width: 80px;
     height: 40px;
     line-height: 40px;
 }
+
 .orderdesc a {
     color: #1448ad;
-    }
+}
+
+.OrderListItemcc .ant-table-thead>tr>th.ant-table-selection-column,
+.OrderListItemcc .ant-table-tbody>tr>td.ant-table-selection-column {
+    min-width: 30px;
+    width: 30px;
+}
