@@ -147,6 +147,7 @@
   width: 100%;
   color: #999999;
   font-size: 14px;
+  margin-top: 10px;
 }
 .travel-search .travel-shortcut a {
   color: #000;
@@ -426,11 +427,11 @@
 }
 .travel-ad-body img:nth-child(1) {
   margin-left: 5px;
-  width: 235px;
+  width: 280px;
 }
 .travel-ad-body img:nth-child(2) {
   margin-left: 17px;
-  width: 730px;
+  width: 860px;
 }
 .points-list-menu {
   position: fixed;
@@ -478,27 +479,7 @@
   background: #003399;
   color: #fff;
 }
-.travel-search-list {
-  display: inline-block;
-}
-.travel-search-list div {
-  border: 2px solid #1ab2db;
-  padding-top: 13px;
-  padding-bottom: 13px;
-  height: 27px;
-  width: 100px;
-}
-.travel-search-list div i {
-  color: #999999;
-}
-.travel-search-list div input {
-  border: 0;
-  width: 60px;
-  height: inherit;
-  font-size: 14px;
-  display: inline-block;
-  background: inherit;
-}
+
 .none-style div {
   border: 0px solid #1ab2db;
   height: 60px;

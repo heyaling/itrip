@@ -76,7 +76,6 @@ export default class Header extends React.Component {
               <li><a href="javascript:;" className="current"><i className="icon-globe" />旅游</a></li>
               <li className="current"><a href="javascript:;"><i className="icon-hospital" />酒店</a></li>
               <li><a href="javascript:;"><i className="icon-plane" />机票</a></li>
-              <li><a href="javascript:;"><i className="icon-credit-card" />门票</a></li>
               <li><a href="javascript:;"><i className="icon-book" />攻略</a></li>
             </ul>
             {
