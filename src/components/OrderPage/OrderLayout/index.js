@@ -1,6 +1,7 @@
 import React from 'react'
 import OrderTab from 'components/OrderPage/OrderTab'
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { hashHistory } from 'react-router'
 // const { SubMenu } = Menu;
 const { Content, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
@@ -18,7 +19,12 @@ export default class OrderLayout extends React.Component {
     console.log('Clicked: ', e.key);
     this.setState({ current: e.key });
     console.log('clickcurrent = ' + this.state.current);
+    // 跳转到常用联系人
+    if (e.key == 5) {
+      hashHistory.push('/myinfo?')
+    }
   }
+  // 跳转页面
   render() {
     return (
       <div className="orderpagelayout">
@@ -40,7 +46,7 @@ export default class OrderLayout extends React.Component {
                   <Menu.Item key="2">机票订单</Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" title={<span><Icon type="user" />个人中心</span>}>
-                  <Menu.Item key="5">常用旅客信息</Menu.Item>
+                  <Menu.Item key="5" onSelect={this.handelskip}>常用旅客信息</Menu.Item>
                 </SubMenu>
               </Menu>
             </Sider>

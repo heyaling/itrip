@@ -53,7 +53,7 @@ const columns = [{
   title: '操作',
   dataIndex: 'operate',
   render: text => <span>
-    <Button type="primary">再次预订</Button>
+    <a href="#">{text}</a>
   </span>,
 }
 ];
@@ -83,10 +83,12 @@ export default class OrderListItem extends React.Component {
       //侧导航参数
       paramMenu: this.props.paramMenu,
       //搜索参数
-      searchparam:this.props.searchparam
+      searchparam: this.props.searchparam
     };
-   console.log ("Menu=="+JSON.stringify(this.state.paramMenu))
-   console.log ("searchparam=="+JSON.stringify(this.state.searchparam))
+    console.log("orderlist==" + JSON.stringify(this.state.orderlist))
+    console.log("param==" + JSON.stringify(this.state.param))
+    console.log("paramMenu==" + JSON.stringify(this.state.paramMenu))
+    console.log("searchparamdfd==" + JSON.stringify(this.state.searchparam))
   }
   // 分页函数
   handlClickPager = (e) => {
@@ -107,34 +109,46 @@ export default class OrderListItem extends React.Component {
       param: this.state.param,
       callback: e => {
         //得到后台的请求数据
-        //console.log("连接价格2222==" + JSON.stringify(e.data));
+        // console.log(typeof(JSON.stringify(e.data.rows)))
+        // console.log("连接价格2222==" + JSON.stringify(e.data.rows));
+        for (var i = 0; i < e.data.rows.length; i++) {
+          //转换订单状态标识码为相应的文字介绍
+          if (e.data.rows[i].orderStatus == 1) {
+            e.data.rows[i].orderStatus = "已取消";
+            e.data.rows[i]["operate"] = " ";
+          } else if (e.data.rows[i].orderStatus == 0) {
+            e.data.rows[i].orderStatus = "待付款";
+            e.data.rows[i]["operate"] = "继续提交";
+          } else if (e.data.rows[i].orderStatus == 2) {
+            e.data.rows[i].orderStatus = "未出行";
+          } else if (e.data.rows[i].orderStatus == 3) {
+            e.data.rows[i].orderStatus = "已成交";
+            e.data.rows[i]["operate"] = "点评酒店";
+          }
+
+          //转换订单类型标识码为相应的文字介绍0:旅游订单 1:酒店订单 2：机票订单
+          if (e.data.rows[i].orderType == 0) {
+            e.data.rows[i].orderType = "旅游";
+            e.data.rows[i]["operate"] = " ";
+          } else if (e.data.rows[i].orderType == 1) {
+            e.data.rows[i].orderType = "酒店";
+          } else if (e.data.rows[i].orderType == 2) {
+            e.data.rows[i].orderType = "机票";
+            e.data.rows[i]["operate"] = " ";
+          }
+
+        }
+
         //根据请求的后台数据改变状态值
         this.setState({
           orderlist: e.data
         })
-        /*let status = JSON.stringify(this.state.orderlist.rows);
-        if( status== 1){
-          this.setState({
-            status:'已取消',
-          })
-        }*/
-       /*let res = this.state.orderlist.rows.map=(value, index)=> {
-        if(value.orderStatus == "1"){
-          value.orderStatus == '已取消'
-        }
-       }
-       let status2 = JSON.stringify(res);
-       console.log("改变状态=" + JSON.stringify(status2));*/
-        /*全部订单（orderStatus：-1）
-          未出行（orderStatus：2）
-          待付款（orderStatus：0）
-          待评论（orderStatus：3）
-          已取消（orderStatus：1）*/
+
       }
     })
   }
 
- //耗时操作放在这里面
+  //耗时操作放在这里面
   componentWillMount() {
     /*console.log("父组件传子组件递数据==" + JSON.stringify(this.state.orderlist));
     console.log("父组件传子组件参数==" + JSON.stringify(this.state.param));*/
@@ -157,7 +171,7 @@ export default class OrderListItem extends React.Component {
     return (
       <div className="OrderListItemcc">
         <Table rowSelection={rowSelection} columns={columns} dataSource={this.state.orderlist.rows} pagination={false} />
-        <Pagination style={{ float: 'right',marginTop: '20px' }} pageSize={this.state.param.pageSize} onChange={this.handlClickPager}
+        <Pagination style={{ float: 'right', marginTop: '20px' }} pageSize={this.state.param.pageSize} onChange={this.handlClickPager}
           defaultCurrent={1} current={this.state.orderlist.curPage} total={this.state.orderlist.total} />
       </div>
     );

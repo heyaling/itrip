@@ -37,10 +37,11 @@ export default class OrderTab extends React.Component {
       orderTypeIndex: this.props.dataType,
        handleSearch: (searchparam) => {
         console.log("searchparam=" + JSON.stringify(searchparam))
-        this.setState({
+        /*this.setState({
           param: searchparam
-        })
-        console.log("searchparam22=" + JSON.stringify(this.state.param))
+        })*/
+        /*console.log("searchparam22=" + JSON.stringify(this.state.param))*/
+        return searchparam ;
 
       }
     }
@@ -92,7 +93,7 @@ export default class OrderTab extends React.Component {
         <Tabs type="card">
           <TabPane tab="全部订单" key="-1">
             <SearchOrder searchData={this.state.handleSearch} />
-            <OrderListItem data={this.state.data} param={{ "orderStatus": -1, "orderType": -1, "pageSize": 6, "pageNo": 1 }} paramMenu={{ "orderStatus": -1, "orderType": this.state.orderTypeIndex, "pageSize": 6, "pageNo": 1 }} searchparam={this.state.param} />
+            <OrderListItem data={this.state.data} param={{ "orderStatus": -1, "orderType": -1, "pageSize": 6, "pageNo": 1 }} paramMenu={{ "orderStatus": -1, "orderType": this.state.orderTypeIndex, "pageSize": 6, "pageNo": 1 }} searchparam={this.handleSearch} />
           </TabPane>
           <TabPane tab="未出行" key="2">
             <OrderListItem data={this.state.data} param={{ "orderStatus": 2, "orderType": -1, "pageSize": 6, "pageNo": 1 }} />

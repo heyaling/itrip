@@ -18,16 +18,6 @@ const columns = [{
 },{
   title: '证件号码',
   dataIndex: 'crednum'
-},{
-  title: '国籍',
-  dataIndex: 'nation'/*,
-  render: text => <span>
-    <i className="orderState">{text}</i>
-    <div className="orderdesc"><a href="#">订单详情</a></div>
-   </span>,*/
-}, {
-  title: '性别',
-  dataIndex: 'gender'
 }, {
   title: '操作',
   dataIndex: 'operate',
