@@ -14,13 +14,12 @@
 .travel * {
   box-sizing: content-box !important;
 }
-.travel .banner {
+/*.travel .banner {
   width: 870px;
   height: 307px;
   position: relative;
-  /* 位IE写的样式 */
-}
-.travel .banner .banner_list li {
+}*/
+/*.travel .banner .banner_list li {
   width: 100%;
   height: 320px;
   position: absolute;
@@ -83,14 +82,14 @@
   width: 13px;
   height: 13px;
   background: #1ab2db;
-}
-.travel .banner .banner-border {
+}*/
+/*.travel .banner .banner-border {
   width: 772px;
   position: absolute;
   left: 0;
   top: 5px;
   margin-top: 0px;
-}
+}*/
 .travel-head {
   height: 420px;
   margin: 0 28px 0 28px;
@@ -427,11 +426,11 @@
 }
 .travel-ad-body img:nth-child(1) {
   margin-left: 5px;
-  width: 280px;
+  width: 236px;
 }
 .travel-ad-body img:nth-child(2) {
   margin-left: 17px;
-  width: 860px;
+  width: 746px;
 }
 .points-list-menu {
   position: fixed;

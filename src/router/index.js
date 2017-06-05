@@ -13,6 +13,7 @@ import Login from 'pages/Login'
 import Register from 'pages/Register'
 import ItripHome from 'pages/ItripHome'
 import Travel from 'pages/Travel'
+import FlyTicket from 'pages/FlyTicket'
 import ErrorPage from 'pages/ErrorPage'
 
 export default [
@@ -66,6 +67,10 @@ export default [
       {
         path: 'travel',
         component: Travel
+      },
+      {
+        path: 'flyTicket',
+        component: FlyTicket
       }
     ]
   },
