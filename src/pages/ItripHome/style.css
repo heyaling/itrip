@@ -16,3 +16,7 @@
   border: 1px solid red;
   background: #fff;
 }
+
+.i-sale .i-sale-con a:hover div{
+  transform: translate(0px,-58px)
+}
