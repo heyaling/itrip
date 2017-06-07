@@ -3,7 +3,7 @@ import { Steps, Icon, Layout, Input, Checkbox, Button, Select, Radio, Form, Date
 import './index.css'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer/'
-import Modal from './modalPlugin.js'
+import Modal from '../../components/MyInfo/linkerUser/'
 import moment from 'moment';
 import { hashHistory } from 'react-router'
 import { fetchBiz, getUrlParam } from '../../components/fetchUtils'
@@ -29,12 +29,12 @@ export default class App extends React.Component {
     visible: false,
     data: {
       title: '添加用户信息',
-      url: 'http://baidu.com',
+      url: '/userinfo/adduserlinkuser',
       type: 'add',//modfiy
       userMess: {
-        userName: " 张三李四王五",
-        phone: '18788988998',
-        card: '10110220334044500'
+        userName: "",
+        phone: '',
+        card: ''
       }
     },
     callback: (data) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, Icon, Layout, Input, Checkbox, Button, Select, Radio, Form, DatePicker, Row, Col } from 'antd';
-import { fetchBiz } from '../../components/fetchUtils'
+import { fetchBiz } from 'components/fetchUtils'
 const FormItem = Form.Item;
 const Option = Select.Option;
 export default class App extends React.Component {
@@ -42,6 +42,13 @@ export class MyAddFrom extends React.Component {
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} style={{ marginBottom: '30px' }}>
+        <FormItem style={{display:'none'}} >
+          {getFieldDecorator('id', { 
+            initialValue: data.userMess.id
+          })(
+            <Input size="small" />
+            )} 
+        </FormItem>
         <FormItem
           label="姓名"
           labelCol={{ span: 6 }}
