@@ -3,6 +3,12 @@ import { Table, Button, Pagination } from 'antd';
 import { fetchBiz, fetchSearch } from 'components/fetchUtils'
 import './style.css'
 
+//点击进入详情页
+/*changeDetail = (e) => {
+    console.log(e);
+  }*/
+
+
 /*订单列表组件*/
 const columns = [{
   title: '全选',
@@ -45,9 +51,12 @@ const columns = [{
     { text: '支付成功', value: 'zhiFuChengGong' },
     { text: '已消费', value: 'yiXiaoFei' },
   ],
-  render: text => <span>
+  render: (text, record) => <span>
     <i className="orderState">{text}</i>
-    <div className="orderdesc"><a href="#">订单详情</a></div>
+    <div className="orderdesc">
+      {/*<a id={record.id} href="javascript:;" onClick={this.changeDetail.bind(this)}>订单详情</a>*/}
+      <Button /*onCellClick={this.changeDetail.bind(this)}*/ value="isOkCount">订单详情</Button>
+    </div>
   </span>,
 }, {
   title: '操作',
@@ -81,15 +90,33 @@ export default class OrderListItem extends React.Component {
       orderlist: this.props.data,
       param: this.props.param,
       //侧导航参数
-      paramMenu: this.props.paramMenu,
+      //paramMenu: this.props.paramMenu,
       //搜索参数
-      searchparam: this.props.searchparam
+      //searchparam: this.props.searchparam
     };
-    console.log("orderlist==" + JSON.stringify(this.state.orderlist))
-    console.log("param==" + JSON.stringify(this.state.param))
-    console.log("paramMenu==" + JSON.stringify(this.state.paramMenu))
-    console.log("searchparamdfd==" + JSON.stringify(this.state.searchparam))
+
   }
+  //当组件传入的 props 发生变化时调用，例如：父组件状态改变，
+  //给子组件传入了新的prop值。用于组件 props 变化后，更新state。
+  componentWillReceiveProps(nextProps) {
+    const paramMenu = nextProps.paramMenu;
+    const searchparam = nextProps.searchparam;
+    // 判断是搜索属性的变化还是左menu的变化，根据不同的变化，去请求数据
+    if (JSON.stringify(nextProps.paramMenu) !== JSON.stringify(this.props.paramMenu)) {
+      this.setState({
+        param: nextProps.paramMenu
+      });
+
+    } else if (JSON.stringify(nextProps.searchparam) !== JSON.stringify(this.props.searchparam)) {
+      this.setState({
+        param: nextProps.searchparam
+      });
+
+    }
+    //外部属性发生变化的时候，调用请求后台数据函数
+    this.getPageData();
+  }
+
   // 分页函数
   handlClickPager = (e) => {
     let param = this.state.param;
@@ -102,59 +129,54 @@ export default class OrderListItem extends React.Component {
 
   // 后台请求数据的函数
   getPageData = (e) => {
-
     fetchBiz({
       url: "/hotelorder/getpersonalorderlist",
       type: "POST",
       param: this.state.param,
       callback: e => {
         //得到后台的请求数据
-        // console.log(typeof(JSON.stringify(e.data.rows)))
-        // console.log("连接价格2222==" + JSON.stringify(e.data.rows));
-        for (var i = 0; i < e.data.rows.length; i++) {
-          //转换订单状态标识码为相应的文字介绍
-          if (e.data.rows[i].orderStatus == 1) {
-            e.data.rows[i].orderStatus = "已取消";
-            e.data.rows[i]["operate"] = " ";
-          } else if (e.data.rows[i].orderStatus == 0) {
-            e.data.rows[i].orderStatus = "待付款";
-            e.data.rows[i]["operate"] = "继续提交";
-          } else if (e.data.rows[i].orderStatus == 2) {
-            e.data.rows[i].orderStatus = "未出行";
-          } else if (e.data.rows[i].orderStatus == 3) {
-            e.data.rows[i].orderStatus = "已成交";
-            e.data.rows[i]["operate"] = "点评酒店";
-          }
+        if (e.data) {
+          for (var i = 0; i < e.data.rows.length; i++) {
+            //转换订单状态标识码为相应的文字介绍
+            if (e.data.rows[i].orderStatus == 1) {
+              e.data.rows[i].orderStatus = "已取消";
+              e.data.rows[i]["operate"] = " ";
+            } else if (e.data.rows[i].orderStatus == 0) {
+              e.data.rows[i].orderStatus = "待付款";
+              e.data.rows[i]["operate"] = "继续提交";
+            } else if (e.data.rows[i].orderStatus == 2) {
+              e.data.rows[i].orderStatus = "未出行";
+            } else if (e.data.rows[i].orderStatus == 3) {
+              e.data.rows[i].orderStatus = "已成交";
+              e.data.rows[i]["operate"] = "点评酒店";
+            }
 
-          //转换订单类型标识码为相应的文字介绍0:旅游订单 1:酒店订单 2：机票订单
-          if (e.data.rows[i].orderType == 0) {
-            e.data.rows[i].orderType = "旅游";
-            e.data.rows[i]["operate"] = " ";
-          } else if (e.data.rows[i].orderType == 1) {
-            e.data.rows[i].orderType = "酒店";
-          } else if (e.data.rows[i].orderType == 2) {
-            e.data.rows[i].orderType = "机票";
-            e.data.rows[i]["operate"] = " ";
+            //转换订单类型标识码为相应的文字介绍0:旅游订单 1:酒店订单 2：机票订单
+            if (e.data.rows[i].orderType == 0) {
+              e.data.rows[i].orderType = "旅游";
+              e.data.rows[i]["operate"] = " ";
+            } else if (e.data.rows[i].orderType == 1) {
+              e.data.rows[i].orderType = "酒店";
+            } else if (e.data.rows[i].orderType == 2) {
+              e.data.rows[i].orderType = "机票";
+              e.data.rows[i]["operate"] = " ";
+            }
           }
-
         }
 
         //根据请求的后台数据改变状态值
         this.setState({
           orderlist: e.data
         })
-
       }
     })
+
   }
 
   //耗时操作放在这里面
   componentWillMount() {
-    /*console.log("父组件传子组件递数据==" + JSON.stringify(this.state.orderlist));
-    console.log("父组件传子组件参数==" + JSON.stringify(this.state.param));*/
-
+    //search参数改变param值
     this.getPageData();
-
   }
 
   onSelectChange = (selectedRowKeys) => {
@@ -176,4 +198,7 @@ export default class OrderListItem extends React.Component {
       </div>
     );
   }
+
+
+
 }

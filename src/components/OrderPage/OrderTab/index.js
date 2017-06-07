@@ -12,44 +12,36 @@ import './style.css'
 
 /*订单页 Tab 切换 组件*/
 export default class OrderTab extends React.Component {
-  state = {
-    order: {
-      orderall: -1,
-      notravel: 2,
-      nopayment: 0,
-      nocomment: 3,
-      canceled: 1
-    },
-    initialparam: {
-      "endDate": "2018-04-02",
-      "orderStatus": -1,
-      "orderType": -1,
-      "pageNo": 1,
-      "pageSize": 5,
-      "startDate": "2016-06-02"
-    },
-    param: {}
-  }
+  /* state = {
+     order: {
+       orderall: -1,
+       notravel: 2,
+       nopayment: 0,
+       nocomment: 3,
+       canceled: 1
+     },
+     initialparam: {
+       "endDate": "2018-04-02",
+       "orderStatus": -1,
+       "orderType": -1,
+       "pageNo": 1,
+       "pageSize": 5,
+       "startDate": "2016-06-02"
+     },
+     param: {},
+     paramdef: {},
+   }*/
   constructor(props) {
     super(props);
     // 父页面传递的数据 
     this.state = {
-      orderTypeIndex: this.props.dataType,
-       handleSearch: (searchparam) => {
-        console.log("searchparam=" + JSON.stringify(searchparam))
-        /*this.setState({
-          param: searchparam
-        })*/
-        /*console.log("searchparam22=" + JSON.stringify(this.state.param))*/
-        return searchparam ;
 
-      }
     }
-    console.log("this.state.orderTye==" + this.state.orderTypeIndex);
   }
 
+
   componentWillMount() {
-    fetchBiz({
+    /*fetchBiz({
       url: "/hotelorder/getpersonalorderlist",
       type: "POST",
       param: this.state.initialparam,
@@ -57,7 +49,7 @@ export default class OrderTab extends React.Component {
         //得到后台的请求数据
         console.log("连接价格==" + JSON.stringify(e.data));
       }
-    })
+    })*/
 
     this.setState({
       "data": {
@@ -80,20 +72,35 @@ export default class OrderTab extends React.Component {
           }
         ],
         "total": 60
-      }
-    })
+      },
 
+    })
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      orderTypeIndex: nextProps.dataType
+    });
+    // console.log("this.state.searchparam=" + JSON.stringify(this.state.searchparam));
   }
 
 
+  fn(searchparam) {
+    // 使用闭包保存父组件的 this 值
+    var self = this;
+    return (searchparam) => self.setState({
+      formparam: searchparam
+    }, function () { this.forceUpdate(); })
+  }
 
   render() {
+    var fn = this.fn();
     return (
       <div className="card-container">
         <Tabs type="card">
           <TabPane tab="全部订单" key="-1">
-            <SearchOrder searchData={this.state.handleSearch} />
-            <OrderListItem data={this.state.data} param={{ "orderStatus": -1, "orderType": -1, "pageSize": 6, "pageNo": 1 }} paramMenu={{ "orderStatus": -1, "orderType": this.state.orderTypeIndex, "pageSize": 6, "pageNo": 1 }} searchparam={this.handleSearch} />
+            <SearchOrder searchData={fn} />
+            <OrderListItem data={this.state.data} param={{ "orderStatus": -1, "orderType": -1, "pageSize": 6, "pageNo": 1 }} paramMenu={{ "orderStatus": -1, "orderType": this.state.orderTypeIndex, "pageSize": 6, "pageNo": 1 }} searchparam={this.state.formparam} />
           </TabPane>
           <TabPane tab="未出行" key="2">
             <OrderListItem data={this.state.data} param={{ "orderStatus": 2, "orderType": -1, "pageSize": 6, "pageNo": 1 }} />

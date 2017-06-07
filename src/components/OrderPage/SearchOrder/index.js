@@ -47,11 +47,11 @@ class SearchOrder extends React.Component {
   }
   // 组件加载完成之后自执行一次
   componentDidMount() {
-    this.handleSubmit();
+    // this.handleSubmit();
   }
 
   handleSubmit = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
 
     this.props.form.validateFields((err, values) => {
       if (err) return
@@ -63,13 +63,18 @@ class SearchOrder extends React.Component {
         
       }
       //this.props.onSubmit(values)
-      console.log(JSON.stringify(values));
       // 表单获取数据改变状态
-      this.setState({
+      /*this.setState({
         param: values
-      })
-      // 传递到父组件
+      })*/
+      // 将获取的表单参数传递到父组件
+      values["orderStatus"] = -1;
+      values["orderType"] = -1;
+      values["pageSize"] = 6;
+
       this.props.searchData(values)
+      // console.log(this);
+      
       // 设置订单状态
       // 设置订单类型
       /*values["orderStatus"] = -1;

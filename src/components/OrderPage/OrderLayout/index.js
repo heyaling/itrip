@@ -11,13 +11,13 @@ import './style.css'
 /*订单页的主体框架*/
 export default class OrderLayout extends React.Component {
   state = {
-    current: '1'
+    current: '-1'
   }
 
   // 侧导航回调
   handleClick = (e) => {
     console.log('Clicked: ', e.key);
-    this.setState({ current: e.key });
+    this.setState({ current: e.key },function(){this.forceUpdate();});
     console.log('clickcurrent = ' + this.state.current);
     // 跳转到常用联系人
     if (e.key == 5) {
@@ -41,8 +41,8 @@ export default class OrderLayout extends React.Component {
                 <h3 className="order-title">我的i旅行首页</h3>
                 <SubMenu key="sub1" title={<span><Icon type="tag-o" />订单</span>}>
                   <Menu.Item key="-1">全部订单</Menu.Item>
-                  <Menu.Item key="0">酒店订单</Menu.Item>
-                  <Menu.Item key="1">旅游订单</Menu.Item>
+                  <Menu.Item key="1">酒店订单</Menu.Item>
+                  <Menu.Item key="0">旅游订单</Menu.Item>
                   <Menu.Item key="2">机票订单</Menu.Item>
                 </SubMenu>
                 <SubMenu key="sub2" title={<span><Icon type="user" />个人中心</span>}>
