@@ -11,8 +11,6 @@ import './style.css'
 export default class ListItem extends React.Component {
   //提交相关数据
   submitMes = (e) => {
-    console.log("e.currentTarget.value="+ e.currentTarget.value)
-    console.log("this.props.timeData="+ JSON.stringify(this.props.timeData))
     
     //改变状态
     this.setState({

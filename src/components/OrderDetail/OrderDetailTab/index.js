@@ -18,7 +18,7 @@ export default class OrderDetailTab extends React.Component {
   render() {
         return (
             <div className="orderdetailtabcc">
-              <Tabs defaultActiveKey="2" onChange={callback}>
+              <Tabs defaultActiveKey="1" onChange={callback}>
                   <TabPane tab="订单信息" key="1">
                       <OrderDetailInfo />
                       <OrderDetailStep />

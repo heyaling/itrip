@@ -1,10 +1,12 @@
 import React from 'react'
-import { Table, Button, Pagination } from 'antd';
+import { Table, Pagination } from 'antd';
 import { fetchBiz, fetchSearch } from 'components/fetchUtils'
+import { hashHistory } from 'react-router'
+import { stringify } from 'querystring'
 import './style.css'
 
 //点击进入详情页
-/*changeDetail = (e) => {
+/*const changeDetail = (e) => {
     console.log(e);
   }*/
 
@@ -54,10 +56,20 @@ const columns = [{
   render: (text, record) => <span>
     <i className="orderState">{text}</i>
     <div className="orderdesc">
-      {/*<a id={record.id} href="javascript:;" onClick={this.changeDetail.bind(this)}>订单详情</a>*/}
-      <Button /*onCellClick={this.changeDetail.bind(this)}*/ value="isOkCount">订单详情</Button>
+      <a id={record.id} href="javascript:;" >订单详情</a>
+      {/*<Button onCellClick={this.changeDetail.bind(this)} value="isOkCount">订单详情</Button>*/}
     </div>
   </span>,
+  onCellClick: (record) => {
+    // 根据订单Id跳转到详情页面
+    console.log(record.id)
+    // 跳转页面
+    const query = stringify({
+      orderId: record.id
+    })
+    hashHistory.push('/orderdetail?' + query);
+
+  },
 }, {
   title: '操作',
   dataIndex: 'operate',

@@ -2,7 +2,7 @@ import App from 'containers/App'
 import Home from 'pages/Home'
 import HotelList from 'pages/HotelList'
 import HotelDetail from 'pages/HotelDetail'
-import OrderPage from 'pages/OrderPage'
+// import OrderPage from 'pages/OrderPage'
 import OrderDetail from 'pages/OrderDetail'
 import CommentPage from 'pages/CommentPage'
 import OrderFill from 'pages/OrderFill'
@@ -34,10 +34,6 @@ export default [
         component: HotelDetail
       },
       {
-        path: 'orderpage',
-        component: OrderPage
-      },
-      {
         path: 'orderdetail',
         component: OrderDetail
       },
@@ -48,10 +44,6 @@ export default [
       {
         path: 'commentpage',
         component: CommentPage
-      },
-      {
-        path: 'orderpay',
-        component: OrderPay
       },
       {
         path: 'orderpaystate',

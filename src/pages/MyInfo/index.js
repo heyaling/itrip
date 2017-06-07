@@ -26,10 +26,8 @@ export default class MyInfoLayout extends React.Component {
     amp["5"] = [<Breadcrumb>
       <h4 className="detailTile">常用旅客信息 </h4>
     </Breadcrumb>,
-    <Content style={{ margin: 0, minHeight: 280 }}>
-      <MyInfoSearch />
-      <MyInfoTable />
-    </Content>]
+    <MyInfoTable />
+    ]
     amp["1"] = [<Breadcrumb style={{ margin: '12px 0' }}>
       <i className="order-tip">
         <Icon type="exclamation-circle" style={{ color: '#2d91eb', margin: '0 6px' }} />
