@@ -1,123 +1,108 @@
 import React from 'react'
 import { Modal, Icon, Layout, Input, Checkbox, Button, Select, Radio, Form, DatePicker, Row, Col } from 'antd';
+import { fetchBiz } from '../../components/fetchUtils'
 const FormItem = Form.Item;
 const Option = Select.Option;
 export default class App extends React.Component {
-  state = {
-    visible: this.props.data.visible,
-  }
-
-  componentWillReceiveProps() {
-    this.setState({
-      visible: this.props.data.visible
-    });
-  }
-  componentWillMount() {
-    this.setState({
-      visible: this.props.data.visible
-    });
-  }
-  showModal = (e) => {
-    this.setState({
-      visible: true,
-    });
-  }
-  handleOk = (e) => {
-    this.setState({
-      visible: false,
-    });
-    this.props.data.callback(this.props.data);
-  }
+  
   handleCancel = (e) => {
-    this.setState({
-      visible: false,
-    });
+    this.props.data.setState();
   }
-
-
   render() {
     let data = this.props.data.data;
     const WrappedApp = Form.create()(MyAddFrom);
     return (
-      <Modal title="编辑用户信息" width={300} maskClosable={false} visible={this.state.visible}
+      <Modal title={this.props.data.data.title} width={300} footer="" maskClosable={false} visible={this.props.data.visible}
         onOk={this.handleOk} onCancel={this.handleCancel} >
-       <WrappedApp data={data}></WrappedApp>
+        <WrappedApp data={data} callback={this.props.data.callback}></WrappedApp>
       </Modal>
     )
   }
 }
 export class MyAddFrom extends React.Component {
-  
+
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      if (!err) {
-        console.log('Received values of form: ', values);
+      if (!err) { 
+        values["linkIdCardType"]=0;
+        fetchBiz({
+          url: this.props.data.url,
+          type: "POST",
+          param: values,
+          callback: e => {
+             this.props.callback()
+          }
+        })
       }
     });
-  }
-  handleSelectChange = (value) => {
-    console.log(value);
-    this.props.form.setFieldsValue({
-      note: `Hi, ${value === 'male' ? 'man' : 'lady'}!`,
-    });
-  }
-
+  } 
   render() {
     let data = this.props.data;
     const { getFieldDecorator } = this.props.form;
     return (
-       <Form onSubmit={this.handleSubmit}>
-          <FormItem
-            label="姓名"
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 12 }} >  
-            {/*<Input size="small" defaultValue={data.userMess.userName} />*/}
+      <Form onSubmit={this.handleSubmit} style={{ marginBottom: '30px' }}>
+        <FormItem
+          label="姓名"
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 12 }} >
+          {getFieldDecorator('linkUserName', {
+            rules: [{
+              type: 'string', message: '不能输入特殊字符!',
+            }, {
+              required: true, message: '联系人不能为空!',
+            }],
+            initialValue: data.userMess.userName
+          })(
+            <Input size="small" />
+            )}
 
-          {getFieldDecorator('userName', {
+        </FormItem>
+        <FormItem
+          label="电话"
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 12 }}
+        >
+          {getFieldDecorator('linkPhone', {
             rules: [{
               type: 'string', message: 'The input is not valid E-mail!',
             }, {
-              required: true, message: 'Please input your E-mail!',
-            }],
-            initialValue:data.userMess.userName
-          })(
-            <Input size="small"  />
-          )}
-
-          </FormItem>
-          <FormItem
-            label="电话"
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 12 }}
-          >
-           
-          {getFieldDecorator('phone', {
-            rules: [{
-              type: 'string', message: 'The input is not valid E-mail!',
+              required: true, message: '请输入正确的手机号!'
             }, {
-              required: true, message: 'Please input your E-mail!',
+              pattern: /^0?1[3|4|5|7|8][0-9]\d{8}$/, message: '请输入正确的手机号!'
             }],
-            initialValue:data.userMess.phone
+            initialValue: data.userMess.phone
           })(
-            <Input size="small"  />
-          )}
-          </FormItem>
-          <FormItem
-            label="身份证号"
-            labelCol={{ span: 6 }}
-            wrapperCol={{ span: 12 }}
-          >
+            <Input size="small" />
+            )}
+        </FormItem>
+        <FormItem
+          label="身份证号"
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 12 }}
+        >
+          {getFieldDecorator('linkIdCard', {
+            rules: [{
+              type: 'string', message: '请输入正确的身份证号!',
+            }, {
+              required: true, message: '请输入正确的身份证号!'
+            }, {
+              pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/, message: '请输入正确的身份证号!'
+            }],
+            initialValue: data.userMess.card
+          })(
             <Input size="small" defaultValue={data.userMess.card} />
-          </FormItem>
-          <FormItem
-            wrapperCol={{ span: 8, offset: 4 }}
-          >
-            <Button type="primary" htmlType="submit">
-              Submit
+            )}
+        </FormItem>
+        <FormItem
+          wrapperCol={{ span: 8, offset: 4 }}
+          style={{ float: 'right', marginRight: '10px' }}
+        >
+          <Button type="primary" htmlType="submit">
+            提交
           </Button>
-          </FormItem>
-        </Form>
+        </FormItem>
+      </Form>
     )
   }
 }

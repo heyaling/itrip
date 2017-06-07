@@ -5,6 +5,7 @@ import Header from '../../components/Header'
 import Footer from '../../components/Footer/'
 import Modal from './modalPlugin.js'
 import moment from 'moment';
+import { hashHistory } from 'react-router'
 import { fetchBiz, getUrlParam } from '../../components/fetchUtils'
 // import stp from '../../components/OrderPage/'
 const { Sider, Content } = Layout;
@@ -40,8 +41,8 @@ export default class App extends React.Component {
       console.debug(data);
     },/*查询房间接口的参数信息数据*/
     param: {
-      "checkInDate": "2017-05-25T05:44:11.555Z",
-      "checkOutDate": "2017-05-25T05:44:11.555Z",
+      "checkInDate": "2017-05-25",
+      "checkOutDate": "2017-05-25",
       "count": null,
       "hotelId": null,
       "roomId": null
@@ -76,7 +77,8 @@ export default class App extends React.Component {
       specialSver: '',
       showBill: 'none'
     },
-    roomCount: 1
+    roomCount: 1,
+    size: 1
   }
   /*改变状态中的参数信息*/
   changeSateParam = (data) => {
@@ -99,21 +101,37 @@ export default class App extends React.Component {
       visible: true,
       data: {
         title: '添加用户信息',
-        url: 'http://baidu.com',
+        url: '/userinfo/adduserlinkuser',
         type: 'add',//modfiy
         userMess: {
-          userName: " 张三李四王五",
-          phone: '18788988998',
-          card: '10110220334044500'
+          userName: "",
+          phone: '',
+          card: ''
         }
       },
       callback: (data) => {
+        fetchBiz({
+          url: "/userinfo/queryuserlinkuser",
+          type: "POST",
+          param: this.state.param,
+          callback: e => {
+            this.setState({
+              visible: false
+            })
+            this.setState({
+              linkman: e.data
+            })
+          }
+        })
+
+      },
+      setState: (data) => {
         console.debug(data);
+        this.setState({
+          visible: false
+        })
       }
     });
-    if (!this.state.visible) {
-      this.state.visible = true;
-    }
   }
   changeEve = {
     changestate: false,
@@ -146,6 +164,27 @@ export default class App extends React.Component {
           val: '',
           type: 'status'
         })
+        this.changeEve.changeParams({
+          key: 'checkInDate',
+          val: e[0].toDate(),
+          type: 'param'
+        })
+        this.changeEve.changeParams({
+          key: 'checkOutDate',
+          val: e[1].toDate(),
+          type: 'param'
+        })
+        fetchBiz({
+          url: "/hotelorder/getpreorderinfo",
+          type: "POST",
+          param: this.state.param,
+          callback: e => {
+            this.setState({
+              backMess: e.data
+            })
+          }
+        })
+
       } else {
         this.changeEve.changeParams({
           key: 'time',
@@ -159,10 +198,16 @@ export default class App extends React.Component {
       this.changeState({
         key: 'roomCount',
         val: e
-      })
+      })  
+       this.changeEve.changeParams({
+          key: 'count',
+          val: e,
+          type: 'addParam'
+        })
+        console.debug(this.state.addParam);
     },
     changeCheckBox: (e) => {
-      if (e.length <= this.state.roomCount * 1) {
+      if (e.length <= this.state.roomCount * this.state.size) {
         let linkmanMap = {};
         this.state.linkman.map((val) => {
           linkmanMap[val.id] = val;
@@ -304,12 +349,22 @@ export default class App extends React.Component {
             val: 'error',
             type: 'status'
           })
-          console.debug(key);
           this.changeEve.changestate = false;
         }
-        if (key== 'checkInDate') {
+        if (key == 'checkInDate') {
           if (map[key].getTime() <
             new Date(new Date().Format('yyyy-MM-dd') + " 00:00:00").getTime()) {
+            this.changeEve.changestate = false;
+            this.changeEve.changeParams({
+              key: keyMap[key],
+              val: 'error',
+              type: 'status'
+            })
+          }
+        }
+
+        if (key == 'linkUser') {
+          if (map[key] && map[key].length > this.state.roomCount * this.state.size) {
             this.changeEve.changestate = false;
             this.changeEve.changeParams({
               key: keyMap[key],
@@ -325,7 +380,9 @@ export default class App extends React.Component {
           type: "POST",
           param: this.state.addParam,
           callback: e => {
-            alert(JSON.stringify(e.data));
+            
+    // hashHistory.push('/hotellist?' + query)
+           hashHistory.push('/orderpay?orderNo='+e.data.orderNo+'&id='+e.data.id)
           }
         })
       }
@@ -335,8 +392,8 @@ export default class App extends React.Component {
   constructor(props) {
     super(props);
     var param = {
-      "checkInDate": "2017-05-25T05:44:11.555Z",
-      "checkOutDate": "2017-05-25T05:44:11.555Z",
+      "checkInDate": "2017-05-25",
+      "checkOutDate": "2017-05-25",
       "count": 1,
       "hotelId": null,
       "roomId": null
@@ -403,9 +460,12 @@ export default class App extends React.Component {
   }
   render() {
     let option = []
-    for (var i = 1; i <= this.state.backMess.store; i++) {
-      option.push(<Select.Option key={i}>{i}</Select.Option>)
+    if (this.state.backMess) {
+      for (var i = 1; i <= this.state.backMess.store; i++) {
+        option.push(<Select.Option key={i}>{i}</Select.Option>)
+      }
     }
+
     return (
       <div className="order order-fill" >
         <Steps current={0}  >
@@ -453,7 +513,7 @@ export default class App extends React.Component {
                   {...formItemLayout}
                   label="住客信息"
                   validateStatus={this.state.status.check}
-                  help="每间房间最多允许居住3人！"
+                  help={"每间房间最多允许居住" + this.state.size + "人！"}
                 >
                   <Checkbox.Group onChange={this.changeEve.changeCheckBox.bind(this)} >
                     {
@@ -463,7 +523,7 @@ export default class App extends React.Component {
                     }
                     <Button type="primary" onClick={this.showModal.bind(this)}>添加用户</Button>
                   </Checkbox.Group>
-                  <Modal data={this.state} ></Modal>
+                  <Modal data={this.state} footer={""} ></Modal>
                 </FormItem>
               </Content>
             </Layout>
