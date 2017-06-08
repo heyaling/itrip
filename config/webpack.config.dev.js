@@ -64,6 +64,9 @@ module.exports = {
     publicPath: publicPath
   },
   resolve: {
+    root: [
+      paths.appSrc
+    ],
     // This allows you to set a fallback for where Webpack should look for modules.
     // We read `NODE_PATH` environment variable in `paths.js` and pass paths here.
     // We use `fallback` instead of `root` because we want `node_modules` to "win"
@@ -127,7 +130,9 @@ module.exports = {
         include: paths.appSrc,
         loader: 'babel',
         query: {
-          
+          plugins: [
+            ['import', [{ libraryName: "antd", style: 'css' }]],
+          ],
           // This is a feature of `babel-loader` for webpack (not Babel itself).
           // It enables caching results in ./node_modules/.cache/babel-loader/
           // directory for faster rebuilds.

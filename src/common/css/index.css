@@ -27,7 +27,7 @@ a:hover {
 }
 .banner {
 	width: 100%;
-	height: 470px;
+	/*height: 470px;*/
 	overflow: hidden;
 	position: relative;
 }
@@ -451,13 +451,14 @@ select {
 		transition: all .2s linear 0s;
 }
 .i-hotel .sale-con h4 {
-	font-size: 16px;
+	font-size: 14px;
 	color: #333;
 	font-family: "microsoft yahei";
+  margin-top:6px;
 }
 .i-hotel .i-price {
 	color: #ff4401;
-	font-size: 34px;
+	font-size: 28px;
 	margin-left: 5px;
 	font-family: "microsoft yahei";
 	display: inline-block;

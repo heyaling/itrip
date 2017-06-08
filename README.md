@@ -11,8 +11,8 @@ $ npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 4. 生成密钥对
 ```
-$ git config --global user.name="YouName"
-$ git config --global user.email="YouEmail"
+$ git config --global user.name "YouName"
+$ git config --global user.email "YouEmail"
 
 $ cd
 $ ssh-keygen -t rsa
@@ -53,3 +53,6 @@ $ git config -l
 ```
 $ ssh -T git@github.com
 ```
+
+##  MOCK数据配置： http://rapapi.org/org/index.do
+##  MOCK主机（服务器）： http://rapapi.org/mockjsdata/19193

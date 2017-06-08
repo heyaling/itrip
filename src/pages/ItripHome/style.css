@@ -1,0 +1,22 @@
+/*.ItripHome{
+  width: 1200px;
+  margin: 0 auto;
+}*/
+
+.HomeCont1{
+  position: relative;
+}
+.banner img{
+ width: 100%;
+}
+.TabSearch{
+  position: absolute;
+  top: 42px;
+  left: 30px;
+  border: 1px solid red;
+  background: #fff;
+}
+
+.i-sale .i-sale-con a:hover div{
+  transform: translate(0px,-58px)
+}

@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "antd": "^2.10.0",
+    "classnames": "^2.2.5",
+    "js-cookie": "^2.1.4",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-router": "^2.8.1"
   },
   "devDependencies": {
     "autoprefixer": "6.7.2",
@@ -12,6 +16,7 @@
     "babel-eslint": "7.1.1",
     "babel-jest": "18.0.0",
     "babel-loader": "6.2.10",
+    "babel-plugin-import": "^1.1.1",
     "babel-preset-react-app": "^2.2.0",
     "babel-runtime": "^6.20.0",
     "case-sensitive-paths-webpack-plugin": "1.1.4",
@@ -82,5 +87,6 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+ "proxy":"http://192.168.9.44/"
 }
