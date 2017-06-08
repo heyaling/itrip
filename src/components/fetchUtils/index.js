@@ -4,12 +4,12 @@ import React from 'react'
 
 /* 请求发送 知道接口*/
 let fetchRequest = function (params) {
-
+  
   fetch(params.url, {
     method: params.type ? params.type : "GET",
     mode: "cors",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": params.ContentType || "application/json",
       'token': 'token:PC-212342343242343242334324bc36809d8-8-20170525093442-4f6496'
     },
     body: params.type == "POST" ? JSON.stringify(params.param) : params.param

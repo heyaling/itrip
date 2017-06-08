@@ -13,6 +13,7 @@ export default class MyInfoTable extends React.Component {
     param: {
       linkUserName: ""
     },
+    linkerUserMap: {},
     data: {
       title: '添加用户信息',
       url: '/userinfo/adduserlinkuser',
@@ -24,20 +25,14 @@ export default class MyInfoTable extends React.Component {
       }
     },
     callback: (data) => {
-      fetchBiz({
-        url: "/userinfo/queryuserlinkuser",
-        type: "POST",
-        param: {},
+      this.querylinkuser({
+        param: this.state.param,
         callback: e => {
           this.setState({
             visible: false
           })
-          this.setState({
-            rows: e.data
-          })
         }
       })
-
     },
     setState: (data) => {
       this.setState({
@@ -45,19 +40,40 @@ export default class MyInfoTable extends React.Component {
       })
     }
   };
-  onSelectChange = (selectedRowKeys) => {
+  onSelectChange = (selectedRowKeys, selectedRows) => {
     this.setState({ selectedRowKeys });
+    this.setState({
+      ids: selectedRows.map(val => {
+        return 'ids=' + val.id;
+      })
+    });
+    console.log('selectedRows: ', selectedRows);
+  }
+  querylinkuser = (param) => {
+    fetchBiz({
+      url: param.url || '/userinfo/queryuserlinkuser',
+      type: "POST",
+      // ContentType:"text/plain",
+      param:param.param || this.state.param,
+      callback: e => {
+        let rowMap = {};
+        e.data.map(val => {
+          rowMap[val.id] = val;
+        })
+        this.setState({
+          rows: e.data,
+          linkerUserMap: rowMap
+        })
+        if (typeof param.callback == "function") {
+          param.callback(e)
+        }
+
+      }
+    })
   }
   componentWillMount() {
-    fetchBiz({
-      url: "/userinfo/queryuserlinkuser",
-      type: "POST",
-      param: this.state.param,
-      callback: e => {
-        this.setState({
-          rows: e.data
-        }) 
-      }
+    this.querylinkuser({
+      param: this.state.param
     })
   }
   addLinkerUser = (e) => {
@@ -77,7 +93,7 @@ export default class MyInfoTable extends React.Component {
     })
   }
   modifyLinkerUser = (e) => {
-    console.debug(e);
+    let row = this.state.linkerUserMap[e.target.getAttribute("data-id")];
     this.setState({
       visible: true,
       data: {
@@ -85,16 +101,25 @@ export default class MyInfoTable extends React.Component {
         url: '/userinfo/modifyuserlinkuser',
         type: 'add',//modfiy
         userMess: {
-          userName: "",
-          phone: '',
-          card: ''
+          userName: row.linkUserName,
+          phone: row.linkPhone,
+          card: row.linkIdCard,
+          id: row.id
         }
       }
     })
   }
   removeLinkerUser = (e) => {
-
-
+    let id = 'ids='+e.target.getAttribute("data-id");
+    id=e.target.type != "button"?id:this.state.ids.join("&");
+    fetchBiz({
+      url: '/userinfo/deluserlinkuser?' + id,
+      callback: e => {
+        this.querylinkuser({
+          param:""
+        });
+      }
+    })
   }
   inputChange = (e) => {
     this.setState({
@@ -103,30 +128,19 @@ export default class MyInfoTable extends React.Component {
       }
     })
   }
-  searchRowDatas=(e)=>{
-     fetchBiz({
-      url: "/userinfo/queryuserlinkuser",
-      type: "POST",
-      param: this.state.param,
-      callback: e => {
-        this.setState({
-          rows: e.data
-        }) 
-      }
+  searchRowDatas = (e) => {
+    this.querylinkuser({
+      param: this.state.param
     })
   }
   render() {
     const { selectedRowKeys } = this.state;
     const rowSelection = {
       selectedRowKeys,
-      onChange: this.onSelectChange,
-      onSelection: this.onSelection,
+      onChange: this.onSelectChange
     };
     const columns = [
       {
-        title: '全选',
-        dataIndex: 'selectAll'
-      }, {
         title: '姓名',
         dataIndex: 'linkUserName'
       }, {
@@ -145,11 +159,11 @@ export default class MyInfoTable extends React.Component {
 
       }, {
         title: '操作',
-        dataIndex: 'operate',
+        dataIndex: 'id',
         render: text => <span>
           {/*<a onClick={this.addLinkerUser.bind(this)} style={{ color: "#1ab2db" }}>查看</a>*/}
-          <a onClick={this.modifyLinkerUser.bind(this)} style={{ margin: "0 10px 0 -15px", color: "#1ab2db" }}>编辑</a>
-          <a onClick={this.removeLinkerUser.bind(this)} style={{ color: "#1ab2db" }}>删除</a>
+          <a onClick={this.modifyLinkerUser.bind(this)} data-id={text} style={{ margin: "0 10px 0 -15px", color: "#1ab2db" }}>编辑</a>
+          <a onClick={this.removeLinkerUser.bind(this)} data-id={text} style={{ color: "#1ab2db" }}>删除</a>
         </span>,
       }
     ];
