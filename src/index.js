@@ -1,10 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-<<<<<<< HEAD
-import App from '././containers/App';
-import List from '././pages/hotel/List';
-import '././common/css/style.css'
-=======
+import ReactDOM from 'react-dom'; 
 import { Router, hashHistory } from 'react-router'
 import { changeToken } from 'common/js/ckman'
 import routes from './router'
@@ -25,9 +20,7 @@ Date.prototype.Format = function (fmt) {
         if (new RegExp("(" + k + ")").test(fmt))
             fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
     return fmt;
-}
->>>>>>> 1f9ffd9e27239c51259eb8718603ce0e1e013028
-
+} 
 /**
  * 重写toJSON方法
  * @returns {string}
@@ -50,14 +43,10 @@ if (!String.prototype.includes) {
     };
 }
 ReactDOM.render(
-<<<<<<< HEAD
-  <App/>,
-  document.getElementById('root')
-=======
+ 
   <Router
     history={hashHistory}
     routes={routes} />,
   document.getElementById('root'),
   changeToken
->>>>>>> 1f9ffd9e27239c51259eb8718603ce0e1e013028
 );

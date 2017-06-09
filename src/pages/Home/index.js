@@ -13,11 +13,7 @@ import './style.css'
 const { hotDestination } = home.hotel
 
 export default class Home extends React.Component {
-<<<<<<< HEAD
-    render () {
-        return <div>这是首cdsfsf页</div>
-    }
-=======
+ 
   state = {
     loadding: true,
     foreignHotel: {
@@ -113,6 +109,5 @@ export default class Home extends React.Component {
         </div>
       </div>
     )
-  }
->>>>>>> 1f9ffd9e27239c51259eb8718603ce0e1e013028
+  } 
 }
