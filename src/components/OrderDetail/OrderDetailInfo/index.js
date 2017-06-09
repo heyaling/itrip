@@ -11,62 +11,60 @@ export default class OrderDetailInfo extends React.Component {
     super(props);
     this.state = {
       orderDetail: [],
+      hotelId: 1
     }
   }
   componentWillMount() {
     //获取订单id
     let orderId = getUrlParam("orderId");
-
+    //根据订单ID查看个人订单详情
     fetchBiz({
       url: "/hotelorder/getpersonalorderinfo/" + orderId,
       callback: (e) => {
         //得到后台的请求数据
+        var orderStatusConver = new Array("", "订单提交", "未出行", "支付成功", "入住", "订单点评");
+        var roomPayTypeConver = new Array("", "在线付", "线下付", "不限");
         if (e.data) {
           //转换订单状态标识码为相应的文字介绍
-          if (e.data.orderStatus == 1) {
-            e.data.orderStatus = "订单提交";
-          } else if (e.data.orderStatus == 2) {
-            e.data.orderStatus = "未出行";
-          } else if (e.data.orderStatus == 3) {
-            e.data.orderStatus = "支付成功";
-          } else if (e.data.orderStatus == 4) {
-            e.data.orderStatus = "入住";
-          } else if (e.data.orderStatus == 5) {
-            e.data.orderStatus = "订单点评";
-          }
+          e.data.orderStatus = orderStatusConver[e.data.orderStatus];
           //转换订单类型标识码为相应的文字{"1":"在线付","2":"线下付","3":"不限"}
-          if (e.data.roomPayType == 1) {
-            e.data.roomPayType = "在线付";
-          } else if (e.data.roomPayType == 2) {
-            e.data.roomPayType = "线下付";
-          } else if (e.data.roomPayType == 3) {
-            e.data.roomPayType = "不限";
-          }
+          e.data.roomPayType = roomPayTypeConver[e.data.roomPayType];
         }
         let arr = [];
         arr.push(e.data);
         this.setState({
           orderDetail: arr
         })
-        // console.log("orderId=" + JSON.stringify(this.state.orderDetail));
-        // console.log("orderId=" +this.state.orderDetail);
+      }
+    })
+    //根据订单ID查看个人订单详情-房型相关信息
+    fetchBiz({
+      url: "/hotelorder/getpersonalorderroominfo/" + orderId,
+      callback: (e) => {
+        //得到后台的请求数据
+        this.setState({
+          hotelId: e.data.hotelId
+        })
       }
     })
 
   }
   //再次预订
   againBook = () => {
-    /*//获取订单id
-    let orderId = getUrlParam("orderId");
     // 跳转到酒店详情页面
     const query = stringify({
-      orderId: record.id
+      hotelId: this.state.hotelId
     })
-    hashHistory.push('/orderdetail?' + query);*/
+    hashHistory.push('/hoteldetail?' + query);
   }
   //我要点评
   toComment = () => {
-
+    // 跳转到酒店详情页面
+    const query = stringify({
+      hotelId: this.state.hotelId,
+      orderId: getUrlParam("orderId")
+    })
+    hashHistory.push('/commentpage?' + query);
   }
   render() {
     if (!this.state.orderDetail) return;

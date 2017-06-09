@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input, DatePicker, Row, Col, Button, Icon, Cascader } from 'antd'
 
 import CitySwitcher from 'components/CitySwitcher'
-import { fetchBiz, fetchSearch } from 'components/fetchUtils'
+import { fetchBiz, fetchSearch, getUrlParam } from 'components/fetchUtils'
 import "./style.css"
 
 const FormItem = Form.Item
@@ -50,9 +50,14 @@ class SearchHotelItem extends React.Component {
 
   }
 
-  componentDidMount() {
+  componentWillMount() {
     // this.refs['submitID'].handleClick();
-    this.handleSubmit();
+
+    /*let destinationName = getUrlParam('destination');
+
+    this.state.param["destination"] = destinationName,*/
+
+      this.handleSubmit();
   }
   //获得子组件传递的名称和ID
   handleChangeCityName = (cityName, cityId) => {
@@ -88,14 +93,14 @@ class SearchHotelItem extends React.Component {
 
       //后台接口请求商圈数据
       fetchBiz({
-        url: "/hotel/querytradearea/"+this.state.cityIdValue ,
+        url: "/hotel/querytradearea/" + this.state.cityIdValue,
         callback: e => {
           //得到后台的请求数据
           //console.log(e.data);
           // 将请求数据传递给父组件
           //this.props.receivedata(e.data, this.state.param)
           this.setState({
-            cityTradeArea : e.data
+            cityTradeArea: e.data
           })
         }
       })

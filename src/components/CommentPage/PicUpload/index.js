@@ -28,7 +28,14 @@ export default class PicUpload extends React.Component {
   imgRemove = (e) => {
       console.debug(e);
   }
-  handleChange = ({ fileList }) => this.setState({ fileList })
+ /* handleChange = ({ fileList }) => this.setState({ fileList },()=>{
+    console.log("fileList=" + JSON.stringify(fileList))
+  })*/
+
+   handleChange = (e) => {
+     console.log("fileList333=" + JSON.stringify(e))
+   }
+
 
   render() {
     const { previewVisible, previewImage, fileList } = this.state;

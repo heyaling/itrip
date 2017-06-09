@@ -79,17 +79,6 @@ const columns = [{
 }
 ];
 
-/*"checkInDate": "2017-01-01",
-"creationDate": "2017-05-27",
-"hotelId": 1,
-"hotelName": "北京首都大酒店",
-"id": 80,
-"linkUserName": "张三,张四",
-"orderNo": "D100000120170527150945269270",
-"orderStatus": 1,
-"orderType": 0,
-"payAmount": 1884*/
-
 
 export default class OrderListItem extends React.Component {
 
