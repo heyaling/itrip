@@ -1,20 +1,21 @@
 import React from 'react'
-import { Form, Input, Checkbox, Button, message, Modal, Row, Col } from 'antd'
+import { Form, Input, Checkbox, Button, message, Modal, Row, Col, Radio } from 'antd'
 import { hashHistory } from 'react-router'
 import { postRequest, getRequest, putRequest } from 'common/js/fetch'
-import { registerUrl, activateEmailUrl, ckusrUrl } from 'constants/url'
+import { registerUrl, activateEmailUrl, ckusrUrl, registerPhoneUrl } from 'constants/url'
 import LoginFooter from 'components/Footer/LoginFooter.js'
 import './style.css'
 import loginLogo from './imgs/i-LOGO-02-01.png'
 
 const FormItem = Form.Item
+const RadioGroup = Radio.Group
 const formItemLayout = {
   labelCol: {
     span: 4
   },
   wrapperCol: {
     span: 16
-  },
+  }
 }
 
 const tailFormItemLayout = {
@@ -39,7 +40,14 @@ class Register extends React.Component {
   state = {
     visible: false,
     confirmDirty: false,
-    inputCode: ''
+    inputCode: '',
+    radioValue: 1
+  }
+
+  onChange = (e) => {
+    this.setState({
+      radioValue: e.target.value,
+    });
   }
 
   showModal = () => {
@@ -104,6 +112,8 @@ class Register extends React.Component {
   }
 
   handleSubmit = (e) => {
+    const { radioValue } = this.state
+    const url = radioValue === 1 ? registerUrl : registerPhoneUrl
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (err) return
@@ -111,7 +121,7 @@ class Register extends React.Component {
       delete values.confirm
       delete values.agreement
 
-      postRequest(registerUrl, values).then(data => {
+      postRequest(url, values).then(data => {
         message.success('还差一步，激活码已经发送到你邮箱，激活后帐号才可以使用哦！')
         this.setState({
           visible: true
@@ -134,6 +144,13 @@ class Register extends React.Component {
     })
   }
 
+  validatorPhone(rule, value, callback) {
+    if (!/^1[34578]\d{9}$/.test(value)) {
+      return callback('请输入正确的手机号码格式');
+    }
+    callback()
+  }
+
   render() {
     const { getFieldDecorator } = this.props.form
 
@@ -151,8 +168,31 @@ class Register extends React.Component {
           <section>
             <aside className="i-register-left clearfix">
               <div className="i-reg-bottom">
+                <div className="radioBox">
+                  <RadioGroup onChange={this.onChange} value={this.state.radioValue}>
+                    <Radio value={1}>邮箱注册</Radio>
+                    <Radio value={2}>手册注册</Radio>
+                  </RadioGroup>
+                </div>
                 <Form className="fromTwo" onSubmit={this.handleSubmit}>
-                  <FormItem
+                {
+                  this.state.radioValue === 2
+                    ? <FormItem
+                    {...formItemLayout}
+                    hasFeedback
+                    label='注册手机'>
+                    {getFieldDecorator('userCode', {
+                      rules: [{
+                        required: true,
+                        message: '手机号码必须填写！'
+                      }, {
+                        validator: this.validatorPhone
+                      }]
+                    })(
+                      <Input placeholder="请输入的手机号码" />
+                      )}
+                  </FormItem>
+                  : <FormItem
                     {...formItemLayout}
                     hasFeedback
                     label='注册邮箱'>
@@ -164,10 +204,10 @@ class Register extends React.Component {
                         validator: this.validatorEmail
                       }]
                     })(
-                      <Input placeholder="请输入邮箱" />
+                      <Input placeholder="请输入的邮箱" />
                       )}
                   </FormItem>
-
+                }
                   <FormItem
                     {...formItemLayout}
                     hasFeedback
