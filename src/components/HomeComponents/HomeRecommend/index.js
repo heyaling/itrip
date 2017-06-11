@@ -35,7 +35,7 @@ export default class HomeRecommend extends React.Component {
     const { currentIndex } = this.state
     const list = []
 
-    for (let i = 0, len = accordionTitles.length; i < len; i++) {
+    for (let i = 0, len = Math.min(6, accordionTitles.length); i < len; i++) {
 
       let clsNames = classnames({
         itemBg1: i === 0,

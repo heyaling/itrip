@@ -1,5 +1,15 @@
 import { stringify } from 'querystring'
 import Cookie from 'js-cookie'
+let timeout = null 
+
+function timeRestart() {
+  clearTimeout(timeout)
+  timeout = setTimeout(() => {
+    Cookie.remove('token')
+    Cookie.remove('user')
+    Cookie.remove('expTime')
+  }, 2 * 60 * 60 * 1000)  
+}
 
 function request(url, op = {}) {
   const config = {
@@ -30,6 +40,9 @@ function request(url, op = {}) {
       return res
     }).then(res => {
       if (res.success !== 'true') return Promise.reject(res)
+      return res
+    }).then(res => {
+      timeRestart()
       return res
     })
 }
