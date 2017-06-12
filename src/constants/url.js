@@ -10,11 +10,17 @@ export const foreignHotelCityUrl = '/biz/api/hotel/queryhotcity/2'
 // 获取特色酒店
 export const featureHotelUrl = '/biz/api/hotel/queryhotelfeature'
 
-// 用户注册
+// 邮箱注册
 export const registerUrl = '/auth/api/doregister'
+
+// 手机注册
+export const registerPhoneUrl = '/auth/api/registerbyphone'
 
 // 邮箱激活
 export const activateEmailUrl = '/auth/api/activate'
+
+// 手机激活
+export const activatePhoneUrl = '/auth/api/validatephone'
 
 // 用户验证
 export const ckusrUrl = '/auth/api/ckusr'

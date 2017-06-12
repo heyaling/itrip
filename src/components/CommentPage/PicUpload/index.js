@@ -66,6 +66,8 @@ export default class PicUpload extends React.Component {
   }
 
 
+
+
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
     const uploadButton = (

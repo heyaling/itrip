@@ -49,6 +49,13 @@ import strategypic32 from './imgs/city/zhangjiajie.jpg'
 
 
 export default class Strategy extends React.Component {
+  componentDidMount() {
+    try {
+      window.runCitySelect()
+      window.runCommon()
+      window.runStrategy()
+    } catch(e) {console.log(e)}
+  }
   render() {
     return (
       <div className='Strategy'>

@@ -50,6 +50,10 @@ export default [
         component: OrderPayState
       },
       {
+        path: 'orderpay',
+        component: OrderPay
+      },
+      {
         path: 'myinfo',
         component: MyInfo
       },

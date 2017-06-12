@@ -1,6 +1,6 @@
 import React from 'react'
 import { Carousel } from 'antd'
-import TabSearch from './componentsIndex'
+import TabSearch from '../ItripHome/componentsIndex'
 import './style.css'
 
 import carousel1 from './imgs/fly01_banner0315.jpg'
@@ -16,6 +16,11 @@ import flyList4 from './imgs/ftyj01_0315_07.jpg'
 
 //首页
 export default class FlyTicket extends React.Component {
+  componentDidMount() {
+    window.runCitySelect()
+    window.runCommon()
+    window.runFlyTicket()
+  }
   render() {
     return (
       <div className="FlyTicket">

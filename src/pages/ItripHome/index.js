@@ -54,6 +54,11 @@ import icon09 from './../../common/images/icon/nantong.jpg'
 
 //首页
 export default class ItripHome extends React.Component {
+  componentDidMount() {
+    window.runCitySelect()
+    window.runCommon()
+    window.runIndex()
+  }
   render() {
     return (
       <div className="ItripHome">
