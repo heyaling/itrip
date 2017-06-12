@@ -26,11 +26,45 @@ export default class PicUpload extends React.Component {
     });
   }
   imgRemove = (e) => {
-      console.debug(e);
+    console.debug(e);
   }
-  handleChange = ({ fileList }) => this.setState({ fileList },()=>{
-    console.log("fileList=" + JSON.stringify(fileList))
-  })
+/*  handleChange = ({ fileList }) => this.setState({ fileList }, () => {
+     this.forceUpdate();
+    let imgUrl = "";
+    if (fileList[0].status == "done") {
+      imgUrl = fileList[0].response.data[0];
+      console.log(fileList[0]);
+      this.props.picValue(imgUrl);
+
+    }
+  }
+  )*/
+
+  // 添加图片
+  handleChange = ({ fileList }) => {
+    this.setState({ fileList });
+    console.log(fileList);
+    let imgUrl = [];
+
+    if (fileList && fileList.length > 0) {
+      fileList.map((value,i) => {
+        if(fileList[i].status === "done"){
+         imgUrl.push(value.response.data[0]);
+        }
+      })
+    }
+      this.props.picValue(imgUrl);
+
+   
+    /*if (this.state.fileList[0].status == "done") {
+      imgUrl.push(this.state.fileList[0].response.data[0]);
+      //console.log(fileList[0]);
+      this.props.picValue(imgUrl);
+    }*/
+    //this.setState({fileList: []});
+    
+  }
+
 
   render() {
     const { previewVisible, previewImage, fileList } = this.state;

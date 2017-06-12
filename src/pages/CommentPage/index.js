@@ -70,7 +70,10 @@ export default class CommentPage extends React.Component {
     this.state.totalParam["productId"] = this.state.roomId;
     //产品类型固定为 酒店产品
     this.state.totalParam["productType"] = 1;
-
+    //是否含有图片
+    this.state.totalParam["isHavingImg"] = 0;
+    // 放置图片 URL 数组
+    this.state.totalParam["itripImages"] = [];
 
     //拿到订单ID和酒店ID
     console.log("totalParam=" + JSON.stringify(this.state.totalParam))
@@ -94,6 +97,23 @@ export default class CommentPage extends React.Component {
   handleSelect = (selectValue) => {
     this.state.totalParam["tripMode"] = selectValue;
     console.log("this.state.totalParam=" + JSON.stringify(this.state.totalParam))
+  }
+  //上传图片
+  handlePic = (picparam) => {
+    if (!picparam) {
+      this.state.totalParam["isHavingImg"] = 0;
+    } else {
+      this.state.totalParam["isHavingImg"] = 1;
+
+      /*var arrpic = new Array();
+      arrpic = picparam.split(',');*/
+      for (var i = 0; i < picparam.length; i++) {
+      this.state.totalParam["itripImages"].push({ imgUrl: picparam[i] })
+      }
+    console.log("this.state.totalParam=" + JSON.stringify(this.state.totalParam))
+
+    }
+
   }
   //提交评论
   submitComment = () => {
@@ -155,7 +175,7 @@ export default class CommentPage extends React.Component {
         <Layout style={{ height: 270, textAlign: 'center', marginBottom: 10 }}>
           <Sider style={{ background: '#fff', padding: 35, borderRight: '2px dashed #ccc' }}>上传图片（选填）</Sider>
           <Content style={{ padding: '20px' }}>
-            <PicUpload />
+            <PicUpload picValue={this.handlePic} />
           </Content>
         </Layout>
         {/*优点不足（选填）*/}
