@@ -1,10 +1,5 @@
 function runFlyTicket() {
-    /*
-* @Author: xianghai.peng
-* @Date:   2016-12-02 09:31:57
-* @Last Modified by:   xianghai.peng
-* @Last Modified time: 2016-12-15 15:54:11
-*/
+
 
 'use strict';
 // 首页轮播图

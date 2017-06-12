@@ -20,19 +20,19 @@ export default class TabSearch extends React.Component {
     const { mode } = this.state;
     return (
       <div className="i_area">
-        <ol className="lb">
-          <li className="li_1 cur" />
-          <li />
-          <li />
-          <li />
+        <ol class="lb" >
+          <li class="li_1 cur"></li>
+          <li></li>
+          <li></li>
+          <li></li>
         </ol>
         <div className="i_tab">
           <ul className="i_tab_l ">
-            <li className="cur show travel clearfix">
+            <li className="cur show  clearfix">
               <a href="javascript:;">旅游</a>
               <div className="i_tab_r">
                 <div className="i_box">
-                  <div className="i_title">
+                  <div className="ititle">
                     <a href="javascript:;" className="line">特卖汇</a>
                     <a href="javascript:;">出境旅游</a>
                     <a href="javascript:;">国内旅游</a>
@@ -122,7 +122,7 @@ export default class TabSearch extends React.Component {
               <a href="javascript:;">酒店</a>
               <div className="i_tab_r">
                 <div className="i_box">
-                  <div className="i_title">
+                  <div className="ititle">
                     <a href="javascript:;" className="line">国内酒店</a>
                     <a href="javascript:;">海外酒店</a>
                     <a href="javascript:;">酒店团购</a>
@@ -219,7 +219,7 @@ export default class TabSearch extends React.Component {
               <a href="javascript:;">机票</a>
               <div className="i_tab_r">
                 <div className="i_box">
-                  <div className="i_title">
+                  <div className="ititle">
                     <a href="javascript:;" className="line">国内机票</a>
                     <a href="javascript:;">国际机票</a>
                     <a href="javascript:;">发现低价</a>
@@ -381,7 +381,7 @@ export default class TabSearch extends React.Component {
               <a href="javascript:;">攻略</a>
               <div className="i_tab_r">
                 <div className="i_box">
-                  <div className="i_title">
+                  <div className="ititle">
                     <a href="javascript:;" className="line">热门游记</a>
                     <a href="javascript:;">精华游记</a>
                     <a href="javascript:;">行程计划</a>

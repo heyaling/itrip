@@ -10,13 +10,7 @@
 .banner img{
  width: 100%;
 }
-.TabSearch{
-  position: absolute;
-  top: 42px;
-  left: 30px;
-  border: 1px solid red;
-  background: #fff;
-}
+
 .flyCarousel{
   width: 1200px;
   height: 470px;

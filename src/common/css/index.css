@@ -101,12 +101,12 @@ a:hover {
 	height: 13px;
 	background: #1ab2db;
 }
-.banner .i_area {
+/*.banner .i_area {
 	position: relative;
 	height: 470px;
 	width: 1200px;
 	margin: 0 auto;
-}
+}*/
 .i_tab {
 	width: 552px;
 	height: 370px;
@@ -172,13 +172,13 @@ a:hover {
 .i_tab .i_tab_r .i_box {
 	text-align: left;
 }
-.i_tab_r .i_box .i_title {
+.i_tab_r .i_box .ititle {
 	margin-left: 16px;
 	margin-right: 34px;
 	height: 43px;
 	border-bottom: 2px solid #ccc;
 }
-.i_tab_r .i_box .i_title a {
+.i_tab_r .i_box .ititle a {
 	float: left;
 	padding: 0 30px;
 	height: 42px;
@@ -186,7 +186,7 @@ a:hover {
 	text-align: center;
 	font-weight: normal;
 }
-.i_tab_r .i_box .i_title .line {
+.i_tab_r .i_box .ititle .line {
 	border-bottom: 3px solid #1AB2DB;
 	transition: all .5s;
 }

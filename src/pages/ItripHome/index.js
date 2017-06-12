@@ -66,7 +66,7 @@ export default class ItripHome extends React.Component {
         <div className='HomeCont1'>
           <div className="banner clearfix">
             {/* 全屏轮播部分开始 */}
-            <Carousel autoplay>
+            <Carousel className='CarouselIndex' autoplay>
               <div>
                 <a href="javascript:;">
                   <img src={carousel1} alt="" />
