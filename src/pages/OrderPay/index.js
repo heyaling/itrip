@@ -26,9 +26,9 @@ export default class App extends React.Component {
     fetchBiz({
       url: '/hotelorder/getpersonalorderinfo/' + this.state.id,
       callback: e => {
-         if(e.data.orderStatus>=2){
-            hashHistory.push('/')
-         }
+        if (e.data.orderStatus >= 2) {
+          hashHistory.push('/')
+        }
       }
     })
     fetchBiz({
@@ -38,6 +38,12 @@ export default class App extends React.Component {
           orderMess: e.data
         })
         console.debug(e.data)
+      }
+    })
+     fetchBiz({
+      url: "/hotelorder/queryOrderById/" + this.state.id, 
+      callback: e => {
+        window.localStorage.setItem(this.state.id, JSON.stringify(e.data));
       }
     })
 
@@ -58,12 +64,15 @@ export default class App extends React.Component {
     // hashHistory.push('/orderpay?orderNo='+e.data.orderNo+'&id='+e.data.id)
   }
   backModifyOrder = (e) => {
-    hashHistory.goBack("&id=123123");
+    // hashHistory.goBack("&id=123123");
+    console.debug(this.state);//?hotel=1&room=2&_k=2lboj2
+   
+    hashHistory.push('/orderfill?orderId=' + this.state.id + '&hotel=' + this.state.orderMess.hotelId + '&room=' + this.state.orderMess.roomId)
   }
   handleClick = (e) => {
     if (this.state.payType == 1) {
       // hashHistory.push('/orderpay?orderNo='+e.data.orderNo+'&id='+e.data.id)
-       window.location='http://101.200.141.234:8084/itriptrade/api/prepay/'+this.state.orderNo
+      window.location = 'http://101.200.141.234:8084/itriptrade/api/prepay/' + this.state.orderNo
     } else {
       fetchBiz({
         url: '/hotelorder/updateorderstatusandpaytype',

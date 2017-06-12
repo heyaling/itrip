@@ -41,15 +41,15 @@ export default class App extends React.Component {
       console.debug(data);
     },/*查询房间接口的参数信息数据*/
     param: {
-      "checkInDate": "2017-05-25",
-      "checkOutDate": "2017-05-25",
+      "checkInDate": new Date(),
+      "checkOutDate": new Date(new Date().getTime() + 1000 * 60 * 60 * 24),
       "count": null,
       "hotelId": null,
       "roomId": null
     },/* 保存添加信息数据*/
-    addParam: {
-      "checkInDate": null,
-      "checkOutDate": null,
+    addParam: JSON.parse(window.localStorage.getItem(getUrlParam("orderId"))) || {
+      "checkInDate": new Date(),
+      "checkOutDate": new Date(new Date().getTime() + 1000 * 60 * 60 * 24),
       "count": null,
       "hotelId": null,
       "hotelName": null,
@@ -75,10 +75,12 @@ export default class App extends React.Component {
       bill: '',
       billMessage: '',
       specialSver: '',
-      showBill: 'none'
+      showBill: 'none',
+      isNeedInvoice: false
     },
     roomCount: 1,
-    size: 1
+    size: 3
+
   }
   /*改变状态中的参数信息*/
   changeSateParam = (data) => {
@@ -198,13 +200,13 @@ export default class App extends React.Component {
       this.changeState({
         key: 'roomCount',
         val: e
-      })  
-       this.changeEve.changeParams({
-          key: 'count',
-          val: e,
-          type: 'addParam'
-        })
-        console.debug(this.state.addParam);
+      })
+      this.changeEve.changeParams({
+        key: 'count',
+        val: e,
+        type: 'addParam'
+      })
+      console.debug(this.state.addParam);
     },
     changeCheckBox: (e) => {
       if (e.length <= this.state.roomCount * this.state.size) {
@@ -341,9 +343,8 @@ export default class App extends React.Component {
         "noticePhone": "phone",
       }
       this.changeEve.changestate = true;
-      for (let key of Object.keys(this.state.addParam)) {
-        if (map[key] == null && key != 'specialRequirement' && key != 'invoiceHead'
-          && key != 'isNeedInvoice' && key != 'orderType') {
+      for (let key of Object.keys(keyMap)) {
+        if (map[key] == null) {
           this.changeEve.changeParams({
             key: keyMap[key],
             val: 'error',
@@ -352,7 +353,7 @@ export default class App extends React.Component {
           this.changeEve.changestate = false;
         }
         if (key == 'checkInDate') {
-          if (map[key].getTime() <
+          if (new Date(map[key]).getTime() <
             new Date(new Date().Format('yyyy-MM-dd') + " 00:00:00").getTime()) {
             this.changeEve.changestate = false;
             this.changeEve.changeParams({
@@ -380,9 +381,9 @@ export default class App extends React.Component {
           type: "POST",
           param: this.state.addParam,
           callback: e => {
-            
-    // hashHistory.push('/hotellist?' + query)
-           hashHistory.push('/orderpay?orderNo='+e.data.orderNo+'&id='+e.data.id)
+
+            // hashHistory.push('/hotellist?' + query)
+            hashHistory.push('/orderpay?orderNo=' + e.data.orderNo + '&id=' + e.data.id)
           }
         })
       }
@@ -398,36 +399,58 @@ export default class App extends React.Component {
       "hotelId": null,
       "roomId": null
     }
+
     param["hotelId"] = getUrlParam("hotel");
     param["roomId"] = getUrlParam("room");
-    param["checkInDate"] = new Date(getUrlParam("startDate"));
-    param["checkOutDate"] = new Date(getUrlParam("endDate"));
+    param["checkInDate"] = new Date(getUrlParam("startDate") || new Date());
+    param["checkOutDate"] = new Date(getUrlParam("startDate") || new Date().getTime() + 1000 * 60 * 60 * 24);
     this.changeState({ key: "param", val: param })
-    this.changeEve.changeParams({
-      key: 'checkInDate',
-      val: param["checkInDate"],
-      type: 'addParam'
-    })
-    this.changeEve.changeParams({
-      key: 'checkOutDate',
-      val: param["checkOutDate"],
-      type: 'addParam'
-    })
-    this.changeEve.changeParams({
-      key: 'roomId',
-      val: param["roomId"],
-      type: 'addParam'
-    })
-    this.changeEve.changeParams({
-      key: 'hotelId',
-      val: param["hotelId"],
-      type: 'addParam'
-    })
-    this.changeEve.changeParams({
-      key: 'count',
-      val: 1,
-      type: 'addParam'
-    })
+    if (!getUrlParam("orderId")) {
+
+      this.changeEve.changeParams({
+        key: 'checkInDate',
+        val: param["checkInDate"],
+        type: 'addParam'
+      })
+      this.changeEve.changeParams({
+        key: 'checkOutDate',
+        val: param["checkOutDate"],
+        type: 'addParam'
+      })
+      this.changeEve.changeParams({
+        key: 'roomId',
+        val: param["roomId"],
+        type: 'addParam'
+      })
+      this.changeEve.changeParams({
+        key: 'hotelId',
+        val: param["hotelId"],
+        type: 'addParam'
+      })
+      this.changeEve.changeParams({
+        key: 'count',
+        val: 1,
+        type: 'addParam'
+      })
+    } else {
+
+      if (this.state.addParam.isNeedInvoice==1) {
+        this.changeEve.changeParams({
+          key: 'showBill',
+          val: 'block',
+          type: 'status'
+        })
+        this.changeEve.changeParams({
+          key: 'isNeedInvoice',
+          val: true,
+          type: 'status'
+        })
+      }
+
+    }
+  }
+  componentDidMount() {
+
   }
   componentWillMount() {
 
@@ -492,13 +515,14 @@ export default class App extends React.Component {
                   label="入离日期"
                   validateStatus={this.state.status.time}
                   help="入住时间不能小于当前时间！ 离开时间必须大于入住时间！" >
-                  <RangePicker onChange={this.changeEve.changeTime} defaultValue={[moment(this.state.param.checkInDate, dateFormat),
-                  moment(this.state.param.checkOutDate, dateFormat)]} format={dateFormat} />
+                  <RangePicker onChange={this.changeEve.changeTime}
+                    defaultValue={[moment(this.state.addParam.checkInDate, dateFormat),
+                    moment(this.state.addParam.checkOutDate, dateFormat)]} format={dateFormat} />
                 </FormItem><br />
                 <FormItem
                   {...formItemLayout}
                   label="房间数量">
-                  <Select defaultValue="1" onChange={this.changeEve.changeRoomCount} style={{ width: 120 }}  >
+                  <Select defaultValue={this.state.addParam.count} onChange={this.changeEve.changeRoomCount} style={{ width: 120 }}  >
                     {
                       option
                     }
@@ -536,7 +560,7 @@ export default class App extends React.Component {
                   validateStatus={this.state.status.phone}
                   help="请输入正确的手机号！"
                 >
-                  <Input addonBefore="+86" onBlur={this.changeEve.changePhone.bind(this)} style={{ width: 235 }} placeholder='' id="warning" />
+                  <Input addonBefore="+86" defaultValue={this.state.addParam.noticePhone} onBlur={this.changeEve.changePhone.bind(this)} style={{ width: 235 }} placeholder='' id="warning" />
                 </FormItem><br />
                 <FormItem
                   {...formItemLayout}
@@ -544,21 +568,21 @@ export default class App extends React.Component {
                   validateStatus={this.state.status.email}
                   help="请输入正确的邮箱信息！"
                 >
-                  <Input style={{ width: 270 }} onBlur={this.changeEve.changeEmail} placeholder='' id="warning" />
+                  <Input style={{ width: 270 }} defaultValue={this.state.addParam.noticeEmail} onBlur={this.changeEve.changeEmail} placeholder='' id="warning" />
                 </FormItem>
               </Content>
             </Layout>
             <Layout style={{ height: 132, textAlign: 'center', border: '1px solid #1ab2db', borderBottom: 0 }}>
               <Sider style={{ background: '#fff', padding: 20, }}>发票信息</Sider>
               <Content style={{ background: '#f2fcff', position: 'relative' }}>
-                <Checkbox onChange={this.changeEve.changeBill}
+                <Checkbox onChange={this.changeEve.changeBill} defaultChecked={this.state.status.isNeedInvoice}
                   style={{ marginTop: '30', position: 'absolute', left: 20, top: 0 }}>需要发票</Checkbox>
                 <span style={{ marginTop: '60', fontSize: 14, color: '#ccc', fontWeight: 500, position: 'absolute', left: 20, top: 0 }}>可开具电子发票，纸质发票。订单成交后3个月内可补开。</span>
                 <br />
-                <RadioGroup defaultValue={1} onChange={this.changeEve.changeBillType.bind(this)}
+                <RadioGroup defaultValue={this.state.addParam.invoiceType} onChange={this.changeEve.changeBillType.bind(this)}
                   style={{ position: 'absolute', display: this.state.status.showBill, left: 20, bottom: 0 }}> {/*onChange={this.onChange} value={this.state.value}*/}
                   <Radio value={1}>个人</Radio>
-                  <Radio value={2}>单位:<Input onBlur={this.changeEve.changeBillMessage} placeholder="选填"
+                  <Radio value={2}>单位:<Input defaultValue={this.state.addParam.invoiceHead} onBlur={this.changeEve.changeBillMessage} placeholder="选填"
                     style={{ width: 200, height: 30 }} /></Radio>
                 </RadioGroup>
               </Content>
@@ -566,7 +590,9 @@ export default class App extends React.Component {
             <Layout style={{ height: 92, textAlign: 'center', border: '1px solid #1ab2db', borderBottom: 0 }}>
               <Sider style={{ background: '#fff', padding: 20, }}>特殊服务</Sider>
               <Content style={{ background: '#f2fcff' }}>
-                <Input placeholder="选填" onBlur={this.changeEve.changeSpecialSver} style={{ width: 200, height: 30, marginTop: 30, marginLeft: 30 }} />
+                <Input placeholder="选填" onBlur={this.changeEve.changeSpecialSver}
+                  defaultValue={this.state.addParam.specialRequirement}
+                  style={{ width: 200, height: 30, marginTop: 30, marginLeft: 30 }} />
               </Content>
             </Layout>
             <Layout style={{ height: 74, border: '1px solid #1ab2db' }}>
