@@ -17,8 +17,23 @@ const columns = [{
   dataIndex: 'orderNo',
   render: (text, record) => <span>
     订单号:<i className="selectNum">{text}</i>
-    <div className="orderHotelName"><a href="#">{record.hotelName}</a></div>
+    <div className="orderHotelName"><a href="javascript:;">{record.hotelName}</a></div>
   </span>,
+  onCellClick: (record) => {
+    // 根据订单Id跳转到详情页面
+    // console.log(record.id)
+    // 跳转页面
+    let myDate = new Date();
+    let startTime = myDate.toLocaleDateString();
+    let endTime = "";
+
+    const query = stringify({
+      hotelId: record.hotelId,
+      startTime: startTime,
+      endTime: endTime
+    })
+    hashHistory.push('/hoteldetail?' + query);
+  }
 }, {
   title: '类型',
   dataIndex: 'checkInDate',
@@ -30,7 +45,7 @@ const columns = [{
   ],
   render: (text, record) => <span>
     预订日期:<i className="reserveDate">{text}</i>
-    <div className="ordertype"><a href="#">{record.orderType}</a></div>
+    <div className="ordertype"><span>{record.orderType}</span></div>
   </span>,
 }, {
   title: '旅客',
@@ -45,6 +60,26 @@ const columns = [{
     <i className="orderTotal">￥{text}</i>
   </span>,
 }, {
+  title: '',
+  dataIndex: 'book',
+  render: text => <span className="orderoperate">
+   <a href="javascript:;" >{text}</a>
+  </span>,
+  onCellClick: (record) => {
+    // 根据订单Id跳转到详情页面
+    // console.log(record.id)
+    // 跳转页面
+    let myDate = new Date();
+    let startTime = myDate.toLocaleDateString();
+    let endTime = "";
+      const query = stringify({
+        hotelId: record.hotelId,
+        startTime: startTime,
+        endTime: endTime
+      })
+      hashHistory.push('/hoteldetail?' + query);
+  }
+}, {
   title: '订单状态',
   dataIndex: 'orderStatus',
   filters: [
@@ -57,25 +92,44 @@ const columns = [{
     <i className="orderState">{text}</i>
     <div className="orderdesc">
       <a id={record.id} href="javascript:;" >订单详情</a>
-      {/*<Button onCellClick={this.changeDetail.bind(this)} value="isOkCount">订单详情</Button>*/}
     </div>
   </span>,
   onCellClick: (record) => {
     // 根据订单Id跳转到详情页面
-    console.log(record.id)
+    // console.log(record.id)
     // 跳转页面
     const query = stringify({
       orderId: record.id
     })
     hashHistory.push('/orderdetail?' + query);
-
-  },
+  }
 }, {
   title: '操作',
   dataIndex: 'operate',
-  render: text => <span>
-    <a href="#">{text}</a>
+  render: text => <span className="orderoperate">
+    <a href="javascript:;">{text}</a>
   </span>,
+  onCellClick: (record) => {
+    // 根据订单Id和酒店Id跳转到评论页面
+    /* console.log(record.id)
+     console.log(record.hotelId)*/
+    // 跳转评论页面
+    if (record.orderStatus == "已成交") {
+      const query = stringify({
+        hotelId: record.hotelId,
+        orderId: record.id
+      })
+      hashHistory.push('/commentpage?' + query);
+    } else if (record.orderStatus == "待付款") {
+      const query = stringify({
+        orderNo: record.orderNo,
+        id: record.id
+      })
+      hashHistory.push('/orderpay?' + query);
+    }
+
+  }
+
 }
 ];
 
@@ -158,10 +212,14 @@ export default class OrderListItem extends React.Component {
               e.data.rows[i]["operate"] = " ";
             } else if (e.data.rows[i].orderType == 1) {
               e.data.rows[i].orderType = "酒店";
+              e.data.rows[i]["book"] = "再次预订";
             } else if (e.data.rows[i].orderType == 2) {
               e.data.rows[i].orderType = "机票";
               e.data.rows[i]["operate"] = " ";
             }
+
+            //隐藏orderNo的前8位
+            e.data.rows[i].orderNo = e.data.rows[i].orderNo.slice(8);
           }
         }
 

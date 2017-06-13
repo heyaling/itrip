@@ -25,7 +25,7 @@
 }
 
 .orderHotelName a {
-    color: #1448ad;
+    color: rgb(26, 178, 219);
 }
 
 .ordertype {
@@ -46,11 +46,19 @@
 }
 
 .orderdesc a {
-    color: #1448ad;
+    color: rgb(26, 178, 219);
 }
 
 .OrderListItemcc .ant-table-thead>tr>th.ant-table-selection-column,
 .OrderListItemcc .ant-table-tbody>tr>td.ant-table-selection-column {
     min-width: 30px;
     width: 30px;
+}
+
+.OrderListItemcc .ant-table-tbody>tr>td:nth-child(4) {
+    width: 100px;
+}
+
+.orderoperate a {
+    color: rgb(26, 178, 219);
 }

@@ -52,8 +52,13 @@ export default class OrderDetailInfo extends React.Component {
   //再次预订
   againBook = () => {
     // 跳转到酒店详情页面
+    let myDate = new Date();
+    let startTime = myDate.toLocaleDateString();
+    let endTime = "";
     const query = stringify({
-      hotelId: this.state.hotelId
+      hotelId: this.state.hotelId,
+      startTime: startTime,
+      endTime: endTime
     })
     hashHistory.push('/hoteldetail?' + query);
   }
