@@ -76,27 +76,27 @@ export default class CommentPage extends React.Component {
     this.state.totalParam["itripImages"] = [];
 
     //拿到订单ID和酒店ID
-    console.log("totalParam=" + JSON.stringify(this.state.totalParam))
+    // console.log("totalParam=" + JSON.stringify(this.state.totalParam))
   }
   //接收star子组件参数
   handleStarChild = (paramstar) => {
     this.state.totalParam = eval('(' + (JSON.stringify(this.state.totalParam) + JSON.stringify(paramstar)).replace(/}{/, ',') + ')');
-    console.log("this.state.totalParam=" + JSON.stringify(this.state.totalParam))
+    // console.log("this.state.totalParam=" + JSON.stringify(this.state.totalParam))
   }
   //接收总体评价子组件参数
   handleTotalComment = (isOkValue) => {
     this.state.totalParam["isOk"] = isOkValue;
-    console.log("this.state.totalParam=" + JSON.stringify(this.state.totalParam))
+    // console.log("this.state.totalParam=" + JSON.stringify(this.state.totalParam))
   }
   //接收评价内容子组件的评价内容
   handleContentValue = (contentvalue) => {
     this.state.totalParam["content"] = contentvalue;
-    console.log("this.state.totalParam=" + JSON.stringify(this.state.totalParam))
+    // console.log("this.state.totalParam=" + JSON.stringify(this.state.totalParam))
   }
   //select下拉列表
   handleSelect = (selectValue) => {
     this.state.totalParam["tripMode"] = selectValue;
-    console.log("this.state.totalParam=" + JSON.stringify(this.state.totalParam))
+    // console.log("this.state.totalParam=" + JSON.stringify(this.state.totalParam))
   }
   //上传图片
   handlePic = (picparam) => {
@@ -104,30 +104,43 @@ export default class CommentPage extends React.Component {
       this.state.totalParam["isHavingImg"] = 0;
     } else {
       this.state.totalParam["isHavingImg"] = 1;
-
-      /*var arrpic = new Array();
-      arrpic = picparam.split(',');*/
-      for (var i = 0; i < picparam.length; i++) {
-      this.state.totalParam["itripImages"].push({ imgUrl: picparam[i] })
+      this.state.totalParam["itripImages"].push({ imgUrl: picparam })
+      //处理删除图片之后再次触发onChange事件
+      //采取方式是，判断是否有相同的图片URl，如果有的话，把最后一个URL地址删除掉
+      let arrTotalParam =  this.state.totalParam["itripImages"];
+      for (var i = 0; i < arrTotalParam.length-1; i++){
+      if (arrTotalParam[i].imgUrl == picparam){
+         arrTotalParam.splice(arrTotalParam.length-1, 1);
       }
-    console.log("this.state.totalParam=" + JSON.stringify(this.state.totalParam))
-
     }
-
+     console.log("最后处理结果=" + JSON.stringify(this.state.totalParam))
+    }
+  }
+  //删除图片
+  handleRemovePic = (picremoveparam) => {
+    let arrTotalParam =  this.state.totalParam["itripImages"];
+    for (var i = 0; i < arrTotalParam.length; i++){
+      if (arrTotalParam[i].imgUrl == picremoveparam){
+         arrTotalParam.splice(i, 1);
+      }
+    }
+    //console.log("this.state.totalParamremove=" + JSON.stringify(this.state.totalParam))
   }
   //提交评论
   submitComment = () => {
 
-    /*fetchBiz({
+    fetchBiz({
       url: "/comment/add",
       type: "POST",
       param: this.state.totalParam,
       callback: e => {
         //得到后台的请求数据
-        //console.log("连接商圈==" + JSON.stringify(e.data));
-        
+        console.log("添加评论==" + JSON.stringify(e.data));
+        if(e.data == null) {
+        hashHistory.push('/myinfo?')
         }
-    })*/
+        }
+    })
 
   }
   render() {
@@ -175,7 +188,7 @@ export default class CommentPage extends React.Component {
         <Layout style={{ height: 270, textAlign: 'center', marginBottom: 10 }}>
           <Sider style={{ background: '#fff', padding: 35, borderRight: '2px dashed #ccc' }}>上传图片（选填）</Sider>
           <Content style={{ padding: '20px' }}>
-            <PicUpload picValue={this.handlePic} />
+            <PicUpload picValue={this.handlePic} picRemove={this.handleRemovePic} />
           </Content>
         </Layout>
         {/*优点不足（选填）*/}

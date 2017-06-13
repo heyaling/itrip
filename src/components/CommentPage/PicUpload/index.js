@@ -1,6 +1,6 @@
 import React from 'react'
 import { Upload, Icon, Modal } from 'antd';
-
+import { fetchBiz } from 'components/fetchUtils'
 import './style.css'
 
 //上传图片组件情况
@@ -10,6 +10,7 @@ export default class PicUpload extends React.Component {
     previewVisible: false,
     previewImage: '',
     fileList: [],
+    imgName: ""
   };
   // {
   //     uid: -1,
@@ -25,44 +26,42 @@ export default class PicUpload extends React.Component {
       previewVisible: true,
     });
   }
-  imgRemove = (e) => {
-    console.debug(e);
-  }
-/*  handleChange = ({ fileList }) => this.setState({ fileList }, () => {
-     this.forceUpdate();
-    let imgUrl = "";
-    if (fileList[0].status == "done") {
-      imgUrl = fileList[0].response.data[0];
-      console.log(fileList[0]);
-      this.props.picValue(imgUrl);
-
-    }
-  }
-  )*/
 
   // 添加图片
   handleChange = ({ fileList }) => {
     this.setState({ fileList });
-    console.log(fileList);
     let imgUrl = [];
-
     if (fileList && fileList.length > 0) {
-      fileList.map((value,i) => {
-        if(fileList[i].status === "done"){
-         imgUrl.push(value.response.data[0]);
+      for (var i = 0; i < fileList.length; i++) {
+        if (fileList[i].status === "done") {
+          imgUrl.push(fileList[i].response.data[0]);
         }
-      })
+      }
+      this.props.picValue(imgUrl[fileList.length - 1]);
     }
-      this.props.picValue(imgUrl);
 
-   
-    /*if (this.state.fileList[0].status == "done") {
-      imgUrl.push(this.state.fileList[0].response.data[0]);
-      //console.log(fileList[0]);
-      this.props.picValue(imgUrl);
-    }*/
-    //this.setState({fileList: []});
-    
+  }
+  // 移除图片
+  imgRemove = (e) => {
+    console.log(e);
+    let removeurl = e.response.data[0];
+    var arrremovepic = new Array();
+    arrremovepic = removeurl.split('/');
+    // 拿到要删除的图片的URL的删除码
+    // console.log(arrremovepic[arrremovepic.length - 1])
+    fetchBiz({
+      url: "/comment/delpic?" + "imgName=" + arrremovepic[arrremovepic.length - 1],
+      type: "POST",
+      headers: { 'token': 'token:PC-212342343242343242334324bc36809d8-8-20170525093442-4f6496' },
+      callback: e => {
+        //得到后台的请求数据
+        console.log("删除图片==" + JSON.stringify(e.data));
+      }
+    })
+
+    this.props.picRemove(e.response.data[0]);
+
+
   }
 
 
