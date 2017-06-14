@@ -12,7 +12,7 @@ const Option = Select.Option;
 export default class HouseList extends React.Component {
   state = {
     param: {
-      "endDate": new Date("2017-05-29"),
+      "endDate": new Date(),
       "hotelId": this.props.hotelId,
       "isBook": null,
       "isHavingBreakfast": null,
@@ -20,7 +20,7 @@ export default class HouseList extends React.Component {
       "roomBedTypeId": null,
       "payType": null,
       "isCancel": null,
-      "startDate": new Date("2017-05-20"),
+      "startDate": new Date(),
     },
     data: [],
     roomTypeta: [],
@@ -28,6 +28,15 @@ export default class HouseList extends React.Component {
     endRed: {}
   }
   componentWillMount() {
+    let param = this.state.param;
+    param.startDate = new Date(this.props.param.startTime);
+    param.endDate =  new Date(this.props.param.endTime);
+    this.setState({
+      param: param
+    })
+
+
+
     fetchBiz({
       url: "/hotelroom/queryhotelroombyhotel",
       type: "POST",
@@ -263,7 +272,7 @@ class HotelTables extends React.Component {
         </div>
       )
     } else {
-      alert(this.props.dataRow);
+      // alert(this.props.dataRow);
     }
   }
 }
@@ -322,11 +331,11 @@ class TableTr extends React.Component {
       showImg: data.currentTarget.src,
     })
   }
-  clickReserve=(e)=>{
-     window.location.hash = 
-     "#orderfill?hotel="+this.props.d.hotelId+"&room="+this.props.d.id+
-     "&startDate="+this.props.param.startDate.toDateString()+
-     "&endDate="+this.props.param.endDate.toDateString()
+  clickReserve = (e) => {
+    window.location.hash =
+      "#orderfill?hotel=" + this.props.d.hotelId + "&room=" + this.props.d.id +
+      "&startDate=" + this.props.param.startDate.toDateString() +
+      "&endDate=" + this.props.param.endDate.toDateString()
   }
   render() {
     let a = this.props.a;
@@ -343,15 +352,15 @@ class TableTr extends React.Component {
           <div className="room_img_ms">
             {this.state.img}
             <br />
-            <a> {d.roomTitle} <br /><span style={{ marginTop: "3px" }} 
-            onClick={this.showModal}>查看详情</span></a>
+            <a> {d.roomTitle} <br /><span style={{ marginTop: "3px" }}
+              onClick={this.showModal}>查看详情</span></a>
           </div>
-          <Modal className="" footer={null}title={d.roomTitle}
+          <Modal className="" footer={null} title={d.roomTitle}
             visible={this.state.visible}
             onCancel={this.handleCancel}
           >
-            <div className="rom-show-image " style={{ display:"block" }}>
-             {/* <div className="left-tran" />
+            <div className="rom-show-image " style={{ display: "block" }}>
+              {/* <div className="left-tran" />
               <a className="model-remove" onClick={this.clickHideMassage}>
                 <i className=" icon-remove" />
               </a>*/}

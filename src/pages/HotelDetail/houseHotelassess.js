@@ -14,16 +14,16 @@ export default class HouseHotelassess extends React.Component {
   state = {
     score: {},
     comment: {
-      isok: 1,
-      havingimg: 2,
-      improve: 3,
-      allcomment: 4
+      isok: 0,
+      havingimg: 0,
+      improve: 0,
+      allcomment: 0
     }
   }
   componentWillMount() {
     /*/comment/gethotelscore/1*/
     fetchBiz({
-      url: "/comment/gethotelscore/1",
+      url: "/comment/gethotelscore/" + this.props.hotelId,
       callback: (data) => {
         this.setState({
           score: data.data
@@ -31,7 +31,7 @@ export default class HouseHotelassess extends React.Component {
       }
     })
     fetchBiz({
-      url: "/comment/getcount/1",
+      url: "/comment/getcount/" + this.props.hotelId,
       callback: (data) => {
         this.setState({
           comment: data.data
@@ -39,39 +39,7 @@ export default class HouseHotelassess extends React.Component {
       }
     })
     this.setState({
-      data: {
-        "beginPos": 3,
-        "curPage": 2,
-        "pageCount": 3,
-        "pageSize": 2,
-        "rows": [
-          {
-            "checkInDate": "2017-10-10",
-            "content": "string",
-            "creationDate": "2017-05-07",
-            "hotelLevel": null,
-            "id": 3,
-            "isHavingImg": 1,
-            "roomTitle": "豪华客房",
-            "score": 4,
-            "tripModeName": "商务出差",
-            "userCode": "张三"
-          },
-          {
-            "checkInDate": "2017-10-10",
-            "content": "这个真的很好,有很多好玩的，值得去玩玩奥",
-            "creationDate": "2017-05-06",
-            "hotelLevel": null,
-            "id": 1,
-            "isHavingImg": 0,
-            "roomTitle": "高级客房",
-            "score": 5,
-            "tripModeName": "商务出差",
-            "userCode": "c测试用户显示名称"
-          }
-        ],
-        "total": 5
-      },
+      data: {},
       recomData: {
       },
       gradget: {
@@ -80,45 +48,6 @@ export default class HouseHotelassess extends React.Component {
     })
   }
   recommendClick(e) {
-    /* 2 代表低 个tabs 课设定此值 为比较有意义的函数值方便有后期修改和查找*/
-    if (e == 2) {
-
-      this.setState({
-        recomData: {
-          "beginPos": 3,
-          "curPage": 2,
-          "pageCount": 3,
-          "pageSize": 2,
-          "rows": [
-            {
-              "checkInDate": "2017-10-10",
-              "content": "string",
-              "creationDate": "2017-05-07",
-              "hotelLevel": null,
-              "id": 3,
-              "isHavingImg": 1,
-              "roomTitle": "豪华客房",
-              "score": 4,
-              "tripModeName": "商务出差",
-              "userCode": "张三"
-            },
-            {
-              "checkInDate": "2017-10-10",
-              "content": "这个真的很好,有很多好玩的，值得去玩玩奥",
-              "creationDate": "2017-05-06",
-              "hotelLevel": null,
-              "id": 1,
-              "isHavingImg": 0,
-              "roomTitle": "高级客房",
-              "score": 5,
-              "tripModeName": "商务出差",
-              "userCode": "c测试用户显示名称"
-            }
-          ],
-          "total": 5
-        }
-      })
-    }
   }
   render() {
     return (
@@ -203,14 +132,14 @@ class Pager extends React.Component {
     this.getPageData();
   }
   state = {
-    score: this.props.data,
+    score: {},
     param: this.props.param
   }
   getPageData = (e) => {
     fetchBiz({
       url: "/comment/getcommentlist",
       type: "POST",
-      param: this.state.param,
+      param: this.props.param,
       callback: (data) => {
         this.setState({
           score: data.data
@@ -222,11 +151,12 @@ class Pager extends React.Component {
     this.getPageData();
   }
   render() {
+     
     return (
       <div>
         <HotelComment data={this.state.score.rows} />
-        <Pagination style={{ float: 'right' }} pageSize={this.state.param.pageSize} onChange={this.handlClickPager}
-          defaultCurrent={1} current={this.state.score.curPage} total={this.state.score.total} />
+        <Pagination style={{ float: 'right' }} pageSize={this.state.param.pageSize}
+        onChange={this.handlClickPager}  defaultCurrent={1} current={this.state.score.curPage}  total={this.state.score.total} />
       </div>
     )
   }
@@ -285,13 +215,12 @@ class HotelComment extends React.Component {
 /* 生成评论界面的图片显示，并绑定点击事件*/
 class ImageBox extends React.Component {
   state = {
-    hotelId: this.props.data.id,
     data: [],
-    imgSize:"_200x200.jpg"
+    imgSize: "_200x200.jpg"
   }
-  componentWillMount() { 
+  componentWillMount() {
     fetchBiz({
-      url: "/comment/getimg/" + this.state.hotelId,
+      url: "/comment/getimg/" + this.props.data.id,
       callback: (da) => {
         this.setState(
           {
@@ -312,7 +241,7 @@ class ImageBox extends React.Component {
     e.currentTarget.style["width"] = 300 + 'px';
     e.currentTarget.style["height"] = 300 + 'px';
     this.setState({
-      imgSize:"_500x500.jpg"
+      imgSize: "_500x500.jpg"
     })
   }
   render() {
@@ -322,7 +251,7 @@ class ImageBox extends React.Component {
           this.state.data.map((data) => {
             return (
               <a>
-                <img src={data.imgUrl+this.state.imgSize}
+                <img src={data.imgUrl + this.state.imgSize}
                   onClick={this.clickImage.bind(this)} height={100} width={100} alt />
               </a>
             )

@@ -61,7 +61,7 @@ export default class App extends React.Component {
       "noticePhone": null,
       "orderType": null,
       "roomId": 1,
-      "specialRequirement": "string"
+      "specialRequirement": ""
     },/*根据查询房间接口返回的数据信息*/
     backMess: {},
     /* 返回的联系人数据信息*/
