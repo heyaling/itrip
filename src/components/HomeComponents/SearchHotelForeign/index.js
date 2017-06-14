@@ -34,6 +34,10 @@ const tailFormItemLayout = {
 }
 
 class SearchHotelForeign extends React.Component {
+  status = {
+    destinationLabel: ''
+  }
+
   handleSubmit = (e) => {
     e.preventDefault()
 
@@ -45,8 +49,12 @@ class SearchHotelForeign extends React.Component {
           values[formField] = formValue.format('YYYY-MM-DD')
         }
       }
+      Object.assign(values, this.status)
       this.props.onSubmit(values)
     });
+  }
+  handleChange = (value, label) => {
+    this.status.destinationLabel = label
   }
 
   render() {
@@ -58,7 +66,7 @@ class SearchHotelForeign extends React.Component {
           <FormItem
             {...formItemLayout}
             label="目的地">
-            {getFieldDecorator('destination', { initialValue: '' })(
+            {getFieldDecorator('destination', { initialValue: '', onChange: this.handleChange })(
               <CitySwitcher />
             )}
           </FormItem>
