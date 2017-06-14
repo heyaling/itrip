@@ -35,6 +35,12 @@ const tailFormItemLayout = {
   },
 }
 
+function disabledDate(current) {
+  // Can not select days before today and today
+  return current && current.valueOf() < (Date.now() - 24 * 60 * 60 * 1000);
+}
+
+
 class SearchHotelItem extends React.Component {
 
   constructor(props) {
@@ -43,30 +49,64 @@ class SearchHotelItem extends React.Component {
     // 设置 initial state
     this.state = {
       param: {},
-      cityNameValue: '',
-      cityIdValue: '',
+      cityNameValue: '北京',
+      cityIdValue: '2',
       cityTradeArea: {},
     };
 
   }
-
   componentWillMount() {
     // this.refs['submitID'].handleClick();
 
-    /*let destinationName = getUrlParam('destination');
+/*    this.state.cityNameValue = getUrlParam('destination');
+    this.state.cityIdValue = getUrlParam('destination');
+    this.state.param["checkInDate"] = getUrlParam('checkInDate');
+    this.state.param["checkOutDate"] = getUrlParam('checkOutDate');
+    this.state.param["hotelLevel"] = getUrlParam('hotelLevel');
+    this.state.param["keywords"] = getUrlParam('keywords');
 
-    this.state.param["destination"] = destinationName,*/
+    console.log("componentwill = "+JSON.stringify( this.state.param));*/
 
-      this.handleSubmit();
+    /*//后台接口请求商圈数据
+      fetchBiz({
+        url: "/hotel/querytradearea/" + this.state.cityIdValue,
+        callback: e => {
+          //得到后台的请求数据
+          //console.log(e.data);
+          // 将请求数据传递给父组件
+          //this.props.receivedata(e.data, this.state.param)
+          this.setState({
+            cityTradeArea: e.data
+          })
+        }
+      })
+
+    //后台接口请求数据
+      fetchSearch({
+        url: "/hotellist/searchItripHotelPage",
+        type: "POST",
+        param: this.state.param,
+        callback: e => {
+          //得到后台的请求数据
+          console.log(e.data);
+          // 将请求数据传递给父组件
+          // 参数列表是：请求的酒店信息--表单参数列表--商圈参数列表
+          this.props.receivedata(e.data, this.state.param, this.state.cityTradeArea)
+        }
+      })*/
+
+    this.handleSubmit();
   }
   //获得子组件传递的名称和ID
   handleChangeCityName = (cityName, cityId) => {
+    console.log("城市名称="+ cityName)
+    console.log("城市ID="+ cityId)
     this.setState({
       cityNameValue: cityName,
-      cityIdValue: cityId,
-
+      cityIdValue: cityId
     })
   }
+
   //提交表单并向后台获取数据
   handleSubmit = (e) => {
     if (e) {
@@ -82,15 +122,10 @@ class SearchHotelItem extends React.Component {
         }
       }
       //values包含表单的数据了
-      //console.log("values="+JSON.stringify(values));
-      this.setState({
-        param: values,
-      })
-
-      //console.log(this.state.cityNameValue);
-
+      console.log("values=" + JSON.stringify(values) );
+      this.state.param = values;
       this.state.param["destination"] = this.state.cityNameValue;
-
+      //console.log(this.state.cityNameValue);
       //后台接口请求商圈数据
       fetchBiz({
         url: "/hotel/querytradearea/" + this.state.cityIdValue,
@@ -104,7 +139,6 @@ class SearchHotelItem extends React.Component {
           })
         }
       })
-
 
       //后台接口请求数据
       fetchSearch({
@@ -144,7 +178,7 @@ class SearchHotelItem extends React.Component {
                 {...formItemLayout2}
                 label="入住时间">
                 {getFieldDecorator('checkInDate', { initialValue: '' })(
-                  <DatePicker style={{ width: '94px' }} size='small' />
+                  <DatePicker disabledDate={disabledDate} style={{ width: '94px' }} size='small' />
                 )}
               </FormItem>
             </Col>
@@ -153,7 +187,7 @@ class SearchHotelItem extends React.Component {
                 {...formItemLayout2}
                 label="退房时间">
                 {getFieldDecorator('checkOutDate', { initialValue: '' })(
-                  <DatePicker style={{ width: '94px' }} size='small' />
+                  <DatePicker disabledDate={disabledDate} style={{ width: '94px' }} size='small' />
                 )}
               </FormItem>
             </Col>

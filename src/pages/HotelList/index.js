@@ -68,8 +68,32 @@ export default class HotelList extends React.Component {
         })
 
       }
+
+      
     };
   }
+  //分页事件
+  onChange = (pageNo) => {
+    // console.log(pageNo);
+    this.state.sortForm["pageNo"] = pageNo;
+    //拼接排序之后向后台接口请求数据
+        fetchSearch({
+          url: "/hotellist/searchItripHotelPage",
+          type: "POST",
+          param: this.state.sortForm,
+          callback: e => {
+            //得到后台的请求数据
+            this.setState({
+              hotelPriceSortSearhData: e.data
+            })
+            // 将请求数据传递给父组件
+            // 通过回调函数中改变的状态值
+            // 参数列表是：根据请求的酒店信息--改变的表单参数列表--价格参数列表
+            this.state.handleOptionChild(this.state.hotelPriceSortSearhData, this.state.sortForm);
+          }
+        })
+  }
+
 
   //耗时操作放在这里面
   /* componentDidMount(){
@@ -83,7 +107,7 @@ export default class HotelList extends React.Component {
         <ListParent totalNum={this.state.total} dataListParent={this.state.handelSort} />
         <ListItem data={this.state.rows} timeData={this.state.sortForm}/>
         <div className="paginationWrapper">
-          <Pagination defaultCurrent={this.state.curPage} total={this.state.pageSize} />
+          <Pagination defaultCurrent={1} current={this.state.curPage } total={this.state.total} pageSize={this.state.pageSize} onChange={this.onChange.bind(this)} />
         </div>
 
       </div>
