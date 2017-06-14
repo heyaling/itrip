@@ -139,7 +139,7 @@ class Pager extends React.Component {
     fetchBiz({
       url: "/comment/getcommentlist",
       type: "POST",
-      param: this.props.param,
+      param:  this.state.param,
       callback: (data) => {
         this.setState({
           score: data.data
@@ -201,7 +201,7 @@ class HotelComment extends React.Component {
                 <ImageBox data={data}></ImageBox>
                 {/*</div>*/}
                 <p className="detail_comment_tips">
-                  <a href="#">2016-09-05 18:47</a>
+                  <a href="#"></a>
                   <a href="#">来自：i 旅行</a>
                 </p>
               </li>
