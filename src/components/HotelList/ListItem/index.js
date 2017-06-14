@@ -9,21 +9,24 @@ import './style.css'
 
 //列表页中的一条列表组件
 export default class ListItem extends React.Component {
+
+  componentWillMount() {
+   // this.submitMes();
+  }
   //提交相关数据
   submitMes = (e) => {
-    
     //改变状态
-    this.setState({
+    /*this.setState({
       formData: this.props.timeData
-    })
+    })*/
     //拼接字符串
-    this.state.formData["hotelId"] = e.currentTarget.value;
-
+    //this.state.formData["hotelId"] = e.currentTarget.value;
+    // console.log("this.props.timeData = " + JSON.stringify( this.props.timeData))
     // 跳转页面
     const query = stringify({
-      hotelId:e.currentTarget.value,
-      startTime:this.state.formData.checkInDate,
-      endTime:this.state.formData.checkOutDate
+      hotelId: e.currentTarget.value,
+      startTime: this.props.timeData.checkInDate,
+      endTime: this.props.timeData.checkOutDate
     })
     hashHistory.push('/hoteldetail?' + query)
 
@@ -31,7 +34,7 @@ export default class ListItem extends React.Component {
 
   render() {
     //请求来数据的时候就渲染请求的数据，没有请求数据的时候就显示原始数据
-    var commentNodes = this.props.data.map( (comment, index)=> {
+    var commentNodes = this.props.data.map((comment, index) => {
       return (
         <div className="tavern-model-grid">
           <div className="modal-grid-left">
