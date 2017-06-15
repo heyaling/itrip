@@ -54,7 +54,7 @@ class SearchHotelForeign extends React.Component {
     });
   }
   handleChange = (value, label) => {
-    this.status.destinationLabel = label
+    this.status.destinationLabel = encodeURIComponent(label)
   }
 
   render() {
