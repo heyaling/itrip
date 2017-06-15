@@ -4,6 +4,7 @@ import { Router, hashHistory } from 'react-router'
 import { changeToken } from 'common/js/ckman'
 import routes from './router'
 import 'common/css/style.css'
+import 'antd/dist/antd.css';
 Date.prototype.Format = function (fmt) {
     var o = {
         "M+": this.getMonth() + 1,                 //月份
