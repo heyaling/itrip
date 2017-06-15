@@ -1,27 +1,20 @@
 
 
 import React from 'react'
-
+import { postRequest, getRequest } from 'common/js/fetch'
 /* 请求发送 知道接口*/
 let fetchRequest = function (params) {
-  
-  fetch(params.url, {
-    method: params.type ? params.type : "GET",
-    mode: "cors",
-    headers: {
-      "Content-Type": params.ContentType || "application/json",
-      'token': 'token:PC-212342343242343242334324bc36809d8-8-20170525093442-4f6496'
-    },
-    body: params.type == "POST" ? JSON.stringify(params.param) : params.param
-  })
-    .then(function (response) {
-      if (response.ok) {
-        response.json().then(res => {
-          params.callback(res);
-        })
+  if (params.type) {
+    postRequest(params.url, params.param).then(res => {
+      if (res.success === 'true') {
+        params.callback(res);
       }
-    })
-
+    }) 
+  }else{
+     getRequest(params.url, params.param).then(data => {
+     params.callback(data);
+    })  
+  } 
 }
 export default fetchRequest;
 
@@ -45,7 +38,7 @@ let fetchSearch = function (params) {
 }
 /* name 参数显示名称*/
 //name 参数显示名称
-let getUrlParam = (name)=>{
+let getUrlParam = (name) => {
   var reg = new RegExp(name + "=([^&]*)(&|$)");
   var r = window.location.hash.match(reg);
   if (r != null) return unescape(r[1]); return null;
