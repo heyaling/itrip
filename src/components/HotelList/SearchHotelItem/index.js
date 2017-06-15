@@ -57,15 +57,15 @@ class SearchHotelItem extends React.Component {
   }
   componentWillMount() {
     // this.refs['submitID'].handleClick();
-
-/*    this.state.cityNameValue = getUrlParam('destination');
+    this.state.cityNameValue = decodeURIComponent(getUrlParam('destinationLabel'));
+    //this.state.cityNameValue = decodeURI(getUrlParam('destinationLabel'));
     this.state.cityIdValue = getUrlParam('destination');
     this.state.param["checkInDate"] = getUrlParam('checkInDate');
     this.state.param["checkOutDate"] = getUrlParam('checkOutDate');
     this.state.param["hotelLevel"] = getUrlParam('hotelLevel');
     this.state.param["keywords"] = getUrlParam('keywords');
 
-    console.log("componentwill = "+JSON.stringify( this.state.param));*/
+    console.log("componentwill = " + this.state.cityNameValue);
 
     /*//后台接口请求商圈数据
       fetchBiz({
@@ -99,8 +99,8 @@ class SearchHotelItem extends React.Component {
   }
   //获得子组件传递的名称和ID
   handleChangeCityName = (cityName, cityId) => {
-    console.log("城市名称="+ cityName)
-    console.log("城市ID="+ cityId)
+    console.log("城市名称=" + cityName)
+    console.log("城市ID=" + cityId)
     this.setState({
       cityNameValue: cityName,
       cityIdValue: cityId
@@ -122,7 +122,7 @@ class SearchHotelItem extends React.Component {
         }
       }
       //values包含表单的数据了
-      console.log("values=" + JSON.stringify(values) );
+      console.log("values=" + JSON.stringify(values));
       this.state.param = values;
       this.state.param["destination"] = this.state.cityNameValue;
       //console.log(this.state.cityNameValue);
