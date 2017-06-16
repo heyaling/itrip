@@ -11,7 +11,9 @@ export default class OrderDetailInfo extends React.Component {
     super(props);
     this.state = {
       orderDetail: [],
-      hotelId: 1
+      hotelId: 1,
+      commentNode: [],
+      nodeFlag: {}
     }
   }
   componentWillMount() {
@@ -21,8 +23,13 @@ export default class OrderDetailInfo extends React.Component {
     fetchBiz({
       url: "/hotelorder/getpersonalorderinfo/" + orderId,
       callback: (e) => {
-        //得到后台的请求数据
-        var orderStatusConver = new Array("", "订单提交", "未出行", "支付成功", "入住", "订单点评");
+        if (e.data.orderStatus == 0) {
+          this.state.commentNode = <Button type="primary" disabled>我要点评</Button>;
+        } else {
+          this.state.commentNode = <Button type="primary" onClick={this.toComment.bind(this)}>我要点评</Button>
+        }
+        //得到后台的请求数据0：待支付 1:已取消 2:支付成功 3:已消费
+        var orderStatusConver = new Array("待支付", "已取消", "支付成功", "已消费");
         var roomPayTypeConver = new Array("", "在线付", "线下付", "不限");
         if (e.data) {
           //转换订单状态标识码为相应的文字介绍
@@ -107,7 +114,7 @@ export default class OrderDetailInfo extends React.Component {
             <p>您可以</p>
             <Button type="primary" onClick={this.againBook.bind(this)}>再次预定</Button>
             <br />
-            <Button type="primary" onClick={this.toComment.bind(this)}>我要点评</Button>
+            {this.state.commentNode}
           </Col>
         </Row>
       </div>

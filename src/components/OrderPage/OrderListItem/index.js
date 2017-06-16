@@ -143,11 +143,7 @@ export default class OrderListItem extends React.Component {
       selectedRowKeys: [],  // Check here to configure the default column
       //Tab导航参数
       orderlist: this.props.data,
-      param: this.props.param,
-      //侧导航参数
-      //paramMenu: this.props.paramMenu,
-      //搜索参数
-      //searchparam: this.props.searchparam
+      param: this.props.param
     };
 
   }

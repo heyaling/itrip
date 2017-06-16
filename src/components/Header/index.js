@@ -5,6 +5,8 @@ import Cookie from 'js-cookie'
 import { getRequest } from 'common/js/fetch'
 import { logoutUrl } from 'constants/url'
 
+import './style.css'
+
 function requestError(err) {
   if (err.msg || err.message) {
     Modal.error({
@@ -17,26 +19,30 @@ function requestError(err) {
 }
 
 export default class Header extends React.Component {
-  
- handleLogout = () => {
-   getRequest(logoutUrl).then(data => {
-     Cookie.remove('token')
-     Cookie.remove('user')
-     Cookie.remove('expTime')
-     Modal.success({
-       title: '提示：',
-       content: data.msg || '退出成功',
-       onOk: () => {
-         window.location.reload()
-       }
-     })
-   }).catch(requestError)
- }
+
+  handleLogout = () => {
+    getRequest(logoutUrl).then(data => {
+      Cookie.remove('token')
+      Cookie.remove('user')
+      Cookie.remove('expTime')
+      Modal.success({
+        title: '提示：',
+        content: data.msg || '退出成功',
+        onOk: () => {
+          window.location.reload()
+        }
+      })
+    }).catch(requestError)
+  }
+
+  handleMyInfo = () => {
+    hashHistory.push('/myinfo?');
+  }
 
   render() {
     const token = Cookie.get('token')
     const user = Cookie.get('user')
-    
+
     return (
       <div>
         <div className="i-top clearfix">
@@ -80,9 +86,11 @@ export default class Header extends React.Component {
             </ul>
             {
               !!token && !!user ?
-                <div className="i-nav-login">
-                  <span>欢迎您 {user}</span>
-                  <span>|</span>
+                <div className="i-nav-login clearfix">
+                  <span className="welcome">欢迎您 {user}</span>
+                  <span className="linerow">|</span>
+                  <a href="javascript:;" onClick={this.handleMyInfo}>全部订单</a>
+                  <span className="linerow">|</span>
                   <a href="javascript:;" onClick={this.handleLogout}>退出</a>
                 </div> :
                 <div className="i-nav-login">
@@ -91,7 +99,7 @@ export default class Header extends React.Component {
                   <a href="javascript:;" onClick={() => hashHistory.push('/register')}>注册</a>
                 </div>
             }
-            
+
           </div>
         </div>
       </div>

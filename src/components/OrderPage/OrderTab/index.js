@@ -57,20 +57,7 @@ export default class OrderTab extends React.Component {
         "curPage": 1,
         "pageCount": 60,
         "pageSize": 1,
-        "rows": [
-          {
-            "checkInDate": "2017-01-01",
-            "creationDate": "2017-05-27",
-            "hotelId": 1,
-            "hotelName": "北京首都大酒店",
-            "id": 80,
-            "linkUserName": "张三,张四",
-            "orderNo": "D100000120170527150945269270",
-            "orderStatus": 0,
-            "orderType": 0,
-            "payAmount": 1884
-          }
-        ],
+        "rows": [],
         "total": 60
       },
 

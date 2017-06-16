@@ -36,7 +36,6 @@ const tailFormItemLayout = {
 }
 
 function disabledDate(current) {
-  // Can not select days before today and today
   return current && current.valueOf() < (Date.now() - 24 * 60 * 60 * 1000);
 }
 
@@ -56,51 +55,38 @@ class SearchHotelItem extends React.Component {
 
   }
   componentWillMount() {
-    // this.refs['submitID'].handleClick();
-    this.state.cityNameValue = decodeURIComponent(getUrlParam('destinationLabel'));
-    //this.state.cityNameValue = decodeURI(getUrlParam('destinationLabel'));
-    this.state.cityIdValue = getUrlParam('destination');
+    if (getUrlParam('id') == null || getUrlParam('id') == '') {
+      this.state.param["featureIds"] = '';
+    } else {
+      this.state.param["featureIds"] = getUrlParam('id');
+      this.state.cityNameValue = this.state.cityNameValue;
+      this.state.cityIdValue = this.state.cityIdValue;
+    }
+    console.log("getUrlParam('featureIds')=" +this.state.param)
+
+    console.log("getUrlParam('destinationLabel')=" + getUrlParam('destinationLabel'))
+    if (getUrlParam('destinationLabel') == '' || getUrlParam('destinationLabel') == null) {
+      this.state.cityNameValue = this.state.cityNameValue;
+    } else {
+      this.state.cityNameValue = decodeURIComponent(getUrlParam('destinationLabel'));
+    }
+    if (getUrlParam('destination') == '' || getUrlParam('destination') == null) {
+      this.state.cityIdValue = this.state.cityIdValue;
+    } else {
+      this.state.cityIdValue = getUrlParam('destination');
+    }
     this.state.param["checkInDate"] = getUrlParam('checkInDate');
     this.state.param["checkOutDate"] = getUrlParam('checkOutDate');
     this.state.param["hotelLevel"] = getUrlParam('hotelLevel');
     this.state.param["keywords"] = getUrlParam('keywords');
-
-    console.log("componentwill = " + this.state.cityNameValue);
-
-    /*//后台接口请求商圈数据
-      fetchBiz({
-        url: "/hotel/querytradearea/" + this.state.cityIdValue,
-        callback: e => {
-          //得到后台的请求数据
-          //console.log(e.data);
-          // 将请求数据传递给父组件
-          //this.props.receivedata(e.data, this.state.param)
-          this.setState({
-            cityTradeArea: e.data
-          })
-        }
-      })
-
-    //后台接口请求数据
-      fetchSearch({
-        url: "/hotellist/searchItripHotelPage",
-        type: "POST",
-        param: this.state.param,
-        callback: e => {
-          //得到后台的请求数据
-          console.log(e.data);
-          // 将请求数据传递给父组件
-          // 参数列表是：请求的酒店信息--表单参数列表--商圈参数列表
-          this.props.receivedata(e.data, this.state.param, this.state.cityTradeArea)
-        }
-      })*/
-
+    
+    // console.log("componentwill = " + this.state.cityNameValue);
     this.handleSubmit();
   }
   //获得子组件传递的名称和ID
   handleChangeCityName = (cityName, cityId) => {
-    console.log("城市名称=" + cityName)
-    console.log("城市ID=" + cityId)
+    // console.log("城市名称=" + cityName)
+    // console.log("城市ID=" + cityId)
     this.setState({
       cityNameValue: cityName,
       cityIdValue: cityId
@@ -122,8 +108,11 @@ class SearchHotelItem extends React.Component {
         }
       }
       //values包含表单的数据了
-      console.log("values=" + JSON.stringify(values));
-      this.state.param = values;
+      //  console.log("values=" + JSON.stringify(values));
+      // this.state.param = values;
+      this.state.param["checkInDate"] = values.checkInDate;
+      this.state.param["checkOutDate"] = values.checkOutDate;
+      this.state.param["keywords"] = values.keywords;
       this.state.param["destination"] = this.state.cityNameValue;
       //console.log(this.state.cityNameValue);
       //后台接口请求商圈数据

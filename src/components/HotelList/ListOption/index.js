@@ -213,7 +213,7 @@ export default class ListOption extends React.Component {
     if (data && data.length > 0) {
       val = data.map((value, index) => {
         return (
-          <Checkbox value={value.id} key={index}>{value.name}</Checkbox>
+          <Checkbox value={value.id}  key={index}>{value.name}</Checkbox>
         )
       })
     }
