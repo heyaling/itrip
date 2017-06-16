@@ -1,6 +1,6 @@
 @import 'bootstrap.css';
-@import './font-awesome/css/font-awesome.min.css';
-@import 'font-awesome.min.css';
+/*@import './font-awesome/css/font-awesome.min.css';*/
+
 @import 'reset.css';
 @import 'common.css';
 @import 'cityselect.css';
