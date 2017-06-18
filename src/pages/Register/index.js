@@ -174,7 +174,7 @@ class Register extends React.Component {
         <div className='LoginHeader'>
           <img src={loginLogo} alt="" />
           <div className="login_toolbox">
-            <a className="login_username" href="login.html">登陆</a>
+            <a className="login_username" href="javascript:;" onClick={() => hashHistory.push('/login')}>登陆</a>
             |
             <a className="login_kefu" href="#">客服中心</a>
           </div>

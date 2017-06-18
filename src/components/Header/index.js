@@ -4,6 +4,7 @@ import { Modal } from 'antd'
 import Cookie from 'js-cookie'
 import { getRequest } from 'common/js/fetch'
 import { logoutUrl } from 'constants/url'
+import classNames from 'classnames'
 
 import './style.css'
 
@@ -37,6 +38,10 @@ export default class Header extends React.Component {
 
   handleMyInfo = () => {
     hashHistory.push('/myinfo?');
+  }
+
+  hasCurrentPath(path) {
+    return location.hash.slice(1).split('?')[0] === path
   }
 
   render() {
@@ -78,11 +83,21 @@ export default class Header extends React.Component {
         <div className="i-nav clearfix">
           <div className="i-nav-wrap">
             <ul>
-              <li><a href="javascript:;" className><i className="icon-home" />首页</a></li>
-              <li><a href="javascript:;" className="current"><i className="icon-globe" />旅游</a></li>
-              <li className="current"><a href="javascript:;"><i className="icon-hospital" />酒店</a></li>
-              <li><a href="javascript:;"><i className="icon-plane" />机票</a></li>
-              <li><a href="javascript:;"><i className="icon-book" />攻略</a></li>
+              <li onClick={() => hashHistory.push('/itripHome')} className={classNames({current: this.hasCurrentPath('/itripHome')})}>
+                <a href="javascript:;" className><i className="icon-home" />首页</a>
+              </li>
+              <li onClick={() => hashHistory.push('/travel')} className={classNames({current: this.hasCurrentPath('/travel')})}>
+                <a href="javascript:;" className="current"><i className="icon-globe" />旅游</a>
+              </li>
+              <li onClick={() => hashHistory.push('/')} className={classNames({current: this.hasCurrentPath('/')})}>
+                <a href="javascript:;"><i className="icon-hospital" />酒店</a>
+              </li>
+              <li onClick={() => hashHistory.push('/flyTicket')} className={classNames({current: this.hasCurrentPath('/flyTicket')})}>
+                <a href="javascript:;"><i className="icon-plane" />机票</a>
+              </li>
+              <li onClick={() => hashHistory.push('/strategy')} className={classNames({current: this.hasCurrentPath('/strategy')})}>
+                <a href="javascript:;"><i className="icon-book" />攻略</a>
+              </li>
             </ul>
             {
               !!token && !!user ?

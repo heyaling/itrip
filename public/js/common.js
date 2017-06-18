@@ -18,7 +18,9 @@ function runCommon() {
     shower(".i-top-phone", ".i-top-appL");
     shower(".i-top-phone", ".i-top-app-wei");
     /* nav 点击添加current类*/
+    /*
     $('.i-nav li').click(function () {
         $(this).addClass('current').siblings().removeClass('current');
     });
+    */
 }

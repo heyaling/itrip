@@ -1,5 +1,5 @@
 import React from 'react'
-import { Tabs } from 'antd'
+import { Tabs, message } from 'antd'
 import { hashHistory } from 'react-router'
 import { stringify } from 'querystring'
 import SearchHotelInland from 'components/HomeComponents/SearchHotelInland'
@@ -17,6 +17,10 @@ export default class SearchHotelTravel extends React.Component {
 
   handleSubmit = formData => {
     formData.category = this.category
+    if (!formData.destination) {
+      message.warn('目的地必须要填写哦！')
+      return
+    }
 
     const query = stringify(formData)
     hashHistory.push('/hotellist?' + query)

@@ -26,7 +26,6 @@ export default class Home extends React.Component {
     },
     featureHotel: []
   }
-
   componentWillMount () {
     const { foreignHotel, hotHotel } = this.state
 
