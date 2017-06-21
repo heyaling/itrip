@@ -168,7 +168,7 @@ class SearchHotelItem extends React.Component {
                 {...formItemLayout}
                 label="目的地">
                 {getFieldDecorator('destination', { initialValue: '' })(
-                  <CitySwitcher changeCityName={this.handleChangeCityName} destination={moment(this.state.param.destination)}/>
+                  <CitySwitcher changeCityName={this.handleChangeCityName} destination={this.state.param.destination}/>
                 )}
               </FormItem>
             </Col>

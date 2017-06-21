@@ -1545,10 +1545,10 @@ export default class CitySwitcher extends React.Component {
 /*  static defaultProps = {
     onChange: () => {},
     changeCityName: () => {}
-  }
+  }*/
   displayRender = (label) => {
     return label[label.length - 1];
-  }*/
+  }
   onChange = (value, label) => {
     /*console.log(label[1].value);//城市ID
     console.log(label[1].label);//城市名称*/
@@ -1557,9 +1557,13 @@ export default class CitySwitcher extends React.Component {
     this.props.onChange(label[1].value, label[1].label)
   }
 
+ componentWillMount() {
+   console.log("this.props.destination33="+this.props.destination)
+ }
+
   render() {
     return (
-      <Cascader value={['B','2']} options={options} size="small" /*displayRender={this.displayRender}*/ onChange={this.onChange} placeholder="北京" />
+      <Cascader /*defaultValue={['北京']}*/ options={options} size="small" displayRender={this.displayRender} onChange={this.onChange} placeholder={this.props.destination} />
     )
   }
 }
