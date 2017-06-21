@@ -4,6 +4,7 @@ import { Router, hashHistory } from 'react-router'
 import { changeToken } from 'common/js/ckman'
 import routes from './router'
 import 'antd/dist/antd.css';
+import 'common/css/font-awesome.min_back.css'
 import 'common/css/font-awesome.min.css'
 import 'common/css/style.css'
 
