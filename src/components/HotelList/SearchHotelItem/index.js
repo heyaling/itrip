@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Input, DatePicker, Row, Col, Button, Icon, Cascader } from 'antd'
-
+import moment from 'moment';
 import CitySwitcher from 'components/CitySwitcher'
 import { fetchBiz, fetchSearch, getUrlParam } from 'components/fetchUtils'
 import "./style.css"
@@ -62,7 +62,7 @@ class SearchHotelItem extends React.Component {
       this.state.cityNameValue = this.state.cityNameValue;
       this.state.cityIdValue = this.state.cityIdValue;
     }
-    console.log("getUrlParam('featureIds')=" +this.state.param)
+    console.log("getUrlParam('featureIds')=" + this.state.param)
 
     console.log("getUrlParam('destinationLabel')=" + getUrlParam('destinationLabel'))
     if (getUrlParam('destinationLabel') == '' || getUrlParam('destinationLabel') == null) {
@@ -75,11 +75,21 @@ class SearchHotelItem extends React.Component {
     } else {
       this.state.cityIdValue = getUrlParam('destination');
     }
-    this.state.param["checkInDate"] = getUrlParam('checkInDate');
-    this.state.param["checkOutDate"] = getUrlParam('checkOutDate');
+
+    if (getUrlParam('checkInDate') == '' || getUrlParam('checkInDate') == null) {
+      this.state.param["checkInDate"] = new Date();
+    } else {
+      this.state.param["checkInDate"] = getUrlParam('checkInDate');
+    }
+
+    if (getUrlParam('checkOutDate') == '' || getUrlParam('checkOutDate') == null) {
+      this.state.param["checkOutDate"] = new Date();
+    } else {
+      this.state.param["checkOutDate"] = getUrlParam('checkOutDate');
+    }
     this.state.param["hotelLevel"] = getUrlParam('hotelLevel');
     this.state.param["keywords"] = getUrlParam('keywords');
-    
+    // console.log("this.state.paramcheckInDate=" + this.state.param.checkInDate);
     // console.log("componentwill = " + this.state.cityNameValue);
     this.handleSubmit();
   }
@@ -108,13 +118,13 @@ class SearchHotelItem extends React.Component {
         }
       }
       //values包含表单的数据了
-      //  console.log("values=" + JSON.stringify(values));
+      // console.log("values=" + JSON.stringify(values));
       // this.state.param = values;
-      this.state.param["checkInDate"] = values.checkInDate;
+      /*this.state.param["checkInDate"] = values.checkInDate;
       this.state.param["checkOutDate"] = values.checkOutDate;
-      this.state.param["keywords"] = values.keywords;
+      this.state.param["keywords"] = values.keywords;*/
       this.state.param["destination"] = this.state.cityNameValue;
-      //console.log(this.state.cityNameValue);
+      console.log("this.state.destination33=" + this.state.param.destination)
       //后台接口请求商圈数据
       fetchBiz({
         url: "/hotel/querytradearea/" + this.state.cityIdValue,
@@ -157,8 +167,8 @@ class SearchHotelItem extends React.Component {
               <FormItem
                 {...formItemLayout}
                 label="目的地">
-                {getFieldDecorator('destination', { initialValue: '北京' })(
-                  <CitySwitcher changeCityName={this.handleChangeCityName} />
+                {getFieldDecorator('destination', { initialValue: '' })(
+                  <CitySwitcher changeCityName={this.handleChangeCityName} destination={moment(this.state.param.destination)}/>
                 )}
               </FormItem>
             </Col>
@@ -166,7 +176,7 @@ class SearchHotelItem extends React.Component {
               <FormItem
                 {...formItemLayout2}
                 label="入住时间">
-                {getFieldDecorator('checkInDate', { initialValue: '' })(
+                {getFieldDecorator('checkInDate', { initialValue: moment(this.state.param.checkInDate) })(
                   <DatePicker disabledDate={disabledDate} style={{ width: '94px' }} size='small' />
                 )}
               </FormItem>
@@ -175,7 +185,7 @@ class SearchHotelItem extends React.Component {
               <FormItem
                 {...formItemLayout2}
                 label="退房时间">
-                {getFieldDecorator('checkOutDate', { initialValue: '' })(
+                {getFieldDecorator('checkOutDate', { initialValue: moment(this.state.param.checkOutDate) })(
                   <DatePicker disabledDate={disabledDate} style={{ width: '94px' }} size='small' />
                 )}
               </FormItem>

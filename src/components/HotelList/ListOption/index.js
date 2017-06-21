@@ -10,7 +10,8 @@ const options = [
   { label: '¥150以下', value: '150' },
   { label: '¥150-300', value: '300' },
   { label: '¥301-450', value: '450' },
-  { label: '¥451以上', value: '451' }
+  { label: '¥451以上', value: '451' },
+  { label: '不限', value: '0' }
 ];
 const optionsWithDisabled = [
   { label: '一星级/经济', value: '1' },
@@ -18,6 +19,7 @@ const optionsWithDisabled = [
   { label: '三星级/舒适', value: '3' },
   { label: '四星级/高档', value: '4' },
   { label: '五星级/高档', value: '5' },
+   { label: '不限', value: '' }
 ];
 //列表页导航下方 搜索选项组件
 export default class ListOption extends React.Component {
@@ -94,7 +96,7 @@ export default class ListOption extends React.Component {
   //改变价格事件
   onChange2 = (e) => {
     let priceNum = parseInt(e.target.value);
-    //console.log('radio1 checked', priceNum);
+    console.log('radio1 checked', priceNum);
     //num数值中的最大值
     //console.log(Number.MAX_VALUE);
     if (priceNum == 150) {
@@ -108,6 +110,9 @@ export default class ListOption extends React.Component {
       this.state.paramForm["maxPrice"] = priceNum;
     } else if (priceNum == 451) {
       this.state.paramForm["minPrice"] = priceNum;
+      this.state.paramForm["maxPrice"] = Number.MAX_VALUE;
+    }else if (priceNum == 0) {
+      this.state.paramForm["minPrice"] = 0;
       this.state.paramForm["maxPrice"] = Number.MAX_VALUE;
     }
     //拿到数据

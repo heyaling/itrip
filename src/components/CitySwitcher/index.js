@@ -1542,13 +1542,13 @@ const options = [{
 ];
 
 export default class CitySwitcher extends React.Component {
-  static defaultProps = {
+/*  static defaultProps = {
     onChange: () => {},
     changeCityName: () => {}
   }
   displayRender = (label) => {
     return label[label.length - 1];
-  }
+  }*/
   onChange = (value, label) => {
     /*console.log(label[1].value);//城市ID
     console.log(label[1].label);//城市名称*/
@@ -1559,7 +1559,7 @@ export default class CitySwitcher extends React.Component {
 
   render() {
     return (
-      <Cascader options={options} size="small" displayRender={this.displayRender} onChange={this.onChange} placeholder="北京" />
+      <Cascader value={['B','2']} options={options} size="small" /*displayRender={this.displayRender}*/ onChange={this.onChange} placeholder="北京" />
     )
   }
 }
