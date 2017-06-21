@@ -1,6 +1,6 @@
 import React from 'react'
 import { Cascader } from 'antd';
-
+import "./style.css"
 //千万不要展开看（下拉数据）
 const options = [{
   value: 'A',
@@ -1542,10 +1542,10 @@ const options = [{
 ];
 
 export default class CitySwitcher extends React.Component {
-/*  static defaultProps = {
-    onChange: () => {},
-    changeCityName: () => {}
-  }*/
+    static defaultProps = {
+      onChange: () => {},
+      changeCityName: () => {}
+    }
   displayRender = (label) => {
     return label[label.length - 1];
   }
@@ -1557,13 +1557,13 @@ export default class CitySwitcher extends React.Component {
     this.props.onChange(label[1].value, label[1].label)
   }
 
- componentWillMount() {
-   console.log("this.props.destination33="+this.props.destination)
- }
 
   render() {
     return (
-      <Cascader /*defaultValue={['北京']}*/ options={options} size="small" displayRender={this.displayRender} onChange={this.onChange} placeholder={this.props.destination} />
+      <span className="CascaderCity">
+        <Cascader options={options} size="small" displayRender={this.displayRender} onChange={this.onChange} placeholder={this.props.destination} />
+      </span>
+
     )
   }
 }
