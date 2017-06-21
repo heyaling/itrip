@@ -6,6 +6,7 @@
 */
 import React from 'react'
 import { DatePicker, Modal, Select } from 'antd';
+import moment from 'moment';
 import { fetchBiz } from '../../components/fetchUtils'
 'use strict';
 const Option = Select.Option;
@@ -30,7 +31,7 @@ export default class HouseList extends React.Component {
   componentWillMount() {
     let param = this.state.param;
     param.startDate = new Date(this.props.param.startTime);
-    param.endDate =  new Date(this.props.param.endTime);
+    param.endDate = new Date(this.props.param.endTime);
     this.setState({
       param: param
     })
@@ -125,16 +126,20 @@ export default class HouseList extends React.Component {
   }
 
   render() {
+
+    function disabledDate(current) {
+      return current && current.valueOf() < (Date.now() - 24 * 60 * 60 * 1000);
+    }
     return (
       <div className="house_list" id="houseList">
         <div className="line">
           <div style={this.state.startRed} className="hotel_detail_item hotel_detail_clder">
             <span>入住</span>
-            <DatePicker onChange={this.startDate} size="small" />
+            <DatePicker disabledDate={disabledDate} defaultValue={moment(this.props.param.startTime)} onChange={this.startDate} size="small" />
           </div>
           <div style={this.state.endRed} className="hotel_detail_item hotel_detail_clder hotel_detail_cldertwo">
             <span>退房</span>
-            <DatePicker onChange={this.endDate} size="small" />
+            <DatePicker disabledDate={disabledDate}  defaultValue={moment(this.props.param.endTime)} onChange={this.endDate} size="small" />
           </div>
           <button className="btn-serach" onClick={this.serachClickButton.bind(this)}>重新搜索</button>
         </div>
