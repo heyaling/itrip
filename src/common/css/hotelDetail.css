@@ -744,7 +744,7 @@
 }
 .facility_list ul li {
 	width: 185px;
-	height: 24px;
+	/*height: 24px;*/
 	line-height: 24px;
 	margin-bottom: 10px;
 	float: left;
@@ -935,6 +935,8 @@ input[type="button"] {
 	color:#666;
 }
 .author p {
+  word-wrap: break-word;
+    width: 100px;
 	color: #999;
 	margin-top: 8px;
 }
