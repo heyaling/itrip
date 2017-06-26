@@ -31,7 +31,7 @@ export default class Header extends React.Component {
         content: data.msg || '退出成功',
         onOk: () => {
           // window.location.reload()
-          hashHistory.push('/');
+          hashHistory.push('/home');
         }
       })
     }).catch(requestError)

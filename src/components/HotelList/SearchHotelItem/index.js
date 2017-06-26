@@ -77,13 +77,13 @@ class SearchHotelItem extends React.Component {
     }
 
     if (getUrlParam('checkInDate') == '' || getUrlParam('checkInDate') == null) {
-      this.state.param["checkInDate"] = new Date();
+      this.state.param["checkInDate"] = Date.now();
     } else {
       this.state.param["checkInDate"] = getUrlParam('checkInDate');
     }
 
     if (getUrlParam('checkOutDate') == '' || getUrlParam('checkOutDate') == null) {
-      this.state.param["checkOutDate"] = new Date();
+      this.state.param["checkOutDate"] = (Date.now() + 24 * 60 * 60 * 1000);
     } else {
       this.state.param["checkOutDate"] = getUrlParam('checkOutDate');
     }
@@ -118,21 +118,12 @@ class SearchHotelItem extends React.Component {
         }
       }
       //values包含表单的数据了
-      // console.log("values=" + JSON.stringify(values));
-      // this.state.param = values;
-      /*this.state.param["checkInDate"] = values.checkInDate;
-      this.state.param["checkOutDate"] = values.checkOutDate;
-      this.state.param["keywords"] = values.keywords;*/
       this.state.param["destination"] = this.state.cityNameValue;
-      console.log("this.state.destination33=" + this.state.param.destination)
       //后台接口请求商圈数据
       fetchBiz({
         url: "/hotel/querytradearea/" + this.state.cityIdValue,
         callback: e => {
           //得到后台的请求数据
-          //console.log(e.data);
-          // 将请求数据传递给父组件
-          //this.props.receivedata(e.data, this.state.param)
           this.setState({
             cityTradeArea: e.data
           })

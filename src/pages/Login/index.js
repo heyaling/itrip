@@ -1,13 +1,14 @@
 import React from 'react'
 import { Form, Icon, Input, Button, Checkbox, Modal } from 'antd';
 import { hashHistory } from 'react-router'
+import { stringify } from 'querystring'
 import moment from 'moment'
 import Cookie from 'js-cookie'
 import LoginFooter from 'components/Footer/LoginFooter.js'
 import { postRequestForm } from 'common/js/fetch'
 import { loginUrl, chTokenUrl } from 'constants/url'
 import { changeToken } from 'common/js/ckman'
-
+import { getUrlParam } from 'components/fetchUtils'
 
 import loginLogo from './imgs/i-LOGO-02-01.png'
 import LeftPhone from './imgs/left-phone.png'
@@ -32,17 +33,17 @@ function requestError(err) {
 }
 
 class Login extends React.Component {
-  
+
   componentDidUpdate() {
     const token = Cookie.get('token')
     const user = Cookie.get('user')
-    
+
     if (token && user) {
       Modal.info({
         title: '提示',
         content: '您已经登录，若要切换用户，请先注销！',
         onOk() {
-          hashHistory.push('/')
+          hashHistory.push('/home')
         }
       })
     }
@@ -55,11 +56,22 @@ class Login extends React.Component {
 
       postRequestForm(loginUrl, values).then(data => {
         const days = moment(data.data.expTime - 0).diff(moment(data.data.genTime - 0), 'days', true)
-        Cookie.set('token', data.data.token, {expires: days})
-        Cookie.set('user', values.name, {expires: days})
-        Cookie.set('expTime', data.data.expTime - 0, {expires: days})
+        Cookie.set('token', data.data.token, { expires: days })
+        Cookie.set('user', values.name, { expires: days })
+        Cookie.set('expTime', data.data.expTime - 0, { expires: days })
         changeToken()
-        hashHistory.push('/')
+        if (getUrlParam('hotel') == null || getUrlParam('hotel') == '') {
+          hashHistory.push('/home')
+        } else {
+          // http://localhost:3000/#/login?hotel=1&room=1&startDate=Mon Jun 26 2017&endDate=Tue Jun 27 2017&skipPage=orderfill&_k=futrqg
+          const query = stringify({
+            hotel: getUrlParam('hotel'),
+            room: getUrlParam('room'),
+            startDate: getUrlParam('startDate'),
+            endDate: getUrlParam('endDate')
+          })
+          hashHistory.push('/hoteldetail?' + query)
+        }
       }).catch(err => {
         requestError(err)
         Cookie.remove('token')
@@ -105,7 +117,7 @@ class Login extends React.Component {
                   <FormItem >
                     {getFieldDecorator('name', {
                       rules: [
-                        {type: 'email', message: '请输入正确的邮箱！'},
+                        { type: 'email', message: '请输入正确的邮箱！' },
                         { required: true, message: '邮箱必须填写！' }
                       ]
                     })(
