@@ -5,9 +5,20 @@
 * @Last Modified time: 2017-05-08 13:41:49
 */
 import React from 'react'
-import { DatePicker, Modal, Select } from 'antd';
+import { DatePicker, Modal, Select,message } from 'antd';
 import moment from 'moment';
 import { fetchBiz } from '../../components/fetchUtils'
+import Cookie from 'js-cookie'
+ const token = Cookie.get('token')
+ const alertDesc = (param) => {
+  message[param.type](param.desc,param.time);
+//   message.success(content, duration, onClose)
+// message.error(content, duration, onClose)
+// message.info(content, duration, onClose)
+// message.warning(content, duration, onClose)
+// message.warn(content, duration, onClose)  
+// message.loading(content, duration, onClose)
+};
 'use strict';
 const Option = Select.Option;
 export default class HouseList extends React.Component {
@@ -31,7 +42,7 @@ export default class HouseList extends React.Component {
   componentWillMount() {
     let param = this.state.param;
     param.startDate = new Date(this.props.param.startTime||new Date());
-    param.endDate = new Date(this.props.param.endTime || new Date());
+    param.endDate = new Date(this.props.param.endTime ||new Date().getTime()+(60*60*24*1000));
     this.setState({
       param: param
     })
@@ -77,6 +88,12 @@ export default class HouseList extends React.Component {
         this.setState({
           data: data.data
         })
+        /**/
+        alertDesc({
+        type:'success',
+        desc:'数据获取成功！',
+        time:1
+      });
       }
     })
 
@@ -141,7 +158,7 @@ export default class HouseList extends React.Component {
           <div style={this.state.endRed} className="hotel_detail_item hotel_detail_clder hotel_detail_cldertwo">
             <span>退房</span>
             {/*disabledDate={disabledDate}*/}
-            <DatePicker   defaultValue={moment(this.props.param.endTime||new Date())} onChange={this.endDate} size="small" />
+            <DatePicker   defaultValue={moment(this.props.param.endTime||new Date().getTime()+(60*60*24*1000))} onChange={this.endDate} size="small" />
           </div>
           <button className="btn-serach" onClick={this.serachClickButton.bind(this)}>重新搜索</button>
         </div>
@@ -339,10 +356,26 @@ class TableTr extends React.Component {
     })
   }
   clickReserve = (e) => {
-    window.location.hash =
+
+    if(token){
+   window.location.hash =
       "#orderfill?hotel=" + this.props.d.hotelId + "&room=" + this.props.d.id +
       "&startDate=" + this.props.param.startDate.toDateString() +
       "&endDate=" + this.props.param.endDate.toDateString()
+    }else{
+      alertDesc({
+        type:'warning',
+        desc:'请先登录，3s后跳转！',
+        time:3
+      });
+      setTimeout(()=>{
+          window.location.hash =
+      "#login?hotel=" + this.props.d.hotelId + "&room=" + this.props.d.id +
+      "&startDate=" + this.props.param.startDate.toDateString() +
+      "&endDate=" + this.props.param.endDate.toDateString()+'&skipPage=orderfill';
+      },3000);
+    }
+ 
   }
   render() {
     let a = this.props.a;

@@ -1,10 +1,19 @@
 import React from 'react'
-import { Modal, Icon, Layout, Input, Checkbox, Button, Select, Radio, Form, DatePicker, Row, Col } from 'antd';
+import { Modal, Icon, Layout, Input, Checkbox, Button, Select, Radio, Form, DatePicker, message } from 'antd';
 import { fetchBiz } from 'components/fetchUtils'
 const FormItem = Form.Item;
 const Option = Select.Option;
+const alertDesc = (param) => {
+  message[param.type](param.desc, param.time);
+  //   message.success(content, duration, onClose)
+  // message.error(content, duration, onClose)
+  // message.info(content, duration, onClose)
+  // message.warning(content, duration, onClose)
+  // message.warn(content, duration, onClose)  
+  // message.loading(content, duration, onClose)
+};
 export default class App extends React.Component {
-  
+
   handleCancel = (e) => {
     this.props.data.setState();
   }
@@ -24,30 +33,35 @@ export class MyAddFrom extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
-      if (!err) { 
-        values["linkIdCardType"]=0;
+      if (!err) {
+        values["linkIdCardType"] = 0;
         fetchBiz({
           url: this.props.data.url,
           type: "POST",
           param: values,
           callback: e => {
-             this.props.callback()
+            this.props.callback()
+            alertDesc({
+              type: 'success',
+              desc: '添加成功！',
+              time: 3
+            });
           }
         })
       }
     });
-  } 
+  }
   render() {
     let data = this.props.data;
     const { getFieldDecorator } = this.props.form;
     return (
       <Form onSubmit={this.handleSubmit} style={{ marginBottom: '30px' }}>
-        <FormItem style={{display:'none'}} >
-          {getFieldDecorator('id', { 
+        <FormItem style={{ display: 'none' }} >
+          {getFieldDecorator('id', {
             initialValue: data.userMess.id
           })(
             <Input size="small" />
-            )} 
+            )}
         </FormItem>
         <FormItem
           label="姓名"
