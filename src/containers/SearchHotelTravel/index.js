@@ -16,7 +16,7 @@ export default class SearchHotelTravel extends React.Component {
   }
 
   handleSubmit = formData => {
-    formData.category = this.category
+    formData.category = this.category;
     if (!formData.destination) {
       message.warn('目的地必须要填写哦！')
       return

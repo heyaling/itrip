@@ -84,18 +84,18 @@ class Login extends React.Component {
             </div>
             <div className="right-message">
               使用<img src={loginLogo} />客户端<br />
-              手机扫描安全登陆
+              手机扫描安全登录
         </div>
             <div className="right-message gray">
-              1. 打开手机i旅行客户端并登陆i旅行账号<br />
-              2. 在i旅行登陆页点击右上角扫码安全登陆<br />
-              3. 使用i旅行客户端左上角扫描功能完成登陆<br />
+              1. 打开手机i旅行客户端并登录i旅行账号<br />
+              2. 在i旅行登录页点击右上角扫码安全登录<br />
+              3. 使用i旅行客户端左上角扫描功能完成登录<br />
             </div>
           </section>
           <aside>
             <div className="login-header">
               <div>
-                <span>会员登陆</span>&nbsp;<a href="register.html"> 立即注册</a>，享积分换礼、返现等专属优惠！
+                <span>会员登录</span>&nbsp;<a href="register.html"> 立即注册</a>，享积分换礼、返现等专属优惠！
           </div>
               <span className="right-erweima" />
             </div>
@@ -120,10 +120,10 @@ class Login extends React.Component {
                       )}
                   </FormItem>
                   <FormItem>
-                    <Checkbox checked>30天内自动登陆</Checkbox>
+                    <Checkbox checked>30天内自动登录</Checkbox>
                     <a className="login-form-forgot" href="">忘记密码?</a>
 
-                    <Button type="primary" htmlType="submit" className="login-form-button">登陆</Button>
+                    <Button type="primary" htmlType="submit" className="login-form-button">登录</Button>
 
                   </FormItem>
                 </Form>
@@ -132,7 +132,7 @@ class Login extends React.Component {
 
             <div className="login-footer">
               <div className="footer-message">
-                您也可以用合作网站的帐号登陆去i旅行网
+                您也可以用合作网站的帐号登录去i旅行网
           </div>
               <div className="footer-label">
                 <a><img src={iconsina} /> 新浪微博</a>

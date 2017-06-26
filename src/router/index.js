@@ -22,7 +22,8 @@ export default [
     path: '/',
     component: App,
     indexRoute: {
-      component: Home
+      // component: Home
+      component: ItripHome
     },
     childRoutes: [
       {
@@ -72,7 +73,11 @@ export default [
       {
         path: 'strategy',
         component: Strategy
-      }
+      },
+      {
+        path: 'home',
+        component: Home
+      },
     ]
   },
   {

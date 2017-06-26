@@ -34,10 +34,10 @@ const tailFormItemLayout = {
     span: 19
   },
 }
-
-function disabledDate(current) {
+/*关闭日历插件之前的日期函数*/
+/*function disabledDate(current) {
   return current && current.valueOf() < (Date.now() - 24 * 60 * 60 * 1000);
-}
+}*/
 
 
 class SearchHotelItem extends React.Component {
@@ -177,7 +177,7 @@ class SearchHotelItem extends React.Component {
                 {...formItemLayout2}
                 label="入住时间">
                 {getFieldDecorator('checkInDate', { initialValue: moment(this.state.param.checkInDate) })(
-                  <DatePicker disabledDate={disabledDate} style={{ width: '94px' }} size='small' />
+                  <DatePicker /*disabledDate={disabledDate}*/ style={{ width: '94px' }} size='small' />
                 )}
               </FormItem>
             </Col>
@@ -186,7 +186,7 @@ class SearchHotelItem extends React.Component {
                 {...formItemLayout2}
                 label="退房时间">
                 {getFieldDecorator('checkOutDate', { initialValue: moment(this.state.param.checkOutDate) })(
-                  <DatePicker disabledDate={disabledDate} style={{ width: '94px' }} size='small' />
+                  <DatePicker /* disabledDate={disabledDate}*/ style={{ width: '94px' }} size='small' />
                 )}
               </FormItem>
             </Col>

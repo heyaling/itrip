@@ -44,8 +44,8 @@ export default class MyInfoLayout extends React.Component {
               <Sider width={200} style={{ background: '#fff', border: '1px solid #ccc' }}>
                 <Menu
                   mode="inline"
-                  defaultSelectedKeys={['5']}
-                  defaultOpenKeys={['sub2']}
+                  defaultSelectedKeys={['-1']}
+                  defaultOpenKeys={['sub1']}
                   style={{ height: '100%' }}
                   onClick={this.handleChange.bind(this)}
                 >

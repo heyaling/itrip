@@ -30,7 +30,8 @@ export default class Header extends React.Component {
         title: '提示：',
         content: data.msg || '退出成功',
         onOk: () => {
-          window.location.reload()
+          // window.location.reload()
+          hashHistory.push('/');
         }
       })
     }).catch(requestError)
@@ -83,13 +84,13 @@ export default class Header extends React.Component {
         <div className="i-nav clearfix">
           <div className="i-nav-wrap">
             <ul>
-              <li onClick={() => hashHistory.push('/itripHome')} className={classNames({current: this.hasCurrentPath('/itripHome')})}>
+              <li onClick={() => hashHistory.push('/')} className={classNames({current: this.hasCurrentPath('/')})}>
                 <a href="javascript:;" className><i className="icon-home" />首页</a>
               </li>
               <li onClick={() => hashHistory.push('/travel')} className={classNames({current: this.hasCurrentPath('/travel')})}>
                 <a href="javascript:;" className="current"><i className="icon-globe" />旅游</a>
               </li>
-              <li onClick={() => hashHistory.push('/')} className={classNames({current: this.hasCurrentPath('/')})}>
+              <li onClick={() => hashHistory.push('/home')} className={classNames({current: this.hasCurrentPath('/home')})}>
                 <a href="javascript:;"><i className="icon-hospital" />酒店</a>
               </li>
               <li onClick={() => hashHistory.push('/flyTicket')} className={classNames({current: this.hasCurrentPath('/flyTicket')})}>
@@ -104,12 +105,12 @@ export default class Header extends React.Component {
                 <div className="i-nav-login clearfix">
                   <span className="welcome">欢迎您 {user}</span>
                   <span className="linerow">|</span>
-                  <a href="javascript:;" onClick={this.handleMyInfo}>全部订单</a>
+                  <a href="javascript:;" onClick={this.handleMyInfo}>个人中心</a>
                   <span className="linerow">|</span>
                   <a href="javascript:;" onClick={this.handleLogout}>退出</a>
                 </div> :
                 <div className="i-nav-login">
-                  <a href="javascript:;" onClick={() => hashHistory.push('/login')}>登陆</a>
+                  <a href="javascript:;" onClick={() => hashHistory.push('/login')}>登录</a>
                   <span>|</span>
                   <a href="javascript:;" onClick={() => hashHistory.push('/register')}>注册</a>
                 </div>
