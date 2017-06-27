@@ -23,10 +23,11 @@ export default class OrderDetailInfo extends React.Component {
     fetchBiz({
       url: "/hotelorder/getpersonalorderinfo/" + orderId,
       callback: (e) => {
-        if (e.data.orderStatus == 0) {
-          this.state.commentNode = <Button type="primary" disabled>我要点评</Button>;
-        } else {
+        // console.log("订单详情aaa="+JSON.stringify(e.data)  )
+        if (e.data.orderStatus == 4 || e.data.orderStatus == 5) {
           this.state.commentNode = <Button type="primary" onClick={this.toComment.bind(this)}>我要点评</Button>
+        } else {
+          this.state.commentNode = <Button type="primary" disabled>我要点评</Button>;
         }
         //得到后台的请求数据0：待支付 1:已取消 2:支付成功 3:已消费
         var orderStatusConver = new Array("待支付", "已取消", "支付成功", "已消费");

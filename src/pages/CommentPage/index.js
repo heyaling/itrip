@@ -193,7 +193,7 @@ export default class CommentPage extends React.Component {
         </Layout>
         {/*优点不足（选填）*/}
         <Layout style={{ height: 260, textAlign: 'center', marginBottom: 30 }}>
-          <Sider style={{ background: '#fff', padding: 35, borderRight: '2px dashed #ccc' }}>酒店类型</Sider>
+          <Sider style={{ background: '#fff', padding: 35, borderRight: '2px dashed #ccc' }}>出游类型</Sider>
           <Content style={{ padding: '20px' }}>
             <CommentHolType selectValue={this.handleSelect} />
           </Content>

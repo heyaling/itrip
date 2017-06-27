@@ -16,6 +16,7 @@ import Travel from 'pages/Travel'
 import FlyTicket from 'pages/FlyTicket'
 import Strategy from 'pages/Strategy'
 import ErrorPage from 'pages/ErrorPage'
+import BuildingPage from 'pages/BuildingPage'
 
 export default [
   {
@@ -78,6 +79,10 @@ export default [
         path: 'home',
         component: Home
       },
+      {
+        path: 'buildingpage',
+        component: BuildingPage
+      }
     ]
   },
   {

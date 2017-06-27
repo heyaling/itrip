@@ -55,14 +55,14 @@ class SearchHotelItem extends React.Component {
 
   }
   componentWillMount() {
-    if (getUrlParam('id') == null || getUrlParam('id') == '') {
+    if (!getUrlParam('id')) {
       this.state.param["featureIds"] = '';
     } else {
       this.state.param["featureIds"] = getUrlParam('id');
       this.state.cityNameValue = this.state.cityNameValue;
       this.state.cityIdValue = this.state.cityIdValue;
     }
-    console.log("getUrlParam('featureIds')=" + this.state.param)
+    console.log("getUrlParam('featureIds')=" + JSON.stringify(this.state.param) )
 
     console.log("getUrlParam('destinationLabel')=" + getUrlParam('destinationLabel'))
     if (getUrlParam('destinationLabel') == '' || getUrlParam('destinationLabel') == null) {
@@ -89,8 +89,7 @@ class SearchHotelItem extends React.Component {
     }
     this.state.param["hotelLevel"] = getUrlParam('hotelLevel');
     this.state.param["keywords"] = getUrlParam('keywords');
-    // console.log("this.state.paramcheckInDate=" + this.state.param.checkInDate);
-    // console.log("componentwill = " + this.state.cityNameValue);
+
     this.handleSubmit();
   }
   //获得子组件传递的名称和ID
