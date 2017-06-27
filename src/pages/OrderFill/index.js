@@ -1,5 +1,5 @@
 import React from 'react'
-import { Steps, Icon, Layout, Input, Checkbox, Button, Select, Radio, Form, DatePicker,message } from 'antd';
+import { Steps, Icon, Layout, Input, Checkbox, Button, Select, Radio, Form, DatePicker, message } from 'antd';
 import './index.css'
 import Header from '../../components/Header'
 import Footer from '../../components/Footer/'
@@ -8,15 +8,15 @@ import moment from 'moment';
 import { hashHistory } from 'react-router'
 import { fetchBiz, getUrlParam } from '../../components/fetchUtils'
 import Cookie from 'js-cookie'
- const token = Cookie.get('token')
-  const alertDesc = (param) => {
-  message[param.type](param.desc,param.time);
-//   message.success(content, duration, onClose)
-// message.error(content, duration, onClose)
-// message.info(content, duration, onClose)
-// message.warning(content, duration, onClose)
-// message.warn(content, duration, onClose)  
-// message.loading(content, duration, onClose)
+
+const alertDesc = (param) => {
+  message[param.type](param.desc, param.time);
+  //   message.success(content, duration, onClose)
+  // message.error(content, duration, onClose)
+  // message.info(content, duration, onClose)
+  // message.warning(content, duration, onClose)
+  // message.warn(content, duration, onClose)  
+  // message.loading(content, duration, onClose)
 };
 // import stp from '../../components/OrderPage/'
 const { Sider, Content } = Layout;
@@ -52,15 +52,15 @@ export default class App extends React.Component {
       console.debug(data);
     },/*查询房间接口的参数信息数据*/
     param: {
-      "checkInDate": new Date(getUrlParam("startDate")|| new Date()),
-      "checkOutDate": new Date(getUrlParam("endDate")|| new Date().getTime() + (1000 * 60 * 60 * 24)),
+      "checkInDate": new Date(getUrlParam("startDate") || new Date()),
+      "checkOutDate": new Date(getUrlParam("endDate") || new Date().getTime() + (1000 * 60 * 60 * 24)),
       "count": null,
       "hotelId": null,
       "roomId": null
     },/* 保存添加信息数据*/
     addParam: JSON.parse(window.localStorage.getItem(getUrlParam("orderId"))) || {
-      "checkInDate": new Date(getUrlParam("startDate")|| new Date()),
-      "checkOutDate": new Date(getUrlParam("endDate")|| new Date().getTime() + (1000 * 60 * 60 * 24)),
+      "checkInDate": new Date(getUrlParam("startDate") || new Date()),
+      "checkOutDate": new Date(getUrlParam("endDate") || new Date().getTime() + (1000 * 60 * 60 * 24)),
       "count": null,
       "hotelId": null,
       "hotelName": null,
@@ -397,12 +397,12 @@ export default class App extends React.Component {
             hashHistory.push('/orderpay?orderNo=' + e.data.orderNo + '&id=' + e.data.id)
           }
         })
-      }else{
-         alertDesc({
-        type:'warning',
-        desc:'输入信息有误，请根据提示重新输入！',
-        time:3
-      });
+      } else {
+        alertDesc({
+          type: 'warning',
+          desc: '输入信息有误，请根据提示重新输入！',
+          time: 3
+        });
       }
     }
   }
@@ -419,8 +419,8 @@ export default class App extends React.Component {
 
     param["hotelId"] = getUrlParam("hotel");
     param["roomId"] = getUrlParam("room");
-    param["checkInDate"] =  this.state.param.checkInDate|| new Date();
-    param["checkOutDate"] =  this.state.param.checkOutDate || new Date().getTime() + 1000 * 60 * 60 * 24;
+    param["checkInDate"] = this.state.param.checkInDate || new Date();
+    param["checkOutDate"] = this.state.param.checkOutDate || new Date().getTime() + 1000 * 60 * 60 * 24;
     this.changeState({ key: "param", val: param })
     if (!getUrlParam("orderId")) {
 
@@ -451,7 +451,7 @@ export default class App extends React.Component {
       })
     } else {
 
-      if (this.state.addParam.isNeedInvoice==1) {
+      if (this.state.addParam.isNeedInvoice == 1) {
         this.changeEve.changeParams({
           key: 'showBill',
           val: 'block',
@@ -467,15 +467,16 @@ export default class App extends React.Component {
     }
   }
   componentDidMount() {
-    if(!token){
-       alertDesc({
-        type:'warning',
-        desc:'请先登录，3s后跳转！',
-        time:3
+    const token = Cookie.get('token')
+    if (!token) {
+      alertDesc({
+        type: 'warning',
+        desc: '请先登录，3s后跳转！',
+        time: 3
       });
-      setTimeout(()=>{
-          window.location.hash =  "#login" 
-      },3000);
+      setTimeout(() => {
+        window.location.hash = "#login"
+      }, 3000);
     }
   }
   componentWillMount() {
@@ -485,6 +486,14 @@ export default class App extends React.Component {
       type: "POST",
       param: this.state.param,
       callback: e => {
+        if (e.success == 'false') {
+          alertDesc({
+            type: 'error',
+            desc: '获取房间数据错误请刷新页面！',
+            time: 2
+          });
+        }
+
         this.setState({
           backMess: e.data
         })
