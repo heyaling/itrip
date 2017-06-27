@@ -11,14 +11,16 @@ import './style.css'
 /*我的信息页的主体框架*/
 export default class MyInfoLayout extends React.Component {
   state = {
-    id: 5,
+    id: 6,
     current: -1
   }
   handleChange = (e) => {
     this.setState({
-      id: e.key, current: e.key
+      id: e.key, 
+      current: e.key
     }, function () { this.forceUpdate(); })
     console.debug(e);
+    console.log(this.state.current)
   }
   render() {
     let amp = {};
@@ -27,7 +29,7 @@ export default class MyInfoLayout extends React.Component {
     </Breadcrumb>,
     <MyInfoTable />
     ]
-    amp["1"] = [<Breadcrumb style={{ margin: '12px 0' }}>
+    amp["6"] = [<Breadcrumb style={{ margin: '12px 0' }}>
       <i className="order-tip">
         <Icon type="exclamation-circle" style={{ color: '#2d91eb', margin: '0 6px' }} />
         您可以在线查看近一年的订单。如需查找更久之前的订单，请致电：400-***-8886（免长话费）。
@@ -63,7 +65,7 @@ export default class MyInfoLayout extends React.Component {
               </Sider>
               <Layout style={{ padding: '0 24px 24px' }}>
                 {
-                  amp[this.state.id != 5 ? 1 : 5]
+                  amp[this.state.id != 5 ? 6 : 5]
                 }
               </Layout>
             </Layout>
