@@ -370,9 +370,9 @@ class TableTr extends React.Component {
       });
       setTimeout(()=>{
           window.location.hash =
-      "#login?hotel=" + this.props.d.hotelId + "&room=" + this.props.d.id +
-      "&startDate=" + this.props.param.startDate.toDateString() +
-      "&endDate=" + this.props.param.endDate.toDateString()+'&skipPage=orderfill';
+      "#login?hotelId=" + this.props.d.hotelId + "&room=" + this.props.d.id +
+      "&startTime=" + this.props.param.startDate.getTime() +
+      "&endTime=" + this.props.param.endDate.getTime()+'&skipPage=hoteldetail';
       },3000);
     }
  

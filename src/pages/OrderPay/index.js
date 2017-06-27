@@ -72,7 +72,7 @@ export default class App extends React.Component {
   handleClick = (e) => {
     if (this.state.payType == 1) {
       // hashHistory.push('/orderpay?orderNo='+e.data.orderNo+'&id='+e.data.id)
-      window.location = 'http://101.200.141.234:8084/itriptrade/api/prepay/' + this.state.orderNo
+      window.location = 'http://itrip.project.bdqn.cn/trade/api/prepay' + this.state.orderNo
     } else {
       fetchBiz({
         url: '/hotelorder/updateorderstatusandpaytype',

@@ -100,8 +100,8 @@ class DetailMain extends React.Component {
 export default class App extends React.Component {
   state = {
     id: getUrlParam('hotelId'),
-    startTime: getUrlParam('startTime'),
-    endTime: getUrlParam('endTime')
+    startTime: parseInt(getUrlParam('startTime')),
+    endTime: parseInt(getUrlParam('endTime'))
   }
   render() {
     return (
