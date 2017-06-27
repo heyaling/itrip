@@ -152,11 +152,15 @@ export default class OrderListItem extends React.Component {
   componentWillReceiveProps(nextProps) {
     const paramMenu = nextProps.paramMenu;
     const searchparam = nextProps.searchparam;
+
+    console.log("this.state.param之前="+JSON.stringify(this.state.param))
+   /* console.log("paramMenu="+JSON.stringify(paramMenu))
+    console.log("searchparam="+searchparam)*/
     // 判断是搜索属性的变化还是左menu的变化，根据不同的变化，去请求数据
     if (JSON.stringify(nextProps.paramMenu) !== JSON.stringify(this.props.paramMenu)) {
       this.setState({
         param: nextProps.paramMenu
-      });
+      },()=>{console.log("JSON(this.state.param)="+ JSON.stringify(this.state.param) )});
 
     } else if (JSON.stringify(nextProps.searchparam) !== JSON.stringify(this.props.searchparam)) {
       this.setState({

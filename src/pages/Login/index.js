@@ -68,7 +68,8 @@ class Login extends React.Component {
             hotel: getUrlParam('hotel'),
             room: getUrlParam('room'),
             startDate: getUrlParam('startDate'),
-            endDate: getUrlParam('endDate')
+            endDate: getUrlParam('endDate'),
+            skipPage: getUrlParam('skipPage')
           })
           hashHistory.push('/hoteldetail?' + query)
         }
