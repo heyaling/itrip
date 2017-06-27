@@ -18,9 +18,8 @@ export default class MyInfoLayout extends React.Component {
     this.setState({
       id: e.key, 
       current: e.key
-    }/*, function () { this.forceUpdate(); }*/)
+    }, function () { this.forceUpdate(); })
     console.debug(e);
-    // console.log(this.state.current)
   }
   render() {
     let amp = {};

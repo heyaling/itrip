@@ -219,7 +219,7 @@ export default class OrderListItem extends React.Component {
             }
 
             //隐藏orderNo的前8位
-            e.data.rows[i].orderNo = e.data.rows[i].orderNo.slice(8);
+            //e.data.rows[i].orderNo = e.data.rows[i].orderNo.slice(8);
           }
         }
 

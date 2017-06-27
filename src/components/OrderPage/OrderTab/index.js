@@ -67,7 +67,7 @@ export default class OrderTab extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.setState({
       orderTypeIndex: nextProps.dataType
-    },()=>{console.log("this.state.orderTypeInde变换="+ JSON.stringify(this.state.orderTypeIndex) )});
+    });
   }
 
 
