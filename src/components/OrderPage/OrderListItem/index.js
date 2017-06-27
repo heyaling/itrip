@@ -63,7 +63,7 @@ const columns = [{
   title: '',
   dataIndex: 'book',
   render: text => <span className="orderoperate">
-   <a href="javascript:;" >{text}</a>
+    <a href="javascript:;" >{text}</a>
   </span>,
   onCellClick: (record) => {
     // 根据订单Id跳转到详情页面
@@ -72,12 +72,12 @@ const columns = [{
     let myDate = new Date();
     let startTime = myDate.toLocaleDateString();
     let endTime = "";
-      const query = stringify({
-        hotelId: record.hotelId,
-        startTime: startTime,
-        endTime: endTime
-      })
-      hashHistory.push('/hoteldetail?' + query);
+    const query = stringify({
+      hotelId: record.hotelId,
+      startTime: startTime,
+      endTime: endTime
+    })
+    hashHistory.push('/hoteldetail?' + query);
   }
 }, {
   title: '订单状态',
@@ -153,18 +153,16 @@ export default class OrderListItem extends React.Component {
     const paramMenu = nextProps.paramMenu;
     const searchparam = nextProps.searchparam;
 
-    console.log("this.state.param之前="+JSON.stringify(this.state.param))
-   /* console.log("paramMenu="+JSON.stringify(paramMenu))
-    console.log("searchparam="+searchparam)*/
+    console.log("this.state.param之前=" + JSON.stringify(this.state.param));
     // 判断是搜索属性的变化还是左menu的变化，根据不同的变化，去请求数据
-    if (JSON.stringify(nextProps.paramMenu) !== JSON.stringify(this.props.paramMenu)) {
+    if (JSON.stringify(paramMenu) != JSON.stringify(this.props.paramMenu)) {
       this.setState({
-        param: nextProps.paramMenu
-      },()=>{console.log("JSON(this.state.param)="+ JSON.stringify(this.state.param) )});
+        param: paramMenu
+      }/*, () => { this.forceUpdate(); }*/);
 
-    } else if (JSON.stringify(nextProps.searchparam) !== JSON.stringify(this.props.searchparam)) {
+    } else if (JSON.stringify(searchparam) != JSON.stringify(this.props.searchparam)) {
       this.setState({
-        param: nextProps.searchparam
+        param: searchparam
       });
 
     }
@@ -184,12 +182,14 @@ export default class OrderListItem extends React.Component {
 
   // 后台请求数据的函数
   getPageData = (e) => {
+    console.log("this.state.param之后=" + JSON.stringify(this.state.param));
     fetchBiz({
       url: "/hotelorder/getpersonalorderlist",
       type: "POST",
       param: this.state.param,
       callback: e => {
         //得到后台的请求数据
+        console.log("之后e.data=="+JSON.stringify(e.data))
         if (e.data) {
           for (var i = 0; i < e.data.rows.length; i++) {
             //转换订单状态标识码为相应的文字介绍

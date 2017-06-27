@@ -25,8 +25,8 @@ export default class ListItem extends React.Component {
     // 跳转页面
     const query = stringify({
       hotelId: e.currentTarget.value,
-      startTime: this.props.timeData.checkInDate,
-      endTime: this.props.timeData.checkOutDate
+      startTime: new Date(this.props.timeData.checkInDate).getTime(),
+      endTime: new Date(this.props.timeData.checkOutDate).getTime()
     })
     hashHistory.push('/hoteldetail?' + query)
 
