@@ -186,7 +186,7 @@ class Register extends React.Component {
                 <div className="radioBox">
                   <RadioGroup onChange={this.onChange} value={this.state.radioValue}>
                     <Radio value={1}>邮箱注册</Radio>
-                    <Radio value={2}>手册注册</Radio>
+                    <Radio value={2}>手机注册</Radio>
                   </RadioGroup>
                 </div>
                 <Form className="fromTwo" onSubmit={this.handleSubmit}>
