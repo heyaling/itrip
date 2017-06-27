@@ -12,8 +12,8 @@
     font-style: normal;
 }
 
-.orderHotelName {
-    width: 160px;
+.OrderListItemcc .orderHotelName {
+    width: 190px;
     height: 40px;
     line-height: 40px;
     white-space: nowrap;
@@ -23,7 +23,10 @@
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
-
+.OrderListItemcc .ant-table-row td:nth-child(2){
+    /*display: inline-block;*/
+    width: 190px;
+}
 .orderHotelName a {
     color: rgb(26, 178, 219);
 }

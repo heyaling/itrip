@@ -1,6 +1,6 @@
 import React from 'react'
 import { Form, Input, DatePicker, Row, Col, Select, Button, Icon } from 'antd'
-import CitySwitcher from 'components/CitySwitcher'
+import CitySwitcherForeign from 'components/CitySwitchForeign'
 import './style.css'
 
 const FormItem = Form.Item
@@ -67,7 +67,7 @@ class SearchHotelForeign extends React.Component {
             {...formItemLayout}
             label="目的地">
             {getFieldDecorator('destination', { initialValue: '', onChange: this.handleChange })(
-              <CitySwitcher destination={"请选择"} />
+              <CitySwitcherForeign destination={"请选择"} />
             )}
           </FormItem>
           <Row>

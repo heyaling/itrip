@@ -53,8 +53,8 @@ export default class MyInfoLayout extends React.Component {
                   <h3 className="order-title">我的i旅行首页</h3>
                   <SubMenu key="sub1" title={<span><Icon type="tag-o" />订单</span>}>
                     <Menu.Item key="-1">全部订单</Menu.Item>
-                    <Menu.Item key="1">酒店订单</Menu.Item>
                     <Menu.Item key="0">旅游订单</Menu.Item>
+                    <Menu.Item key="1">酒店订单</Menu.Item>
                     <Menu.Item key="2">机票订单</Menu.Item>
                   </SubMenu>
                   <SubMenu key="sub2" title={<span><Icon type="user" />个人中心</span>}>

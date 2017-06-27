@@ -5,11 +5,6 @@ import { hashHistory } from 'react-router'
 import { stringify } from 'querystring'
 import './style.css'
 
-//点击进入详情页
-/*const changeDetail = (e) => {
-    console.log(e);
-  }*/
-
 
 /*订单列表组件*/
 const columns = [{
@@ -167,7 +162,11 @@ export default class OrderListItem extends React.Component {
 
     }
     //外部属性发生变化的时候，调用请求后台数据函数
-    this.getPageData();
+    //等待接收参数之后 再去后台接收数据
+    var self = this;
+    setTimeout(function() {
+      self.getPageData();
+    }, 300);
   }
 
   // 分页函数
