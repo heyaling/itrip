@@ -383,12 +383,13 @@ class TableTr extends React.Component {
     let i = this.props.i;
     let sef = this.props.sef;
     let rowSpan = a.length > 5 ? a.length - 5 : 0;
+    let type=rowSpan>=0?"rowSpan="+rowSpan:"";
     let hidden = i > 5 ? 'hidden' : "";
     let breakfast = { 1: "有早", 0: "无早" }
     let isCancel = { 0: "不可取消", 1: "可取消" }
     return (
       <tr className="first_room">
-        <td rowSpan={rowSpan}>
+        <td  >{/*去掉合并行数据信息*/}
           <div className="room_img_ms">
             {this.state.img}
             <br />

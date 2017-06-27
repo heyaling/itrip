@@ -2,6 +2,16 @@
 
 import React from 'react'
 import { postRequest, getRequest } from 'common/js/fetch'
+import {message } from 'antd';
+const alertDesc = (param) => {
+  message[param.type](param.desc, param.time);
+  //   message.success(content, duration, onClose)
+  // message.error(content, duration, onClose)
+  // message.info(content, duration, onClose)
+  // message.warning(content, duration, onClose)
+  // message.warn(content, duration, onClose)  
+  // message.loading(content, duration, onClose)
+};
 /* 请求发送 知道接口*/
 let fetchRequest = function (params) {
   if (params.type) {
@@ -9,10 +19,24 @@ let fetchRequest = function (params) {
       if (res.success === 'true') {
         params.callback(res);
       }
-    }) 
+    }).catch(err => {
+      // if(err.success=='false'){
+      //     alertDesc({
+      //     type: 'error',
+      //     desc: err.msg,
+      //     time: 2
+      //   });
+      // } 
+    })
   }else{
      getRequest(params.url, params.param).then(data => {
      params.callback(data);
+    }).catch(err => {
+      //  alertDesc({
+      //     type: 'error',
+      //     desc: err.msg,
+      //     time: 2
+      //   });
     })  
   } 
 }

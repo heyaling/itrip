@@ -486,7 +486,9 @@ export default class App extends React.Component {
       type: "POST",
       param: this.state.param,
       callback: e => {
+        alert(e.success);
         if (e.success == 'false') {
+          alert(e.success);
           alertDesc({
             type: 'error',
             desc: '获取房间数据错误请刷新页面！',

@@ -14,6 +14,10 @@ function requestError(err) {
       title: '错误提示：',
       content: err.msg || err.message
     })
+    Cookie.remove('token')
+    Cookie.remove('user')
+    Cookie.remove('expTime')
+     hashHistory.push('/home');
     return
   }
   console.log(err)
@@ -84,19 +88,19 @@ export default class Header extends React.Component {
         <div className="i-nav clearfix">
           <div className="i-nav-wrap">
             <ul>
-              <li onClick={() => hashHistory.push('/')} className={classNames({current: this.hasCurrentPath('/')})}>
+              <li onClick={() => hashHistory.push('/')} className={classNames({ current: this.hasCurrentPath('/') })}>
                 <a href="javascript:;" className><i className="icon-home" />首页</a>
               </li>
-              <li onClick={() => hashHistory.push('/travel')} className={classNames({current: this.hasCurrentPath('/travel')})}>
+              <li onClick={() => hashHistory.push('/travel')} className={classNames({ current: this.hasCurrentPath('/travel') })}>
                 <a href="javascript:;" className="current"><i className="icon-globe" />旅游</a>
               </li>
-              <li onClick={() => hashHistory.push('/home')} className={classNames({current: this.hasCurrentPath('/home')})}>
+              <li onClick={() => hashHistory.push('/home')} className={classNames({ current: this.hasCurrentPath('/home') })}>
                 <a href="javascript:;"><i className="icon-hospital" />酒店</a>
               </li>
-              <li onClick={() => hashHistory.push('/flyTicket')} className={classNames({current: this.hasCurrentPath('/flyTicket')})}>
+              <li onClick={() => hashHistory.push('/flyTicket')} className={classNames({ current: this.hasCurrentPath('/flyTicket') })}>
                 <a href="javascript:;"><i className="icon-plane" />机票</a>
               </li>
-              <li onClick={() => hashHistory.push('/strategy')} className={classNames({current: this.hasCurrentPath('/strategy')})}>
+              <li onClick={() => hashHistory.push('/strategy')} className={classNames({ current: this.hasCurrentPath('/strategy') })}>
                 <a href="javascript:;"><i className="icon-book" />攻略</a>
               </li>
             </ul>

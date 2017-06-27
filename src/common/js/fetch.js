@@ -1,6 +1,17 @@
 import { stringify } from 'querystring'
 import Cookie from 'js-cookie'
-let timeout = null 
+let timeout = null
+import { message } from 'antd';
+import { hashHistory } from 'react-router'
+const alertDesc = (param) => {
+  message[param.type](param.desc, param.time);
+  //   message.success(content, duration, onClose)
+  // message.error(content, duration, onClose)
+  // message.info(content, duration, onClose)
+  // message.warning(content, duration, onClose)
+  // message.warn(content, duration, onClose)  
+  // message.loading(content, duration, onClose)
+};
 
 function timeRestart() {
   clearTimeout(timeout)
@@ -8,7 +19,7 @@ function timeRestart() {
     Cookie.remove('token')
     Cookie.remove('user')
     Cookie.remove('expTime')
-  }, 2 * 60 * 60 * 1000)  
+  }, 2 * 60 * 60 * 1000)
 }
 
 function request(url, op = {}) {
@@ -39,6 +50,27 @@ function request(url, op = {}) {
       }
       return res
     }).then(res => {
+      if (res.success !== 'true') {
+        alertDesc({
+          type: 'error',
+          desc: res.msg,
+          time: 2
+        });
+        if (res.errorCode === '100000') {
+          alertDesc({
+            type: 'error',
+            desc: res.msg + " 5s之后跳转到登录页面！",
+            time: 5
+          });
+          setTimeout(e => {
+            Cookie.remove('token')
+            Cookie.remove('user')
+            Cookie.remove('expTime')
+            hashHistory.push('/login')
+          }, 5 * 1000)
+        }
+      }
+
       if (res.success !== 'true') return Promise.reject(res)
       return res
     }).then(res => {
