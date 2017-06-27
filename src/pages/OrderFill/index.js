@@ -70,7 +70,7 @@ export default class App extends React.Component {
       "linkUser": null,
       "noticeEmail": null,
       "noticePhone": null,
-      "orderType": null,
+      "orderType": 1,
       "roomId": 1,
       "specialRequirement": ""
     },/*根据查询房间接口返回的数据信息*/
@@ -90,8 +90,8 @@ export default class App extends React.Component {
       isNeedInvoice: false
     },
     roomCount: 1,
-    size: 3
-
+    size: 3,
+    timeCount:new Date(getUrlParam("endDate") || new Date().getTime() + (1000 * 60 * 60 * 24)).getDate()-new Date(getUrlParam("startDate") || new Date()).getDate()
   }
   /*改变状态中的参数信息*/
   changeSateParam = (data) => {
@@ -187,6 +187,11 @@ export default class App extends React.Component {
           val: e[1].toDate(),
           type: 'param'
         })
+        this.changeState({
+          key: 'timeCount',
+          val: e[1].toDate().getDate()-e[0].toDate().getDate()
+        })
+        // alert(this.state.timeCount)
         fetchBiz({
           url: "/hotelorder/getpreorderinfo",
           type: "POST",
@@ -486,17 +491,7 @@ export default class App extends React.Component {
       type: "POST",
       param: this.state.param,
       callback: e => {
-        alert(e.success);
-        if (e.success == 'false') {
-          alert(e.success);
-          alertDesc({
-            type: 'error',
-            desc: '获取房间数据错误请刷新页面！',
-            time: 2
-          });
-        }
-
-        this.setState({
+         this.setState({
           backMess: e.data
         })
         this.changeEve.changeParams({
@@ -565,7 +560,7 @@ export default class App extends React.Component {
                     }
                   </Select>
                   <a style={{ marginLeft: 20 }}>房费￥{
-                    this.state.backMess.price * this.state.roomCount
+                    this.state.backMess.price * this.state.roomCount*this.state.timeCount
                   }</a><span style={{ marginLeft: 20, color: 'red', fontSize: 18 }}>仅剩{
                     this.state.backMess.store
                   }间</span>

@@ -35,6 +35,12 @@ export default class App extends React.Component {
       }
     })
   }
+  handleClick=(e)=>{
+    hashHistory.push("/orderdetail?orderId="+this.state.id)
+  }
+  cancelOrder=(e)=>{
+    hashHistory.push("/orderdetail?orderId="+this.state.id)
+  }
   render() {
     return (
       <div className="order state-message" style={{ width: 1000 }} >
@@ -49,7 +55,7 @@ export default class App extends React.Component {
             <div className="state-div" >
               <span>订单号：</span>
               <strong >{this.state.orderMess.orderNo}</strong>|
-               <a style={{ color: '#1448ad' }}>  查看订单  </a>
+               <a style={{ color: '#1448ad' }} onClick={this.handleClick.bind(this)}>  查看订单  </a>
               {/*  <Icon type="heart"></Icon>
               <a style={{ color: '#1448ad' }}> 加入收藏</a>*/}
             </div>
@@ -59,7 +65,7 @@ export default class App extends React.Component {
             </div>
             <div className="state-div" >请确保您的手机号码填写正确，无效手机号可能会导致订单取消或异常。</div>
             <div className="state-line"  >
-              其他操作： <a>新增订单  </a><a> 复制订单</a><a>   修改入住信息 </a><a>  取消订单 </a><a>  订单操作注意事项</a>
+              其他操作： {/*<a>新增订单  </a>*/}{/*<a> 复制订单</a>*/}<a onClick={this.handleClick.bind(this)}>   修改入住信息 </a>{/* <a>  取消订单 </a> <a>  订单操作注意事项</a>*/}
             </div>
           </Layout.Content>
         </Layout>

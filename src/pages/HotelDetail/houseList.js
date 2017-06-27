@@ -306,7 +306,8 @@ class TableTr extends React.Component {
     imgUrl: [],
     display: "none",
     showImg: "",
-    visible: false
+    visible: false,
+    imgSize:'_500x500.jpg'
   }
   showModal = () => {
     this.setState({
@@ -408,8 +409,14 @@ class TableTr extends React.Component {
               <img className="big-img" src={this.state.showImg} height={350} width={500} alt />
               <div className="small-img">
                 {
-                  this.state.imgUrl.map((data) => {
-                    return <img src={data.imgUrl} onClick={this.changeImg} alt="" />
+                  this.state.imgUrl.map((data,index,arry) => {
+                    if(arry.length<=4){ 
+                       let wid=(500-arry.length*5)/arry.length;
+                      return <img src={data.imgUrl+this.state.imgSize} style={{width:wid}} onClick={this.changeImg} alt="" />
+                    }else if(index<4){
+                        let wid=(500-4*5)/4;
+                      return <img src={data.imgUrl+this.state.imgSize} style={{width:wid}} onClick={this.changeImg} alt="" />
+                    }
                   })
                 }
               </div>
