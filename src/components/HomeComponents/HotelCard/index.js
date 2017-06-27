@@ -11,7 +11,7 @@ export default class HotelCard extends React.Component {
 
   handleClick = (e, id) => {
     e.preventDefault();
-    hashHistory.push('/hoteldetail?id=' + id)
+    hashHistory.push('/hoteldetail?hotelId=' + id)
   }
 
   render () {
