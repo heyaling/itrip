@@ -60,18 +60,17 @@ class Login extends React.Component {
         Cookie.set('user', values.name, { expires: days })
         Cookie.set('expTime', data.data.expTime - 0, { expires: days })
         changeToken()
-        if (getUrlParam('hotel') == null || getUrlParam('hotel') == '') {
+        if (!getUrlParam('skipPage')) {
           hashHistory.push('/home')
         } else {
           // http://localhost:3000/#/login?hotel=1&room=1&startDate=Mon Jun 26 2017&endDate=Tue Jun 27 2017&skipPage=orderfill&_k=futrqg
           const query = stringify({
-            hotel: getUrlParam('hotel'),
+            hotelId: getUrlParam('hotelId'),
             room: getUrlParam('room'),
-            startDate: getUrlParam('startDate'),
-            endDate: getUrlParam('endDate'),
-            skipPage: getUrlParam('skipPage')
+            startTime: getUrlParam('startTime'),
+            endTime: getUrlParam('endTime')
           })
-          hashHistory.push('/hoteldetail?' + query)
+          hashHistory.push('/'+getUrlParam('skipPage')+'?' + query)
         }
       }).catch(err => {
         requestError(err)
