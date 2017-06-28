@@ -52,7 +52,6 @@ export default class ListOption extends React.Component {
       paramForm: values,
       paramArea: tradeAreaValue
     })
-
     //根据后台数据生成位置选项
     this.optionnode(tradeAreaValue);
   }
@@ -65,8 +64,15 @@ export default class ListOption extends React.Component {
         this.featureNode(e.data);
       }
     })
+
+    //this.props.dataChild(datas, values );
+   // console.log ("this.state.paramForm完善=="+ JSON.stringify(this.props.dataChild(datas, values )) )
+    console.log ("this.state.paramForm完善feartureId=="+ JSON.stringify(this.props.dataChild) )
   }
 
+/*  componentWillMount() {
+    console.log ("this.state.paramForm完善=="+ JSON.stringify(this.state.paramForm) )
+  }*/
 
   //改变位置事件(商圈的事件)
   onChange1 = (checkedValues) => {
@@ -263,7 +269,7 @@ export default class ListOption extends React.Component {
               <div className="search-one-param">
                 <span className="param-label" style={{ float: "left" }}>特色：</span>
                 <div className="checkbox-list">
-                  <Checkbox.Group onChange={this.onChange4}>
+                  <Checkbox.Group onChange={this.onChange4} /*defaultValue={}*/>
                     {this.state.featureNode}
                   </Checkbox.Group>
                 </div>

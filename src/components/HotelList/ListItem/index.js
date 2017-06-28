@@ -11,7 +11,7 @@ import './style.css'
 export default class ListItem extends React.Component {
 
   componentWillMount() {
-   // this.submitMes();
+    // this.submitMes();
   }
   //提交相关数据
   submitMes = (e) => {
@@ -54,9 +54,6 @@ export default class ListItem extends React.Component {
               {comment.address}
               <br />
               <a href="javascript:;">交通地图</a> <a href="javascript:;">周边街景</a>
-              {/*<i className="fa fa-wifi" />
-              <i className=" icon-food" />
-              <i className="fa fa-product-hunt" />*/}
               <ListItemServesIcon serveIcon={comment.extendPropertyPics} />
             </div>
             <div className="model-grid-grade">

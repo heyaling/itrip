@@ -9,9 +9,10 @@ import { fetchSearch } from 'components/fetchUtils'
 import './style.css'
 
 
-
+/*var paramfeature;*/
 //列表页主页调用组件情况
 export default class HotelList extends React.Component {
+  
   constructor(props) {
     super(props);
 
@@ -24,10 +25,12 @@ export default class HotelList extends React.Component {
       rows: [],
       // hotelPriceSortSearhData: {},
       handleOptionChild: (dataIndex, formValues) => {
+        //  paramfeature  = formValues;
         this.setState(dataIndex);
         this.setState({
           sortForm: formValues,
         })
+
         //  console.warn("parentIndex" + JSON.stringify(dataIndex));
         //  console.log(dataIndex["rows"]);
          console.log("formValues++++++++"+JSON.stringify(formValues));
@@ -103,7 +106,7 @@ export default class HotelList extends React.Component {
   render() {
     return (
       <div className="HotelList">
-        <ListOption dataChild={this.state.handleOptionChild} />
+        <ListOption dataChild={this.state.handleOptionChild} /*feartureId={paramfeature}*//>
         <ListParent totalNum={this.state.total} dataListParent={this.state.handelSort} />
         <ListItem data={this.state.rows} timeData={this.state.sortForm}/>
         <div className="paginationWrapper">
