@@ -10,9 +10,9 @@
 .video-message {
     border: 0px;
     position: absolute;
-    left: 25%;
+    /*left: 25%;*/
     top: 60px;
-    width: 50%;
+    width: 100%;
     z-index: 30;
 }
 

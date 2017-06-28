@@ -307,7 +307,8 @@ class TableTr extends React.Component {
     display: "none",
     showImg: "",
     visible: false,
-    imgSize:'_500x500.jpg'
+    imgSize:'_500x500.jpg',
+    smallImgSize:'_50x50.jpg'
   }
   showModal = () => {
     this.setState({
@@ -334,7 +335,7 @@ class TableTr extends React.Component {
         let img = "";
         if (data.data[0]) {
           img = (<a>
-            <img src={data.data[0].imgUrl}
+            <img src={data.data[0].imgUrl+this.state.smallImgSize}
               height={350} width={500} />
           </a>
           )
