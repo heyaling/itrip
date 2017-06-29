@@ -14,7 +14,7 @@ export default class ListItemfeatureNames extends React.Component {
         FeatureName.push(<span className="item">{arrfeature[i]}</span>);
       }
     } else {
-      FeatureName.push(<span className="item">商务出行</span>);
+      FeatureName.push(<span className="item"></span>);
     }
     /*console.log ("arrfeature11="+typeof(this.props.featureStr) );
     console.log ("arrfeature="+ this.props.featureStr.split(","));

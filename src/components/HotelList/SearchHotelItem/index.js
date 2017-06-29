@@ -136,7 +136,17 @@ class SearchHotelItem extends React.Component {
         param: this.state.param,
         callback: e => {
           //得到后台的请求数据
-          console.log(e.data);
+         // console.log(e.data);
+
+          if (e.data) {
+          for (var i = 0; i < e.data.rows.length; i++) {
+            if (e.data.rows[i].isOkCount != 0) {
+              e.data.rows[i].isOkCount = e.data.rows[i].isOkCount*100+'%';
+            }else {
+              e.data.rows[i].isOkCount = 0;
+            }
+          }
+        }
           // 将请求数据传递给父组件
           // 参数列表是：请求的酒店信息--表单参数列表--商圈参数列表
           this.props.receivedata(e.data, this.state.param, this.state.cityTradeArea)

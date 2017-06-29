@@ -340,7 +340,7 @@ class TableTr extends React.Component {
           </a>
           )
           this.setState({
-            showImg: data.data[0].imgUrl,
+            showImg: data.data[0].imgUrl+this.state.imgSize,
             img: img
           })
 

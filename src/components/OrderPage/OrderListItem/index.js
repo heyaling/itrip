@@ -188,7 +188,7 @@ export default class OrderListItem extends React.Component {
       param: this.state.param,
       callback: e => {
         //得到后台的请求数据
-        console.log("之后e.data=="+JSON.stringify(e.data))
+        //console.log("之后e.data=="+JSON.stringify(e.data))
         if (e.data) {
           for (var i = 0; i < e.data.rows.length; i++) {
             //转换订单状态标识码为相应的文字介绍

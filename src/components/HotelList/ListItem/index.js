@@ -1,4 +1,5 @@
 import React from 'react'
+import { Icon } from 'antd'
 import DiamondIcon from 'components/HotelList/DiamondIcon'
 import ListItemfeatureNames from 'components/HotelList/ListItemfeatureNames'
 import ListItemServesIcon from 'components/HotelList/ListItemServesIcon'
@@ -34,7 +35,7 @@ export default class ListItem extends React.Component {
 
   render() {
     //请求来数据的时候就渲染请求的数据，没有请求数据的时候就显示原始数据
-    var commentNodes = this.props.data.map((comment, index) => {
+    var commentNodes = this.props.data&&this.props.data.length>0 ? this.props.data.map((comment, index) => {
       return (
         <div className="tavern-model-grid">
           <div className="modal-grid-left">
@@ -70,7 +71,13 @@ export default class ListItem extends React.Component {
           </div>
         </div>
       );
-    })
+    }) : <span className="citytip"><Icon type="frown-o" style={{ fontSize: 16, color: '#08c',marginRight: "8px" }} />该城市下没有酒店数据，请重新选择城市，比如北京、天津、上海、深圳、杭州等</span> ;
+
+      
+
+
+
+
     return (
       <div className="commentBox">{commentNodes}</div>
     )

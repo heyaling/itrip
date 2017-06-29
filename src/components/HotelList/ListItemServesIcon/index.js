@@ -12,7 +12,7 @@ export default class ListItemServesIcon extends React.Component {
         FeatureName.push(<i className={arrfeature[i]} />);
       }
     } else {
-      FeatureName.push(<i className="fa fa-wifi" />);
+      FeatureName.push(<i className="" />);
     }
 
 

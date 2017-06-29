@@ -37,7 +37,13 @@ export default class ListOption extends React.Component {
       hotelLevelSearhData: {},
       hotelFeatureSearchData: {},
       handleSearchChild: (datas, values, tradeAreaValue) => {
+        /*console.log("datas=" + JSON.stringify(datas) )
+        console.log("values=" + JSON.stringify(values) )
+        console.log("tradeAreaValue=" + JSON.stringify(tradeAreaValue) )*/
         this.changeDate(datas, values, tradeAreaValue);
+        this.setState({
+          destination: values.destination
+        })
       }
     }
   }
@@ -238,7 +244,7 @@ export default class ListOption extends React.Component {
     return (
       <div className="travel tavern-list">
         <div className="tavern-list-head">
-          <div className="localtion-item">您所在的位置：<a>酒店预订&gt;</a>北京酒店</div>
+          <div className="localtion-item">您所在的位置：<a>酒店预订&gt;</a>{this.state.destination}酒店</div>
         </div>
         <div className="travel-body list-body">
           <div id="myTabContent" className="tavern-list-param">

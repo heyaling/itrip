@@ -58,7 +58,7 @@ export default class HotelList extends React.Component {
           param: this.state.sortForm,
           callback: e => {
             //得到后台的请求数据
-            // console.log("连接价格==" + JSON.stringify(e.data));
+             //console.log("连接价格adad==" + JSON.stringify(e.data));
             //根据请求的后台数据改变状态值
             this.setState({
               hotelPriceSortSearhData: e.data
