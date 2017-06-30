@@ -35,6 +35,13 @@ const formItemLayout = {
   },
 };
 const dateFormat = 'YYYY-MM-DD';
+function getDateDiff(startDate,endDate)  
+{  
+    var startTime = new Date(Date.parse(startDate.replace(/-/g,   "/"))).getTime();     
+    var endTime = new Date(Date.parse(endDate.replace(/-/g,   "/"))).getTime();     
+    var dates = Math.abs((startTime - endTime))/(1000*60*60*24);     
+    return  dates;    
+}
 export default class App extends React.Component {
   state = {
     visible: false,
@@ -91,7 +98,8 @@ export default class App extends React.Component {
     },
     roomCount: 1,
     size: 3,
-    timeCount:new Date(getUrlParam("endDate") || new Date().getTime() + (1000 * 60 * 60 * 24)).getDate()-new Date(getUrlParam("startDate") || new Date()).getDate()
+    timeCount:getDateDiff(new Date(getUrlParam("endDate") || new Date().getTime() + (1000 * 60 * 60 * 24)).Format('yyyy-MM-dd'),
+      new Date(getUrlParam("startDate") || new Date()).Format('yyyy-MM-dd'))
   }
   /*改变状态中的参数信息*/
   changeSateParam = (data) => {
@@ -189,7 +197,7 @@ export default class App extends React.Component {
         })
         this.changeState({
           key: 'timeCount',
-          val: e[1].toDate().getDate()-e[0].toDate().getDate()
+          val:getDateDiff( e[1].toDate().Format('yyyy-MM-dd'),e[0].toDate().Format('yyyy-MM-dd')) 
         })
         // alert(this.state.timeCount)
         fetchBiz({
@@ -421,7 +429,7 @@ export default class App extends React.Component {
       "hotelId": null,
       "roomId": null
     }
-
+// alert(this.state.timeCount)
     param["hotelId"] = getUrlParam("hotel");
     param["roomId"] = getUrlParam("room");
     param["checkInDate"] = this.state.param.checkInDate || new Date();
